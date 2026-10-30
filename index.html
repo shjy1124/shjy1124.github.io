@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 검색엔진에 노출되지 않도록 설정 (링크를 아는 사람만 접근) -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>손지윤 | 게임 기획자 포트폴리오</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3f2ee; --card:#fbfaf7; --ink:#0f1a2b; --sub:#5d6573; --faint:#9aa1ab; --line:#d9d7d0;
+    --navy:#0a3163; --navy-2:#13427f; --signal:#ff5b2e;
+    --side:280px; --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Pretendard Variable",Pretendard,-apple-system,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;word-break:keep-all;-webkit-font-smoothing:antialiased;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:32px 32px;background-attachment:fixed}
+  body::before{content:"";position:fixed;inset:0;background:rgba(243,242,238,.82);pointer-events:none;z-index:-1}
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:var(--mono)}
+
+  /* SIDEBAR */
+  aside{position:fixed;inset:0 auto 0 0;width:var(--side);background:var(--navy);color:#fff;padding:40px 32px;display:flex;flex-direction:column;z-index:20}
+  .id small{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#8fa7c9}
+  .id h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:6px 0 2px}
+  .id p{font-size:14px;color:#c4d1e4}
+  .side-nav{margin-top:56px;list-style:none;display:flex;flex-direction:column;gap:2px}
+  .side-nav a{display:flex;align-items:baseline;gap:14px;padding:10px 0;color:#8fa7c9;font-weight:600;font-size:15px;transition:.2s;border-bottom:1px solid rgba(255,255,255,.08)}
+  .side-nav a span{font-family:var(--mono);font-size:11px;width:20px}
+  .side-nav a:hover,.side-nav a.on{color:#fff}
+  .side-nav a.on span{color:var(--signal)}
+  .side-foot{margin-top:auto;display:flex;flex-direction:column;gap:10px;font-size:13px}
+  .side-foot a.dl{display:flex;justify-content:space-between;padding:12px 14px;border:1px solid rgba(255,255,255,.3);border-radius:6px;font-weight:700;transition:.2s}
+  .side-foot a.dl:hover{background:#fff;color:var(--navy)}
+  .side-foot .mail{color:#8fa7c9;font-family:var(--mono);font-size:12px}
+
+  main{margin-left:var(--side)}
+  .wrap{max-width:960px;padding:0 56px}
+  section{padding:104px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:48px}
+  .sec-head .no{font-family:var(--mono);font-size:13px;color:var(--signal);font-weight:700}
+  .sec-head h2{font-size:30px;font-weight:800;letter-spacing:-.03em}
+  .sec-head .en{font-family:var(--mono);font-size:12px;color:var(--faint);margin-left:auto;letter-spacing:.1em}
+
+  /* HERO */
+  #about{min-height:100vh;display:flex;align-items:center;padding:80px 0}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--navy);display:flex;align-items:center;gap:10px;margin-bottom:28px}
+  .kicker::before{content:"";width:8px;height:8px;background:var(--signal)}
+  .hero h2{font-size:clamp(38px,5.4vw,62px);font-weight:800;line-height:1.18;letter-spacing:-.045em;margin-bottom:28px}
+  .hero h2 em{font-style:normal;background:linear-gradient(transparent 62%,rgba(255,91,46,.28) 62%)}
+  .hero .lead{font-size:17px;color:var(--sub);max-width:640px;margin-bottom:22px}
+  .hero .kw{font-family:var(--mono);font-size:13px;color:var(--navy);margin-bottom:56px;display:flex;flex-wrap:wrap;gap:6px 16px}
+  .hl{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--ink)}
+  .hl div{padding:22px 20px 0 0}
+  .hl div+div{padding-left:20px;border-left:1px solid var(--line)}
+  .hl b{display:block;font-family:var(--mono);font-size:40px;font-weight:700;letter-spacing:-.04em;color:var(--navy);line-height:1.1}
+  .hl small{font-size:13px;color:var(--sub)}
+
+  /* RESUME */
+  .profile{display:grid;grid-template-columns:168px 1fr;gap:36px;margin-bottom:64px;align-items:end}
+  .photo{width:168px;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:#dfe4ec;filter:grayscale(.1)}
+  .photo img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+  .pname{font-size:26px;font-weight:800}
+  .pname small{font-family:var(--mono);font-size:13px;color:var(--faint);font-weight:400;margin-left:8px}
+  .prole{color:var(--sub);margin-bottom:18px}
+  .spec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--ink)}
+  .spec div{display:flex;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .spec dt{font-family:var(--mono);font-size:11px;color:var(--faint);width:84px;flex-shrink:0;white-space:nowrap;padding-top:3px;letter-spacing:.06em}
+
+  .sub-h{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--navy);font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .sub-h::after{content:"";flex:1;height:1px;background:var(--line)}
+  .timeline{position:relative;margin:0 0 64px;padding-left:28px}
+  .timeline::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:var(--navy)}
+  .tl-item{position:relative}
+  .tl-item::before{content:"";position:absolute;left:-28px;top:6px;width:12px;height:12px;background:var(--signal);border:3px solid var(--paper);box-sizing:content-box;margin-left:-3px}
+  .tl-when{font-family:var(--mono);font-size:12px;color:var(--sub)}
+  .tl-item h3{font-size:20px;font-weight:800;margin:2px 0}
+  .tl-item .desc{color:var(--sub);font-size:14px;margin-bottom:14px}
+  .tl-item ol{list-style:none;counter-reset:p;display:grid;gap:6px}
+  .tl-item li{counter-increment:p;display:flex;gap:12px;font-size:15px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:4px}
+  .tl-item li::before{content:counter(p,decimal-leading-zero);font-family:var(--mono);font-size:11px;color:var(--signal);padding-top:4px;font-weight:700}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:48px 40px}
+  .list{margin-bottom:8px}
+  .li{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+  .li .w{font-family:var(--mono);font-size:11px;color:var(--faint);padding-top:3px}
+  .li b{font-weight:700}
+  .li span{color:var(--sub)}
+  .more{display:none}
+  .open .more{display:grid}
+  .toggle{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--navy);background:none;border:none;cursor:pointer;font-weight:700}
+  .full{grid-column:1/-1}
+  .awards{display:grid;grid-template-columns:1fr 1fr;column-gap:40px}
+
+  /* WORKS */
+  .filters{display:flex;gap:0;margin-bottom:32px;border:1px solid var(--ink);width:max-content;border-radius:4px;overflow:hidden}
+  .filters button{font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 16px;border:none;background:var(--card);color:var(--ink);cursor:pointer}
+  .filters button+button{border-left:1px solid var(--ink)}
+  .filters button.on{background:var(--ink);color:#fff}
+
+  .feat{display:grid;grid-template-columns:1.1fr 1fr;background:var(--navy);color:#fff;border-radius:6px;overflow:hidden;margin-bottom:40px}
+  .feat .vis{min-height:300px;position:relative;display:flex;align-items:flex-end;padding:28px;background:linear-gradient(135deg,var(--navy-2),#071f40)}
+  .feat .vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .feat .vis .tagline{position:relative;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#8fa7c9}
+  .feat .vis .big{position:absolute;top:24px;left:28px;font-size:34px;font-weight:800;letter-spacing:-.03em;line-height:1.2;max-width:80%}
+  .feat .body{padding:32px}
+  .feat .lab{font-family:var(--mono);font-size:11px;color:var(--signal);letter-spacing:.12em;margin-bottom:8px}
+  .feat h3{font-size:24px;font-weight:800;margin-bottom:8px}
+  .feat p{color:#c4d1e4;font-size:14px;margin-bottom:20px}
+  .metrics{display:grid;gap:8px;margin-bottom:22px}
+  .metrics div{display:flex;align-items:baseline;gap:14px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14)}
+  .metrics b{font-family:var(--mono);font-size:20px;min-width:72px;color:#fff}
+  .metrics span{font-size:13px;color:#c4d1e4}
+  .feat .go{display:inline-flex;gap:8px;font-weight:700;font-size:14px;padding:11px 18px;background:#fff;color:var(--navy);border-radius:4px}
+  .feat .go.disabled{opacity:.5;pointer-events:none}
+
+  .index{border-top:2px solid var(--ink)}
+  .work{display:grid;grid-template-columns:44px 64px 1fr 120px 28px;gap:20px;align-items:center;padding:20px 8px;border-bottom:1px solid var(--line);transition:background .2s}
+  .work:hover{background:var(--card)}
+  .work .n{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .work .sw{width:64px;height:48px;border-radius:3px;overflow:hidden}
+  .work .sw img{width:100%;height:100%;object-fit:cover}
+  .work h4{font-size:17px;font-weight:800;letter-spacing:-.02em}
+  .work .k{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;margin-right:8px;vertical-align:2px}
+  .k.project{background:var(--signal);color:#fff}
+  .k.doc{background:var(--navy);color:#fff}
+  .work p{font-size:13px;color:var(--sub);margin-top:2px}
+  .work .t{font-family:var(--mono);font-size:11px;color:var(--navy);margin-top:6px}
+  .work .pf{font-family:var(--mono);font-size:11px;color:var(--sub);text-align:right}
+  .work .ar{font-size:18px;color:var(--faint);transition:.2s}
+  .work:hover .ar{color:var(--signal);transform:translateX(4px)}
+  .work.soon .ar{opacity:.3}
+  .work.soon:hover .ar{transform:none;color:var(--faint)}
+
+  /* CONTACT */
+  #contact{border-bottom:none;padding-bottom:64px}
+  .c-lead{color:var(--sub);margin-bottom:28px}
+  .big-mail{display:inline-block;font-size:clamp(28px,4.4vw,48px);font-weight:800;letter-spacing:-.03em;color:var(--navy);border-bottom:3px solid var(--signal);line-height:1.2;cursor:pointer;margin-bottom:24px}
+  .c-row{display:flex;gap:28px;flex-wrap:wrap;font-family:var(--mono);font-size:14px;margin-bottom:40px}
+  .c-row button{font:inherit;background:none;border:none;cursor:pointer;color:var(--ink)}
+  .c-row small{color:var(--faint);margin-right:8px}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-flex;gap:8px;padding:13px 22px;border-radius:4px;font-weight:700;font-size:14px;border:1px solid var(--ink);transition:.2s}
+  .btn.fill{background:var(--ink);color:#fff}
+  .btn:hover{transform:translateY(-2px)}
+  footer{display:flex;justify-content:space-between;margin-top:96px;font-family:var(--mono);font-size:11px;color:var(--faint)}
+
+  .toast{position:fixed;left:calc(50% + var(--side)/2);bottom:32px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;padding:11px 18px;border-radius:4px;font-size:14px;transition:.25s;pointer-events:none;z-index:50}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  @media(max-width:960px){
+    aside{position:sticky;top:0;inset:auto;width:100%;height:auto;flex-direction:row;align-items:center;padding:12px 20px}
+    .id small,.id p,.side-foot{display:none}
+    .id h1{font-size:18px;margin:0}
+    .side-nav{flex-direction:row;margin:0 0 0 auto;gap:14px}
+    .side-nav a{border:none;padding:4px 0;font-size:13px}
+    .side-nav a span{display:none}
+    main{margin-left:0}
+    .wrap{padding:0 22px}
+    section{padding:72px 0}
+    .toast{left:50%}
+    .hl{grid-template-columns:1fr}
+    .hl div+div{padding-left:0;border-left:none;border-top:1px solid var(--line)}
+    .hl div{padding:16px 0}
+    .profile,.cols,.awards,.feat{grid-template-columns:1fr}
+    .spec{grid-template-columns:1fr}
+    .work{grid-template-columns:52px 1fr 20px;gap:14px}
+    .work .n,.work .pf{display:none}
+    .sec-head .en{display:none}
+  }
+  @media(max-width:520px){ .side-nav a:nth-child(n){font-size:12px} .id h1{display:none} .side-nav{margin:0 auto} }
+</style>
+</head>
+<body>
+
+<!--
+  ===========================================================
+  내용 수정은 아래 <script> 안의 DATA 부분만 고치면 됩니다.
+  - 이미지: assets/thumbs 폴더에 넣고 thumb: "assets/thumbs/파일명.png"
+  - 기획서 PDF: assets/docs 폴더에 넣고 link: "assets/docs/파일명.pdf"
+  - link가 비어 있으면 '준비 중'으로 표시됩니다.
+  - featured: true 인 작업은 Works 맨 위에 크게 표시됩니다.
+  ===========================================================
+-->
+
+<aside>
+  <div class="id">
+    <small>PORTFOLIO 2026</small>
+    <h1 id="side-name"></h1>
+    <p id="side-role"></p>
+  </div>
+  <nav>
+    <ul class="side-nav">
+      <li><a href="#about"><span>01</span>소개</a></li>
+      <li><a href="#resume"><span>02</span>이력</a></li>
+      <li><a href="#works"><span>03</span>작업</a></li>
+      <li><a href="#contact"><span>04</span>연락처</a></li>
+    </ul>
+  </nav>
+  <div class="side-foot" id="side-foot"></div>
+</aside>
+
+<main>
+  <section id="about"><div class="wrap hero" id="hero"></div></section>
+  <section id="resume"><div class="wrap" id="resume-body"></div></section>
+  <section id="works"><div class="wrap" id="works-body"></div></section>
+  <section id="contact"><div class="wrap" id="contact-body"></div></section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =================== 여기만 수정하세요 =================== */
+const DATA = {
+  name: "지윤",
+  fullName: "손지윤",
+  role: "게임 기획자 (레벨/콘텐츠)",
+  resumeFile: "assets/docs/resume.pdf",
+  photo: "assets/photo.jpg",
+
+  hero: {
+    badge: "<b>Game Designer</b> | 레벨/콘텐츠",
+    title: "규칙을 설계해서<br><em>플레이를 만드는</em> 기획자",
+    lead: "쿠키런: 모험의 탑 레벨디자인 맵 기획셀에서 스토리 챕터 스테이지 55종을 만들고, 이벤트 모드 4종을 메인으로 기획했습니다. 몬스터와 기믹을 설계하는 데서 끝내지 않고 리소스 조립, 데이터 테이블, BT까지 직접 만들어 플레이 가능한 상태로 완성합니다.",
+    tags: ["#레벨디자인", "#콘텐츠기획", "#몬스터BT", "#기믹설계", "#Unity", "#툴개선"]
+  },
+
+  info: [
+    ["생년", "2000.11"],
+    ["거주", "서울 강남구"],
+    ["이메일", "shjy1124@gmail.com"],
+    ["연락처", "010-9700-3270"]
+  ],
+  highlights: [
+    ["55", "스토리 챕터 스테이지 제작"],
+    ["4", "이벤트 모드 메인 기획"],
+    ["4.68x", "방어전선 평균 플레이 타임 (타 이벤트 모드 대비)"]
+  ],
+  stats: [
+    ["게임 기획 경력", "2년 10개월"],
+    ["스토리 스테이지 제작", "55종"],
+    ["이벤트 모드 메인 기획", "4종"]
+  ],
+
+  career: [
+    {
+      when: "2023.08 ~ 2026.06",
+      title: "데브시스터즈 / (주)오븐게임즈",
+      desc: "쿠키런: 모험의 탑 | 레벨디자인 맵 기획셀 (사원)",
+      points: [
+        "스토리모드 메인 챕터 스테이지 55종 제작 (1챕터 ~ 15챕터)",
+        "화산 챕터 몬스터/기믹 메인 기획, 몬스터 리소스 조립 및 데이터 테이블/BT 제작",
+        "이벤트 모드 4종 메인 기획 (방어전선 2종, 그린벨 이벤트 연출 맵 등)",
+        "방어전선: 2025년 인게임 전체 콘텐츠 중 최다 평균 플레이 타임 달성 (타 이벤트 모드 대비 약 4.68배)",
+        "어드벤처 모드 3챕터 메인 몬스터/기믹 기획 및 BT 제작",
+        "맵 툴 가이드 문서 제작, 툴 개선 제안서 작성으로 팀 업무 효율 개선"
+      ]
+    }
+  ],
+
+  projects: [
+    { when: "2023.01 ~ 2023.11", title: "PIO", desc: "시스템/콘텐츠/레벨 기획" },
+    { when: "2022.06 ~ 2022.12", title: "지니버거", desc: "팀장, 시스템/콘텐츠 기획" },
+    { when: "2022.05 ~ 2022.06", title: "Space Bakery", desc: "시스템 기획" }
+  ],
+
+  // 숨김 처리할 항목은 more: true
+  education: [
+    { when: "2024.03 ~ 2025.02", title: "청강문화산업대학교 차세대게임콘텐츠(심화)", desc: "졸업 | 4.5/4.5 (차석)" },
+    { when: "2021.02 ~ 2024.02", title: "청강문화산업대학교 게임콘텐츠스쿨", desc: "졸업 | 4.37/4.5 (수석)" },
+    { when: "2019.03 ~ 2020.06", title: "영산대학교 문화콘텐츠학부", desc: "중퇴 | 3.99/4.5", more: true }
+  ],
+  activities: [
+    { when: "2023", title: "STOVE INDIE, Steam 게임 출시", desc: "Steam 10만 다운로드 달성" },
+    { when: "2023", title: "유니티 MWU KR AWARD 2023", desc: "Best Student 부문 수상" },
+    { when: "2023", title: "BIC 2023 스페셜 어워드", desc: "디볼버 디지털 픽 수상" },
+    { when: "2023", title: "BIC 2023 루키 부문", desc: "Rising Star, Art, GameDesign 노미네이트 / 선정 및 전시" },
+    { when: "2023", title: "BIC 2023 BIGEM 2기 선정", desc: "싱가포르 Gamescom asia 전시" },
+    { when: "2023", title: "방구석 인디게임쇼 (BIGS 2023)", desc: "PC/콘솔 베스트 유망주 수상, 선정 및 전시" },
+    { when: "2023", title: "스토브 인디 어워드 2023", desc: "월드와이드 부문 베스트 뮤직&사운드 수상", more: true },
+    { when: "2023", title: "스마일게이트 퓨처랩 버닝비버 2023", desc: "선정 및 전시", more: true },
+    { when: "2023", title: "2023 인디크래프트", desc: "TOP50 선정 입상", more: true },
+    { when: "2022", title: "NEXON 2022 MOD PROJECT", desc: "모동아리 대상 수상", more: true },
+    { when: "2022", title: "2022 AR/VR 기획, 프로그래밍 공모전", desc: "장려상", more: true },
+    { when: "2022", title: "청강문화산업대학교 AR.VR 메타버스 콘텐츠 제작 경진대회 1회", desc: "2등", more: true },
+    { when: "2021", title: "청강문화산업대학교 AR.VR 메타버스 콘텐츠 제작 경진대회 2회", desc: "1등", more: true },
+    { when: "2021", title: "청강문화산업대학교 AR.VR 메타버스 콘텐츠 제작 경진대회 1회", desc: "1등", more: true }
+  ],
+  skills: [
+    { when: "문서", title: "Excel 중 / PowerPoint 상 / Word 상 / Notion 상" },
+    { when: "엔진/협업", title: "Unity, Unreal Engine, Slack, Jira, Git, Figma, Photoshop 등 (중)" }
+  ],
+
+  // kind: "project"(실제 작업) 또는 "doc"(기획서)
+  works: [
+    {
+      kind: "project", platform: "모바일", year: "2023~2026",
+      title: "쿠키런: 모험의 탑",
+      desc: "스토리 챕터 스테이지 55종 제작, 이벤트 모드 4종 메인 기획, 몬스터 리소스 조립과 BT 제작까지 담당했습니다.",
+      tags: ["레벨디자인", "이벤트모드", "몬스터BT", "라이브"],
+      thumb: "", color: "#d9572b",
+      link: "", linkLabel: "상세 정보 보기"
+    },
+    {
+      kind: "doc", platform: "모바일", year: "2025",
+      title: "방어전선 이벤트",
+      featured: true,
+      metrics: [["4.68x", "타 이벤트 모드 대비 평균 플레이 타임"], ["1위", "2025년 인게임 전체 콘텐츠 평균 플레이 타임"], ["정기화", "유저 대회 개최 후 정기 운영 모드 전환"]],
+      desc: "2인 멀티 방어 이벤트 모드. 2025년 인게임 전체 콘텐츠 중 최다 평균 플레이 타임을 기록하고 정기 운영 모드로 전환되었습니다.",
+      tags: ["이벤트", "2인멀티", "맵제작", "성과"],
+      thumb: "", color: "#8a4b2a",
+      link: "", linkLabel: "기획서 상세 보기"
+    },
+    {
+      kind: "doc", platform: "모바일", year: "20XX",
+      title: "화산 챕터",
+      desc: "스토리 챕터의 몬스터와 기믹 메인 기획, 리소스 조립과 데이터 테이블/BT 제작 과정.",
+      tags: ["스토리챕터", "몬스터", "기믹", "BT"],
+      thumb: "", color: "#b8361e",
+      link: "", linkLabel: "기획서 상세 보기"
+    },
+    {
+      kind: "doc", platform: "모바일", year: "20XX",
+      title: "시즈널 이벤트 구조 제안",
+      desc: "반복되는 시즈널 이벤트의 제작 비용을 줄이기 위한 구조 개선 제안.",
+      tags: ["구조개선", "제안서", "운영"],
+      thumb: "", color: "#6a6f3a",
+      link: "", linkLabel: "기획서 상세 보기"
+    },
+    {
+      kind: "doc", platform: "PC/콘솔", year: "2026",
+      title: "몬스터 헌터 와일즈 신규 무기: 오토마 건랜스",
+      desc: "기존 건랜스의 포격 리듬을 확장한 신규 무기 제안서. 모션, 콤보 구조, 고유 시스템 설계.",
+      tags: ["전투기획", "무기제안", "액션"],
+      thumb: "", color: "#2f5d8a",
+      link: "", linkLabel: "기획서 상세 보기"
+    },
+    {
+      kind: "doc", platform: "Switch", year: "2026",
+      title: "왕국의 눈물 하이랄 성 레벨디자인 역기획",
+      desc: "부유부, 지상부, 대혈로 이어지는 하이랄 성의 동선과 시야, 공략 루트 설계 분석.",
+      tags: ["역기획", "레벨디자인", "동선"],
+      thumb: "", color: "#3f6b52",
+      link: "", linkLabel: "기획서 상세 보기"
+    },
+    {
+      kind: "project", platform: "PC", year: "2023",
+      title: "PIO",
+      desc: "시스템, 콘텐츠, 레벨 기획 담당.",
+      tags: ["시스템", "콘텐츠", "레벨"],
+      thumb: "", color: "#5b4a8a",
+      link: "", linkLabel: "상세 정보 & 영상 보기"
+    },
+    {
+      kind: "project", platform: "PC", year: "2022",
+      title: "지니버거",
+      desc: "팀장으로서 시스템과 콘텐츠 기획 담당.",
+      tags: ["팀장", "시스템", "콘텐츠"],
+      thumb: "", color: "#c48a1f",
+      link: "", linkLabel: "상세 정보 & 영상 보기"
+    },
+    {
+      kind: "project", platform: "PC", year: "2026",
+      title: "CCTV 관리 게임 (프로토타입)",
+      desc: "CCTV 시점으로 방마다 수용된 존재를 관리하는 1인칭 공포 관리 게임. Unity로 직접 프로토타이핑 중.",
+      tags: ["Unity", "인디", "프로토타입", "공포"],
+      thumb: "", color: "#2b2b33",
+      link: "", linkLabel: "상세 정보 & 영상 보기"
+    }
+  ],
+
+  contact: {
+    lead: "함께 재미있는 게임을 만들 기회를 기다리고 있습니다.",
+    email: "shjy1124@gmail.com",
+    phone: "010-9700-3270"
+  }
+};
+/* ======================================================== */
+
+const $ = s => document.querySelector(s);
+const pad = n => String(n).padStart(2, "0");
+const head = (no, ko, en) => `<div class="sec-head"><span class="no">${no}</span><h2>${ko}</h2><span class="en">${en}</span></div>`;
+
+// SIDEBAR
+$("#side-name").textContent = DATA.fullName;
+$("#side-role").textContent = DATA.role;
+$("#side-foot").innerHTML = `
+  ${DATA.resumeFile ? `<a class="dl" href="${DATA.resumeFile}" target="_blank"><span>이력서 PDF</span><span>↓</span></a>` : ""}
+  <span class="mail">${DATA.contact.email}</span>`;
+
+// HERO
+$("#hero").innerHTML = `
+  <div class="kicker">GAME DESIGNER / LEVEL &amp; CONTENT</div>
+  <h2>${DATA.hero.title}<br>${DATA.fullName}입니다.</h2>
+  <p class="lead">${DATA.hero.lead}</p>
+  <div class="kw">${DATA.hero.tags.map(t => `<span>${t}</span>`).join("")}</div>
+  <div class="hl">${DATA.highlights.map(([n, l]) => `<div><b>${n}</b><small>${l}</small></div>`).join("")}</div>`;
+
+// RESUME
+const list = (arr) => arr.map(r => `
+  <div class="li ${r.more ? "more" : ""}"><div class="w">${r.when}</div><div><b>${r.title}</b>${r.desc ? `<br><span>${r.desc}</span>` : ""}</div></div>`).join("");
+const toggleBtn = arr => arr.some(r => r.more)
+  ? `<button class="toggle" onclick="const p=this.parentElement;p.classList.toggle('open');this.textContent=p.classList.contains('open')?'접기 −':'더보기 +'">더보기 +</button>` : "";
+const listBlock = (title, arr, cls = "") => `<div class="${cls}"><div class="sub-h">${title}</div><div class="list">${list(arr)}</div>${toggleBtn(arr)}</div>`;
+
+$("#resume-body").innerHTML = `
+  ${head("02", "이력", "RESUME")}
+  <div class="profile">
+    <div class="photo">${DATA.photo ? `<img src="${DATA.photo}" alt="${DATA.fullName}">` : ""}</div>
+    <div>
+      <div class="pname">${DATA.fullName}<small>Son Jiyun</small></div>
+      <div class="prole">${DATA.role}</div>
+      <dl class="spec">${[...DATA.stats.slice(0,1), ...DATA.info].map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+    </div>
+  </div>
+
+  <div class="sub-h">경력</div>
+  <div class="timeline">${DATA.career.map(c => `
+    <div class="tl-item">
+      <div class="tl-when">${c.when}</div>
+      <h3>${c.title}</h3>
+      <div class="desc">${c.desc}</div>
+      <ol>${c.points.map(p => `<li>${p}</li>`).join("")}</ol>
+    </div>`).join("")}
+  </div>
+
+  <div class="cols">
+    ${listBlock("학생 프로젝트", DATA.projects)}
+    ${listBlock("학력", DATA.education)}
+    <div class="full"><div class="sub-h">수상 및 선정</div>
+      <div class="awards">${list(DATA.activities)}</div>${toggleBtn(DATA.activities)}</div>
+    ${listBlock("스킬", DATA.skills, "full")}
+  </div>`;
+
+// WORKS
+const kindLabel = { project: "PROJECT", doc: "DOC" };
+let filter = "all";
+function renderWorks() {
+  const feat = DATA.works.find(w => w.featured);
+  const rest = DATA.works.filter(w => w !== feat && (filter === "all" || w.kind === filter));
+  const showFeat = feat && (filter === "all" || feat.kind === filter);
+  $("#works-body").innerHTML = `
+    ${head("03", "프로젝트 &amp; 기획서", "WORKS")}
+    <div class="filters">${[["all", "ALL"], ["project", "PROJECT"], ["doc", "DOC"]].map(([k, l]) => {
+      const n = k === "all" ? DATA.works.length : DATA.works.filter(w => w.kind === k).length;
+      return `<button class="${filter === k ? "on" : ""}" data-k="${k}">${l} ${pad(n)}</button>`;
+    }).join("")}</div>
+    ${showFeat ? `
+    <div class="feat">
+      <div class="vis">${feat.thumb ? `<img src="${feat.thumb}" alt="">` : `<div class="big">${feat.title}</div>`}
+        <div class="tagline">FEATURED / ${feat.platform} / ${feat.year}</div></div>
+      <div class="body">
+        <div class="lab">${kindLabel[feat.kind]} / 대표 작업</div>
+        <h3>${feat.title}</h3>
+        <p>${feat.desc}</p>
+        ${feat.metrics ? `<div class="metrics">${feat.metrics.map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join("")}</div>` : ""}
+        <a class="go ${feat.link ? "" : "disabled"}" href="${feat.link || "#"}" target="_blank">${feat.link ? feat.linkLabel + " →" : "준비 중"}</a>
+      </div>
+    </div>` : ""}
+    <div class="index">${rest.map((w, i) => `
+      <a class="work ${w.link ? "" : "soon"}" href="${w.link || "javascript:void(0)"}" ${w.link ? 'target="_blank"' : ""}>
+        <span class="n">${pad(i + 1)}</span>
+        <span class="sw" style="background:${w.color}">${w.thumb ? `<img src="${w.thumb}" alt="" loading="lazy">` : ""}</span>
+        <span>
+          <h4><span class="k ${w.kind}">${kindLabel[w.kind]}</span>${w.title}</h4>
+          <p>${w.desc}</p>
+          <div class="t">${w.tags.map(t => "#" + t).join("  ")}</div>
+        </span>
+        <span class="pf">${w.platform}<br>${w.year}</span>
+        <span class="ar">${w.link ? "→" : "…"}</span>
+      </a>`).join("")}
+    </div>`;
+  $("#works-body").querySelectorAll(".filters button").forEach(b => b.onclick = () => { filter = b.dataset.k; renderWorks(); });
+}
+renderWorks();
+
+// CONTACT
+const c = DATA.contact;
+$("#contact-body").innerHTML = `
+  ${head("04", "연락처", "CONTACT")}
+  <p class="c-lead">${c.lead}</p>
+  <div class="big-mail copy" data-v="${c.email}">${c.email}</div>
+  <div class="c-row">
+    <button class="copy" data-v="${c.phone}"><small>TEL</small>${c.phone}</button>
+  </div>
+  <div class="btns">
+    <a class="btn fill" href="mailto:${c.email}">메일 보내기</a>
+    ${DATA.resumeFile ? `<a class="btn" href="${DATA.resumeFile}" target="_blank">이력서 다운로드</a>` : ""}
+  </div>
+  <footer><span>© 2026 ${DATA.fullName}</span><a href="#about">TOP ↑</a></footer>`;
+
+function toast(m) { const t = $("#toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 1600); }
+document.querySelectorAll(".copy").forEach(b => b.onclick = async () => {
+  try { await navigator.clipboard.writeText(b.dataset.v); toast("복사했습니다"); } catch { toast(b.dataset.v); }
+});
+
+const links = document.querySelectorAll(".side-nav a");
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) links.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id));
+}), { rootMargin: "-45% 0px -50% 0px" });
+document.querySelectorAll("section").forEach(s => io.observe(s));
+</script>
+</body>
+</html>
