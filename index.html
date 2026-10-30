@@ -126,7 +126,7 @@
   .work .sw{width:64px;height:48px;border-radius:3px;overflow:hidden}
   .work .sw img{width:100%;height:100%;object-fit:cover}
   .work h4{font-size:17px;font-weight:800;letter-spacing:-.02em}
-  .work .k{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;margin-right:8px;vertical-align:2px}
+  .k{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;margin-right:8px;vertical-align:2px}
   .k.project{background:var(--signal);color:#fff}
   .k.doc{background:var(--navy);color:#fff}
   .work p{font-size:13px;color:var(--sub);margin-top:2px}
@@ -174,6 +174,60 @@
     .sec-head .en{display:none}
   }
   @media(max-width:520px){ .side-nav a:nth-child(n){font-size:12px} .id h1{display:none} .side-nav{margin:0 auto} }
+  /* ===== 레퍼런스 구성 버전 ===== */
+  #about{text-align:left}
+  .hero .btns{margin-top:8px}
+  .scroll{display:inline-flex;align-items:center;gap:10px;margin-top:72px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--sub)}
+  .scroll::after{content:"";width:1px;height:32px;background:var(--sub);animation:drop 1.6s infinite}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  .center-scroll{text-align:center}
+
+  .r-block{margin-bottom:56px}
+  .r-block h3{display:flex;align-items:baseline;gap:12px;font-size:20px;font-weight:800;padding-bottom:12px;border-bottom:2px solid var(--ink);margin-bottom:4px}
+  .r-block h3 small{font-family:var(--mono);font-size:11px;color:var(--faint);font-weight:400;letter-spacing:.1em}
+  .r-row{display:grid;grid-template-columns:170px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .r-row .w{font-family:var(--mono);font-size:12px;color:var(--sub);padding-top:3px}
+  .r-row b{font-size:16px}
+  .r-row span{display:block;color:var(--sub);font-size:14px;margin-top:2px}
+  .r-row.more{display:none}
+  .r-block.open .r-row.more{display:grid}
+  .r-block .toggle{display:block;margin:14px auto 0;padding:8px 18px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 4px}
+  .stat-row div{padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:6px}
+  .stat-row b{display:block;font-family:var(--mono);font-size:24px;color:var(--navy);line-height:1.2}
+  .stat-row small{font-size:12px;color:var(--sub)}
+  .career-pts{list-style:none;margin-top:12px;display:grid;gap:4px}
+  .career-pts li{font-size:14px;padding-left:16px;position:relative}
+  .career-pts li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:6px;background:var(--signal)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;transition:.25s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 18px 32px -18px rgba(10,49,99,.35);border-color:var(--navy)}
+  .thumb{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .thumb .ph{font-size:19px;font-weight:800;color:#fff;padding:20px;text-align:center;letter-spacing:-.02em;line-height:1.35}
+  .card-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+  .card .meta{font-family:var(--mono);font-size:11px;color:var(--sub);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .card h4{font-size:17px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px;line-height:1.35}
+  .card p{font-size:13px;color:var(--sub);flex:1;margin-bottom:12px}
+  .card .t{font-family:var(--mono);font-size:11px;color:var(--navy);margin-bottom:16px;display:flex;flex-wrap:wrap;gap:4px 10px}
+  .card .go{display:flex;justify-content:center;gap:6px;padding:10px;border:1px solid var(--line);border-radius:4px;font-size:13px;font-weight:700;transition:.2s}
+  .card .go:hover{background:var(--navy);border-color:var(--navy);color:#fff}
+  .card .go.disabled{opacity:.45;pointer-events:none}
+
+  .c-title{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.04em;line-height:1.3;margin-bottom:40px}
+  .c-title em{font-style:normal;background:linear-gradient(transparent 62%,rgba(255,91,46,.28) 62%)}
+  .c-list{display:grid;gap:10px;max-width:560px;margin-bottom:28px}
+  .c-item{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;background:var(--card);border:1px solid var(--line);border-radius:6px}
+  .c-item small{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.1em}
+  .c-item b{font-size:17px}
+  .c-item button{font-family:inherit;font-size:13px;font-weight:700;padding:7px 14px;border-radius:4px;border:1px solid var(--ink);background:none;cursor:pointer}
+  .c-item button:hover{background:var(--ink);color:#fff}
+
+  @media(max-width:960px){
+    .r-row{grid-template-columns:1fr;gap:2px}
+    .stat-row{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
@@ -399,81 +453,68 @@ $("#hero").innerHTML = `
   <h2>${DATA.hero.title}<br>${DATA.fullName}입니다.</h2>
   <p class="lead">${DATA.hero.lead}</p>
   <div class="kw">${DATA.hero.tags.map(t => `<span>${t}</span>`).join("")}</div>
-  <div class="hl">${DATA.highlights.map(([n, l]) => `<div><b>${n}</b><small>${l}</small></div>`).join("")}</div>`;
+  <div class="btns">
+    ${DATA.resumeFile ? `<a class="btn fill" href="${DATA.resumeFile}" target="_blank">이력서 다운로드 ↓</a>` : ""}
+    <a class="btn" href="#contact">연락처</a>
+  </div>
+  <div><a class="scroll" href="#resume">SCROLL</a></div>`;
 
 // RESUME
-const list = (arr) => arr.map(r => `
-  <div class="li ${r.more ? "more" : ""}"><div class="w">${r.when}</div><div><b>${r.title}</b>${r.desc ? `<br><span>${r.desc}</span>` : ""}</div></div>`).join("");
-const toggleBtn = arr => arr.some(r => r.more)
-  ? `<button class="toggle" onclick="const p=this.parentElement;p.classList.toggle('open');this.textContent=p.classList.contains('open')?'접기 −':'더보기 +'">더보기 +</button>` : "";
-const listBlock = (title, arr, cls = "") => `<div class="${cls}"><div class="sub-h">${title}</div><div class="list">${list(arr)}</div>${toggleBtn(arr)}</div>`;
+const rRows = arr => arr.map(r => `
+  <div class="r-row ${r.more ? "more" : ""}"><div class="w">${r.when}</div><div><b>${r.title}</b>${r.desc ? `<span>${r.desc}</span>` : ""}</div></div>`).join("");
+const rBlock = (ko, en, arr) => `
+  <div class="r-block"><h3>${ko}<small>${en}</small></h3>${rRows(arr)}
+  ${arr.some(r => r.more) ? `<button class="toggle" onclick="const p=this.parentElement;p.classList.toggle('open');this.textContent=p.classList.contains('open')?'− 접기':'+ 더보기'">+ 더보기</button>` : ""}</div>`;
 
 $("#resume-body").innerHTML = `
-  ${head("02", "이력", "RESUME")}
+  ${head("02", "이력서", "RESUME")}
   <div class="profile">
     <div class="photo">${DATA.photo ? `<img src="${DATA.photo}" alt="${DATA.fullName}">` : ""}</div>
     <div>
       <div class="pname">${DATA.fullName}<small>Son Jiyun</small></div>
       <div class="prole">${DATA.role}</div>
-      <dl class="spec">${[...DATA.stats.slice(0,1), ...DATA.info].map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+      <dl class="spec">${DATA.info.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
     </div>
   </div>
 
-  <div class="sub-h">경력</div>
-  <div class="timeline">${DATA.career.map(c => `
-    <div class="tl-item">
-      <div class="tl-when">${c.when}</div>
-      <h3>${c.title}</h3>
-      <div class="desc">${c.desc}</div>
-      <ol>${c.points.map(p => `<li>${p}</li>`).join("")}</ol>
-    </div>`).join("")}
+  <div class="r-block"><h3>경력사항<small>CAREER / ${DATA.stats[0][1]}</small></h3>
+    ${DATA.career.map(c => `
+    <div class="r-row"><div class="w">${c.when}</div><div>
+      <b>${c.title}</b><span>${c.desc}</span>
+      <div class="stat-row">${DATA.highlights.map(([n, l]) => `<div><b>${n}</b><small>${l}</small></div>`).join("")}</div>
+      <ul class="career-pts">${c.points.map(p => `<li>${p}</li>`).join("")}</ul>
+    </div></div>`).join("")}
   </div>
-
-  <div class="cols">
-    ${listBlock("학생 프로젝트", DATA.projects)}
-    ${listBlock("학력", DATA.education)}
-    <div class="full"><div class="sub-h">수상 및 선정</div>
-      <div class="awards">${list(DATA.activities)}</div>${toggleBtn(DATA.activities)}</div>
-    ${listBlock("스킬", DATA.skills, "full")}
-  </div>`;
+  ${rBlock("프로젝트", "PROJECT", DATA.projects)}
+  ${rBlock("학력사항", "EDUCATION", DATA.education)}
+  ${rBlock("수상 및 선정", "AWARD", DATA.activities)}
+  ${rBlock("스킬", "SKILL", DATA.skills)}
+  <div class="center-scroll"><a class="scroll" href="#works">SCROLL</a></div>`;
 
 // WORKS
-const kindLabel = { project: "PROJECT", doc: "DOC" };
+const kindLabel = { project: "프로젝트", doc: "기획서" };
 let filter = "all";
 function renderWorks() {
-  const feat = DATA.works.find(w => w.featured);
-  const rest = DATA.works.filter(w => w !== feat && (filter === "all" || w.kind === filter));
-  const showFeat = feat && (filter === "all" || feat.kind === filter);
+  const list = DATA.works.filter(w => filter === "all" || w.kind === filter);
   $("#works-body").innerHTML = `
     ${head("03", "프로젝트 &amp; 기획서", "WORKS")}
-    <div class="filters">${[["all", "ALL"], ["project", "PROJECT"], ["doc", "DOC"]].map(([k, l]) => {
+    <div class="filters">${[["all", "전체"], ["project", "프로젝트"], ["doc", "기획서"]].map(([k, l]) => {
       const n = k === "all" ? DATA.works.length : DATA.works.filter(w => w.kind === k).length;
-      return `<button class="${filter === k ? "on" : ""}" data-k="${k}">${l} ${pad(n)}</button>`;
+      return `<button class="${filter === k ? "on" : ""}" data-k="${k}">${l} ${n}</button>`;
     }).join("")}</div>
-    ${showFeat ? `
-    <div class="feat">
-      <div class="vis">${feat.thumb ? `<img src="${feat.thumb}" alt="">` : `<div class="big">${feat.title}</div>`}
-        <div class="tagline">FEATURED / ${feat.platform} / ${feat.year}</div></div>
-      <div class="body">
-        <div class="lab">${kindLabel[feat.kind]} / 대표 작업</div>
-        <h3>${feat.title}</h3>
-        <p>${feat.desc}</p>
-        ${feat.metrics ? `<div class="metrics">${feat.metrics.map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join("")}</div>` : ""}
-        <a class="go ${feat.link ? "" : "disabled"}" href="${feat.link || "#"}" target="_blank">${feat.link ? feat.linkLabel + " →" : "준비 중"}</a>
-      </div>
-    </div>` : ""}
-    <div class="index">${rest.map((w, i) => `
-      <a class="work ${w.link ? "" : "soon"}" href="${w.link || "javascript:void(0)"}" ${w.link ? 'target="_blank"' : ""}>
-        <span class="n">${pad(i + 1)}</span>
-        <span class="sw" style="background:${w.color}">${w.thumb ? `<img src="${w.thumb}" alt="" loading="lazy">` : ""}</span>
-        <span>
-          <h4><span class="k ${w.kind}">${kindLabel[w.kind]}</span>${w.title}</h4>
+    <div class="grid">${list.map(w => `
+      <article class="card">
+        <div class="thumb" style="${w.thumb ? "" : `background:linear-gradient(135deg,${w.color},${w.color}bb)`}">
+          ${w.thumb ? `<img src="${w.thumb}" alt="${w.title}" loading="lazy">` : `<div class="ph">${w.title}</div>`}
+        </div>
+        <div class="card-body">
+          <div class="meta"><span class="k ${w.kind}">${kindLabel[w.kind]}</span>${w.platform} / ${w.year}</div>
+          <h4>${w.title}</h4>
           <p>${w.desc}</p>
-          <div class="t">${w.tags.map(t => "#" + t).join("  ")}</div>
-        </span>
-        <span class="pf">${w.platform}<br>${w.year}</span>
-        <span class="ar">${w.link ? "→" : "…"}</span>
-      </a>`).join("")}
+          <div class="t">${w.tags.map(t => `<span>#${t}</span>`).join("")}</div>
+          <a class="go ${w.link ? "" : "disabled"}" href="${w.link || "#"}" target="_blank">${w.link ? w.linkLabel + " ↗" : "준비 중"}</a>
+        </div>
+      </article>`).join("")}
     </div>`;
   $("#works-body").querySelectorAll(".filters button").forEach(b => b.onclick = () => { filter = b.dataset.k; renderWorks(); });
 }
@@ -483,16 +524,16 @@ renderWorks();
 const c = DATA.contact;
 $("#contact-body").innerHTML = `
   ${head("04", "연락처", "CONTACT")}
-  <p class="c-lead">${c.lead}</p>
-  <div class="big-mail copy" data-v="${c.email}">${c.email}</div>
-  <div class="c-row">
-    <button class="copy" data-v="${c.phone}"><small>TEL</small>${c.phone}</button>
+  <div class="c-title">${DATA.hero.title}<br>${DATA.fullName}입니다.</div>
+  <div class="c-list">
+    <div class="c-item"><div><small>E-MAIL</small><b>${c.email}</b></div><button class="copy" data-v="${c.email}">복사</button></div>
+    <div class="c-item"><div><small>TEL</small><b>${c.phone}</b></div><button class="copy" data-v="${c.phone}">복사</button></div>
   </div>
   <div class="btns">
     <a class="btn fill" href="mailto:${c.email}">메일 보내기</a>
     ${DATA.resumeFile ? `<a class="btn" href="${DATA.resumeFile}" target="_blank">이력서 다운로드</a>` : ""}
   </div>
-  <footer><span>© 2026 ${DATA.fullName}</span><a href="#about">TOP ↑</a></footer>`;
+  <footer><span>© 2026 ${DATA.fullName} / Son Jiyun</span><a href="#about">맨 위로 ↑</a></footer>`;
 
 function toast(m) { const t = $("#toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 1600); }
 document.querySelectorAll(".copy").forEach(b => b.onclick = async () => {
