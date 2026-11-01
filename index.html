@@ -414,7 +414,7 @@ const DATA = {
     { y: "2023", title: "(PC) PIO", role: "시스템/콘텐츠/레벨 기획" },
     { y: "2022", title: "(모바일) 지니버거", role: "팀장, 시스템/콘텐츠 기획" },
     { y: "", title: "(PC) 오르비스 탑 (넥슨 MOD PROJECT)", role: "시스템/콘텐츠 기획" },
-    { y: "", title: "(PC) Space Bakery", role: "시스템 기획" }
+    { y: "", title: "(VR) Space Bakery", role: "시스템/콘텐츠 기획" }
   ],
   education: [
     { y: "(졸업)", title: "청강문화산업대학교", when: "2024.03 ~ 2025.02", sub: "차세대게임콘텐츠(심화) / 학점 4.5/4.5 (차석)" },
@@ -453,6 +453,8 @@ const DATA = {
       desc: "손님에게 음식을 던져서 서빙하는 하이퍼 캐주얼 게임. KT 메타버스 '지니버스' 산학 프로젝트로, 팀장을 맡아 핵심 플레이 시스템을 기획했습니다.", tags: ["팀장", "하이퍼캐주얼", "KT산학"], thumb: "assets/works/geniburger/title.jpg", color: "#c48a1f", link: "", linkLabel: "상세 정보 & 영상 보기" },
     { kind: "project", platform: "PC", year: "2022", id: "orbis", title: "오르비스 탑",
       desc: "넥슨 메이플스토리 월드 산학 프로젝트. 미니게임을 투표로 골라 꼴찌가 탈락하는 서바이벌 대결 게임으로, NEXON 2022 MOD PROJECT 모동아리 대상을 받았습니다.", tags: ["메이플월드", "미니게임", "넥슨산학"], thumb: "assets/works/orbis/thumb.jpg", color: "#3a6ea5", link: "", linkLabel: "상세 정보 & 영상 보기" },
+    { kind: "project", platform: "VR", year: "2022", id: "spacebakery", title: "Space Bakery",
+      desc: "손님이 원하는 음식을 던져라! 상대 가게보다 더 많은 주문을 받아 높은 매출을 올리는 VR 캐주얼 멀티 대전 게임. 핵심 코어 플레이와 시스템을 기획했습니다.", tags: ["VR", "멀티경쟁", "코어플레이"], thumb: "assets/works/spacebakery/title.jpg", color: "#7a5fc7", link: "", linkLabel: "상세 정보 & 영상 보기" },
     { kind: "doc", platform: "PC", year: "2023", id: "pio-docs", opens: "pio", title: "PIO 기획서",
       desc: "맵 진행 시스템 기획서(122쪽)와 1학기 작업 내역 정리(60쪽). 주사위 오브젝트 생성/제거 구조, 보스 패턴, 레벨 진행 방식을 담았습니다.",
       tags: ["시스템기획", "레벨디자인", "보스패턴"], thumb: "assets/docs/pio-report/01.jpg", color: "#5b4a8a", link: "", linkLabel: "기획서 상세 보기" },
@@ -535,6 +537,22 @@ const DATA = {
       sections: [
         { h: "기획 방향", p: "메이플스토리 월드 유저들이 불편함 없이 즐길 수 있도록 쉽고 간단한 접근성을 갖추고, 탈락하면 바로 나가거나 다시 도전할 수 있는 빠른 회전율을 목표로 미니게임 콘텐츠를 기획했습니다." },
         { h: "배운 점", p: "메이플스토리 월드의 개발 툴을 직접 익혀 가며 개발할 수 있었고, 이 과정에서 Lua 스크립트에 대한 이해도를 높였습니다." }
+      ]
+    },
+    spacebakery: {
+      intro: "\"손님이 원하는 음식을 던져라!\" 행성을 오가며 빵을 파는데, 가게 바로 앞에 다른 가게가 생겼습니다. 손님의 주문을 파악해 음식을 던져 서빙하고, 상대 유저보다 더 높은 매출을 올리는 VR 캐주얼 멀티 대전 게임입니다.",
+      video: "0LyHYTIrgyQ",
+      gallery: [
+        { src: "assets/works/spacebakery/order.jpg", cap: "손님의 주문을 보고 음식을 던져 서빙" },
+        { src: "assets/works/spacebakery/win.jpg", cap: "상대 가게보다 높은 매출을 올리면 승리" },
+        { src: "assets/works/spacebakery/plan.jpg", cap: "핵심 컨셉 플레이 시스템/콘텐츠 기획" },
+        { src: "assets/works/spacebakery/sound.jpg", cap: "게임 내 효과음 제작 및 리소스 관리" }
+      ],
+      meta: [["플랫폼", "VR"], ["장르", "VR 캐주얼 (싱글 / 멀티 경쟁)"], ["개발 인원", "7명"], ["담당", "시스템 / 콘텐츠 기획"], ["엔진", "Unity"], ["개발 기간", "2022.05 ~ 2022.06"]],
+      role: ["게임의 핵심 코어 플레이 아이디어 및 시스템 기획", "핵심 컨셉 플레이 시스템/콘텐츠 기획 문서 작성", "게임 내 효과음 제작 및 리소스 관리"],
+      results: ["2022 청강 AR/VR 메타버스 콘텐츠 제작 경진대회 1회 2등", "청강 크로니클 2022 전시"],
+      sections: [
+        { h: "코어 플레이 기획", p: "직관적이고 단순하면서도, 잘하는 사람과 못하는 사람의 실력 차이가 확실하게 드러나도록 코어 플레이를 기획했습니다. 손님의 주문을 빠르게 파악하고 정확하게 던지는 것이 실력이 되는 구조로, 상대와 매출을 겨루는 멀티 경쟁의 재미를 만들었습니다." }
       ]
     },
     geniburger: {
