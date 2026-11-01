@@ -226,6 +226,16 @@
   .donut b{display:block;font-size:22px;color:#fff}
   .donut small{font-size:12px}
   .m-sec p{font-size:15px;color:var(--g300);line-height:1.8}
+  .m-links{display:grid;gap:10px}
+  .m-link{display:grid;grid-template-columns:200px 1fr;gap:18px;align-items:center;padding:12px;border-radius:12px;background:var(--dark-2);border:1px solid var(--line);transition:border-color .2s}
+  .m-link:hover{border-color:var(--accent)}
+  .m-link .lt{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#000}
+  .m-link .lt img{width:100%;height:100%;object-fit:cover;display:block}
+  .m-link .lt i{position:absolute;inset:0;margin:auto;width:40px;height:28px;border-radius:8px;background:#f00;color:#fff;font-style:normal;font-size:12px;display:grid;place-items:center}
+  .m-link b{display:block;font-size:15px;margin-bottom:4px}
+  .m-link small{display:block;font-size:13px;color:var(--g300);margin-bottom:6px}
+  .m-link em{font-style:normal;font-size:13px;font-weight:700;color:var(--accent)}
+  @media(max-width:700px){ .m-link{grid-template-columns:1fr} }
   .doc-desc{font-size:14px;color:var(--g300);margin:-4px 0 12px}
   .doc-thumbs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
   .doc-thumb{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#222;cursor:pointer;padding:0;color:#fff;font-family:inherit;font-weight:700}
@@ -460,8 +470,11 @@ const DATA = {
         { src: "assets/works/cookierun/volcano.jpg", cap: "스토리 모드 메인 기믹/몬스터 기획 및 조립 (화산 테마 메인 기획)" },
         { src: "assets/works/cookierun/tutorial.jpg", cap: "튜토리얼 연출 추가 개선 작업" }
       ],
-      video: "cRlbPieiMwI",
-      videoCaption: "쿠키런: 모험의 탑 공식 채널 라이브 '방어전선 최강자전!' (2025.07.02). 방어전선 출시 후 반응이 좋아 즉석으로 꾸린 유저 대회입니다.",
+      video: "nJ2kWsmk-u0",
+      videoCaption: "쿠키런: 모험의 탑 공식 런칭 트레일러",
+      links: [
+        { video: "cRlbPieiMwI", title: "방어전선 최강자전! (공식 라이브, 2025.07.02)", desc: "방어전선 출시 후 유저 반응이 좋아 공식 채널에서 즉석으로 꾸린 유저 대회입니다." }
+      ],
       meta: [["개발사", "데브시스터즈 / (주)오븐게임즈"], ["플랫폼", "모바일 (AOS / iOS), PC"], ["장르", "3D 멀티플레이 액션"], ["엔진", "Unity"], ["소속", "레벨디자인 맵 기획셀 (사원)"], ["메인 담당", "레벨/맵 디자인, 이벤트 모드, 몬스터/기믹 기획"], ["참여 기간", "2023.08 ~ 2026.06 (2년 10개월)"], ["게임 수상", "구글 플레이 2024 올해의 베스트 게임, '올해를 빛낸 PC 게임' 최우수상"]],
       role: ["스토리모드 1~15챕터 스테이지 55종 제작", "이벤트 모드 5종 메인 기획 (방어전선 3종, 캔디하키, 그린벨)", "화산 챕터, 어드벤처 3챕터 몬스터/기믹 기획", "몬스터 리소스 조립, 데이터 테이블/BT 제작"],
       results: ["방어전선 출시 후(25.06) 2.0 버전 내 최다 평균 플레이 타임 모드 달성", "두 번째 출시 후(25.10) 2025년 인게임 전체 콘텐츠 중 최다 평균 플레이 타임 (타 이벤트 모드 대비 약 4.68배)", "공식 유튜브 '방어전선 최강자전' 유저 대회 개최, 정기 운영 모드로 전환", "맵 툴 가이드로 인수인계를 1:1 방식에서 문서 확인으로 전환, 교육 시간 단축", "툴 개선 제안서 작성 및 적용으로 맵 디자인 업무 효율 증가"],
@@ -693,6 +706,7 @@ function openWork(id) {
       ${d.gallery ? `<div class="m-gallery">${d.gallery.map((g, i) => `<figure><button class="g-img" data-g="${i}"><img src="${g.src}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`).join("")}</div>` : ""}
       ${d.meta ? `<dl class="m-meta">${d.meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` : ""}
       ${(d.role || d.results) ? `<div class="m-stats">${d.role ? `<section class="m-card"><h4>담당 업무</h4><div class="contrib">${donut}<ul>${d.role.map(x => `<li>${x}</li>`).join("")}</ul></div></section>` : ""}${list("성과 및 결과", d.results)}</div>` : ""}
+      ${d.links ? `<section class="m-sec"><h4>관련 영상</h4><div class="m-links">${d.links.map(l => `<a class="m-link" href="https://www.youtube.com/watch?v=${l.video}" target="_blank"><span class="lt"><img src="https://i.ytimg.com/vi/${l.video}/hqdefault.jpg" alt="" loading="lazy"><i>▶</i></span><span><b>${l.title}</b><small>${l.desc}</small><em>유튜브에서 보기 ↗</em></span></a>`).join("")}</div></section>` : ""}
       ${(d.sections || []).map(s => `<section class="m-sec"><h4>${s.h}</h4><p>${s.p}</p></section>`).join("")}
       ${docHtml}
       ${!d.sections && !d.doc ? `<p class="m-sec">${w.desc}</p>` : ""}
