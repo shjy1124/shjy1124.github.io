@@ -147,6 +147,7 @@
   .erow .y{font-weight:800;color:var(--ink)}
   .erow .t{font-weight:600}
   .erow .s{display:block;font-size:12px;color:var(--ink3);font-weight:400}
+  .erow .s.wh{color:var(--accent-l);font-weight:600;font-variant-numeric:tabular-nums}
   .erow.more{display:none}
   .open .erow.more{display:grid}
   .rsec.col{border-bottom:none}
@@ -382,9 +383,9 @@ const DATA = {
     { y: "", title: "(PC) Space Bakery", role: "시스템 기획" }
   ],
   education: [
-    { y: "(졸업)", title: "청강문화산업대학교", sub: "차세대게임콘텐츠(심화) / 4.5 차석" },
-    { y: "(졸업)", title: "청강문화산업대학교", sub: "게임콘텐츠스쿨 / 4.37 수석" },
-    { y: "(중퇴)", title: "영산대학교", sub: "문화콘텐츠학부" }
+    { y: "(졸업)", title: "청강문화산업대학교", when: "2024.03 ~ 2025.02", sub: "차세대게임콘텐츠(심화) / 4.5 차석" },
+    { y: "(졸업)", title: "청강문화산업대학교", when: "2021.02 ~ 2024.02", sub: "게임콘텐츠스쿨 / 4.37 수석" },
+    { y: "(중퇴)", title: "영산대학교", when: "2019.03 ~ 2020.06", sub: "문화콘텐츠학부" }
   ],
   selections: [
     { y: "2023", title: "STOVE INDIE, Steam 게임 출시", sub: "Steam 10만 다운로드 달성" },
@@ -573,7 +574,7 @@ $("#about").innerHTML = `
 
 // 02 RESUME
 const erows = arr => arr.map(r => `
-  <div class="erow ${r.more ? "more" : ""}"><span class="y">${r.y}</span><span><span class="t">${r.title}</span><span class="s">${r.sub}</span></span></div>`).join("");
+  <div class="erow ${r.more ? "more" : ""}"><span class="y">${r.y}</span><span><span class="t">${r.title}</span>${r.when ? `<span class="s wh">${r.when}</span>` : ""}<span class="s">${r.sub}</span></span></div>`).join("");
 const moreBtn = arr => arr.some(r => r.more)
   ? `<button class="more-btn" onclick="const s=this.closest('.rsec');s.classList.toggle('open');this.textContent=s.classList.contains('open')?'− 접기':'+ 더보기'">+ 더보기</button>` : "";
 $("#resume").innerHTML = `
