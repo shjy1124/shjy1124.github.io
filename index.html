@@ -411,7 +411,7 @@ const DATA = {
   projects: [
     { y: "2025", title: "(MOBILE) 쿠키런: 모험의 탑", role: "레벨/맵 디자인" },
     { y: "2023", title: "(PC) PIO", role: "시스템/콘텐츠/레벨 기획" },
-    { y: "2022", title: "(PC) 지니버거", role: "팀장, 시스템/콘텐츠 기획" },
+    { y: "2022", title: "(모바일) 지니버거", role: "팀장, 시스템/콘텐츠 기획" },
     { y: "", title: "(PC) Space Bakery", role: "시스템 기획" }
   ],
   education: [
@@ -447,8 +447,8 @@ const DATA = {
       tags: ["레벨디자인", "이벤트모드", "몬스터BT"], thumb: "assets/works/cookierun/thumb.jpg", color: "#d9572b", link: "", linkLabel: "상세 정보 보기" },
     { kind: "project", platform: "PC", year: "2023", id: "pio", title: "PIO",
       desc: "내가 밟고 있는 주사위 지형으로 보스를 공략하는 3D 액션 플랫포머. Steam 10만 다운로드, BIC 2023 디볼버 디지털 픽 등 수상과 전시를 이어간 졸업 작품입니다.", tags: ["보스러쉬", "레벨디자인", "시스템"], thumb: "assets/works/pio/thumb.jpg", color: "#5b4a8a", link: "", linkLabel: "상세 정보 & 영상 보기" },
-    { kind: "project", platform: "PC", year: "2022", id: "geniburger", title: "지니버거",
-      desc: "팀장으로서 시스템과 콘텐츠 기획 담당.", tags: ["팀장", "시스템", "콘텐츠"], thumb: "", color: "#c48a1f", link: "", linkLabel: "상세 정보 & 영상 보기" },
+    { kind: "project", platform: "모바일", year: "2022", id: "geniburger", title: "지니버거",
+      desc: "손님에게 음식을 던져서 서빙하는 하이퍼 캐주얼 게임. KT 메타버스 '지니버스' 산학 프로젝트로, 팀장을 맡아 핵심 플레이 시스템을 기획했습니다.", tags: ["팀장", "하이퍼캐주얼", "KT산학"], thumb: "assets/works/geniburger/title.jpg", color: "#c48a1f", link: "", linkLabel: "상세 정보 & 영상 보기" },
     { kind: "project", platform: "PC", year: "2026", id: "cctv", title: "CCTV 관리 게임 (프로토타입)",
       desc: "CCTV 시점으로 방마다 수용된 존재를 관리하는 1인칭 공포 관리 게임. Unity로 직접 프로토타이핑 중.",
       tags: ["Unity", "인디", "공포"], thumb: "", color: "#2b2b33", link: "", linkLabel: "상세 정보 & 영상 보기" },
@@ -520,9 +520,21 @@ const DATA = {
       ]
     },
     geniburger: {
-      intro: "청강문화산업대학교 팀 프로젝트",
-      meta: [["플랫폼", "PC"], ["역할", "팀장"], ["메인 담당", "시스템 / 콘텐츠 기획"], ["참여 기간", "2022.06 ~ 2022.12"]],
-      sections: [{ h: "개요", p: "팀장으로서 팀을 이끌며 시스템과 콘텐츠 기획을 담당했습니다." }]
+      intro: "\"손님에게 음식을 던져서 서빙하라!\" KT의 메타버스 콘텐츠 '지니버스'의 그래픽과 접근성을 고려해 만든, 고득점이 목표인 모바일 하이퍼 캐주얼 게임입니다. (KT 산학 프로젝트)",
+      video: "SD8fBWlCE9E",
+      gallery: [
+        { src: "assets/works/geniburger/play.jpg", cap: "인게임: 이동 없이 음식을 던져 서빙" },
+        { src: "assets/works/geniburger/fever.jpg", cap: "피버 모드" },
+        { src: "assets/works/geniburger/plan.jpg", cap: "핵심 플레이 시스템 기획" },
+        { src: "assets/works/geniburger/sound.jpg", cap: "FMOD 이벤트 설정 / 사운드 기획서 작성" }
+      ],
+      meta: [["플랫폼", "모바일"], ["장르", "하이퍼 캐주얼"], ["형태", "KT 산학 프로젝트"], ["역할", "팀장"], ["담당", "핵심 플레이 시스템 기획, 사운드 기획 (FMOD)"], ["참여 기간", "2022.06 ~ 2022.12"]],
+      role: ["팀장으로 프로젝트 진행", "'음식을 던져서 손님에게 전달한다'는 핵심 컨셉과 플레이 시스템 기획", "피버 시스템 등 시스템 문서 작성", "FMOD 이벤트 설정 및 사운드 기획서 작성"],
+      results: ["XR 콘텐츠 제작 상호평가 18팀 중 3등", "청강 크로니클 2022 전시"],
+      sections: [
+        { h: "핵심 플레이 시스템 기획", p: "'음식을 던져서 손님에게 전달한다'는 핵심 컨셉과 플레이 시스템을 기획했습니다. 지니버스 환경에 맞춰 조작을 배우기는 매우 쉽게 하면서도, 게임을 잘 못하는 유저와 잘하는 유저 모두 즐길 수 있도록 핵심 플레이를 설계했습니다." },
+        { h: "문제 해결: 기간 내 완성을 위한 과감한 제안", p: "개발 중 KT 제공 데이터에 불완전한 스크립트, 합쳐진 모델링 등 버그가 많아 데이터를 전혀 쓸 수 없게 되면서 프로젝트가 전면 폐기될 위기를 맞았습니다. 이후 간단한 음식 서빙 게임으로 방향을 바꿨지만 차별성이 부족하고 동선 충돌 버그가 생겼습니다. 이에 플레이어가 이동하지 않고 음식을 던지는 방식으로 전환하자고 제안했습니다. 동선 문제를 없애면서 차별성과 재미를 확보하고 배경 리소스 비용까지 줄일 수 있었고, 제안이 채택되어 제한된 기간 안에 프로젝트를 마무리했습니다." }
+      ]
     },
     cctv: {
       intro: "개인 인디 프로젝트 (진행 중)",
