@@ -142,6 +142,15 @@
   .prow{display:grid;grid-template-columns:52px 1fr auto;gap:12px;font-size:14px;padding:5px 0}
   .prow .y{font-weight:800}
   .prow .r{color:var(--ink2)}
+  .cdetail{grid-column:1/-1;padding:24px 26px;background:#f5f5f5;border-radius:var(--radius)}
+  .cdetail h4{font-size:17px;font-weight:800;color:var(--accent-l);margin-bottom:18px}
+  .cd-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px}
+  .cd-lab{font-size:13px;font-weight:700;color:var(--ink3);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+  .cd-g{margin-bottom:16px}
+  .cd-g b{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+  .cd-g ul{list-style:none;display:grid;gap:4px}
+  .cd-g li{font-size:13px;color:var(--ink2);padding-left:12px;position:relative;line-height:1.6}
+  .cd-g li::before{content:"";position:absolute;left:0;top:.68em;width:4px;height:4px;border-radius:50%;background:var(--accent-l)}
   .rg3{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
   .erow{display:grid;grid-template-columns:52px 1fr;gap:10px;font-size:14px;padding:6px 0}
   .erow .y{font-weight:800;color:var(--ink)}
@@ -278,7 +287,7 @@
     main{margin-left:0}
     .inner{padding:0 20px}
     .toast{left:50%}
-    .tl,.about-cards,.rg,.rg3,.play{grid-template-columns:1fr}
+    .tl,.about-cards,.rg,.rg3,.play,.cd-cols{grid-template-columns:1fr}
     .tl{gap:20px}
     .tl-step::before{right:0}
     .crow{grid-template-columns:1fr}
@@ -378,6 +387,20 @@ const DATA = {
     { co: "오븐게임즈 (데브시스터즈)", team: "레벨디자인 맵 기획셀 / 사원", when: "2023.08 ~ 2026.06",
       points: ["쿠키런: 모험의 탑 스토리 챕터 스테이지 55종", "이벤트 모드 5종 기획 (방어전선 3종, 캔디하키, 그린벨)", "몬스터/기믹 기획 및 BT 제작"] }
   ],
+  // 경력 상세 (이력 섹션에 전체 폭으로 표시)
+  careerDetail: {
+    title: "쿠키런: 모험의 탑 경력 상세",
+    duties: [
+      { h: "스토리모드 메인 챕터 담당 및 참여", items: ["챕터 스테이지 총 55종 제작 (1챕터 ~ 15챕터)", "화산 챕터 몬스터/기믹 메인 기획 및 몬스터 리소스 조립, 데이터 테이블, BT 제작", "지속적인 데이터 모니터링을 통한 난이도 완화 패치 진행"] },
+      { h: "이벤트 모드 콘텐츠 5종 기획", items: ["방어전선: 슈가랜드를 지켜라! (2인 멀티) 메인 기획 및 맵 제작", "방어전선: 송편을 지켜라! (2인 멀티) 메인 기획 및 맵 제작", "방어전선 겨울 버전 기획 및 맵 제작", "캔디하키 이벤트 (3vs3) 기획", "그린벨 이벤트 연출 맵 (1인 싱글) 제작"] },
+      { h: "어드벤처 모드 3챕터 메인 몬스터/기믹 담당", items: ["3챕터 메인 몬스터/기믹 기획 및 몬스터 리소스 조립, 데이터 테이블, BT 제작"] }
+    ],
+    achievements: [
+      { h: "이벤트 모드 방어전선", items: ["출시 이후(25.06) 2.0 버전 내 최다 평균 플레이 타임 모드 달성", "두 번째 출시 이후(25.10) 2025년 기준 인게임 전체 콘텐츠 중 최다 평균 플레이 타임 모드 달성 (타 이벤트 모드 대비 약 4.68배)", "유저의 긍정적인 반응으로 공식 유튜브 채널 유저 참여 대회 진행, 정기 운영 이벤트 모드로 전환", "기존 리소스를 활용해 성과 대비 효율적인 비용으로 제작"] },
+      { h: "신규 입사자 가이드 문서 제작", items: ["레벨디자인 맵 제작 단계별 툴 가이드 작성", "인수인계 방식을 1:1 가이드에서 문서 확인으로 바꿔 교육 시간 단축, 멘토 업무 효율 상승", "타 파트에서도 맵 툴 사용법 확인용으로 지속 활용"] },
+      { h: "툴 개선 모니터링 및 제안", items: ["맵 디자인 팀 니즈를 확인해 툴 개선점/기능 추가 제안서 작성", "개발 리뷰 및 적용 후 맵 디자인 업무 효율 증가, 신규 입사자 맵 제작 난이도 완화"] }
+    ]
+  },
   projects: [
     { y: "2025", title: "(MOBILE) 쿠키런: 모험의 탑", role: "레벨/맵 디자인" },
     { y: "2023", title: "(PC) PIO", role: "시스템/콘텐츠/레벨 기획" },
@@ -583,6 +606,13 @@ $("#resume").innerHTML = `
         <div class="rsec">
           <h4><span>프로젝트<small>(담당 직군 / 게임 기획)</small></span></h4>
           ${DATA.projects.map(p => `<div class="prow"><span class="y">${p.y}</span><span>${p.title}</span><span class="r">${p.role}</span></div>`).join("")}
+        </div>
+        <div class="cdetail">
+          <h4>${DATA.careerDetail.title}</h4>
+          <div class="cd-cols">
+            <div><div class="cd-lab">담당 업무</div>${DATA.careerDetail.duties.map(g => `<div class="cd-g"><b>${g.h}</b><ul>${g.items.map(i => `<li>${i}</li>`).join("")}</ul></div>`).join("")}</div>
+            <div><div class="cd-lab">주요 성과</div>${DATA.careerDetail.achievements.map(g => `<div class="cd-g"><b>${g.h}</b><ul>${g.items.map(i => `<li>${i}</li>`).join("")}</ul></div>`).join("")}</div>
+          </div>
         </div>
         <div class="rg3">
           <div class="rsec col"><h4>학력사항</h4>${erows(DATA.education)}</div>
