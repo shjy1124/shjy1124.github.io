@@ -280,6 +280,19 @@
   .note{margin-top:18px;font-size:13px;color:var(--ink3)}
   .note b{color:var(--ink)}
 
+  /* ===== 05 GAME LIFE ===== */
+  .fan-sec{background:#f7f7f5;padding:120px 0 20px}
+  .fan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:150px;gap:12px}
+  .fan-grid figure{margin:0;display:flex;flex-direction:column;min-height:0}
+  .fan-grid figure.big{grid-column:span 2;grid-row:span 2}
+  .fan-grid .fp{flex:1;min-height:0;width:100%;padding:0;border:0;border-radius:12px;overflow:hidden;background:#e9e9e6;cursor:zoom-in}
+  .fan-grid .fp img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+  .fan-grid .fp:hover img{transform:scale(1.04)}
+  .fan-grid .fp.empty{display:grid;place-items:center;border:1.5px dashed #c9c9c4;background:transparent;cursor:default}
+  .fan-grid .fp.empty span{font-size:13px;color:var(--ink3)}
+  .fan-grid figcaption{font-size:12px;color:var(--ink2);margin-top:6px}
+  @media(max-width:960px){ .fan-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:130px} }
+
   /* ===== 04 CONTACT ===== */
   #contact{padding:110px 0 0;text-align:center}
   #contact .eyebrow{margin-bottom:18px}
@@ -342,7 +355,8 @@
       <li><a href="#resume"><span>02</span>이력</a></li>
       <li><a href="#works"><span>03</span>작업</a></li>
       <li><a href="#play"><span>04</span>플레이 경험</a></li>
-      <li><a href="#contact"><span>05</span>연락처</a></li>
+      <li><a href="#fan"><span>05</span>게임 생활</a></li>
+      <li><a href="#contact"><span>06</span>연락처</a></li>
     </ul>
   </nav>
   <div class="side-foot" id="side-foot"></div>
@@ -353,6 +367,7 @@
   <section id="resume" class="light"></section>
   <section id="works"></section>
   <section id="play" class="light"></section>
+  <section id="fan" class="light fan-sec"></section>
   <section id="contact"></section>
 </main>
 
@@ -615,6 +630,23 @@ const DATA = {
     ]
   },
 
+  // 게임 생활: photos의 src에 이미지 경로, cap에 짧은 캡션 (예: "지스타 2025")
+  fan: {
+    title: "화면 밖에서도<br><b>게임을 즐깁니다</b>",
+    points: [
+      "지스타, AGF, 게임 페스티벌, 오케스트라 공연, 팝업 행사까지 좋아하는 게임이 있는 곳이라면 직접 찾아갑니다. 현장에서 팬들이 <b>무엇에 줄을 서고 무엇을 간직하는지</b> 보며, 게임 밖의 경험도 IP의 일부라는 것을 배웁니다.",
+      "BIC와 게임스컴 아시아에서는 PIO를 직접 전시하며, <b>유저가 어디서 웃고 어디서 막히는지</b> 눈앞에서 확인했습니다."
+    ],
+    photos: [
+      { src: "", cap: "" },
+      { src: "", cap: "" },
+      { src: "", cap: "" },
+      { src: "", cap: "" },
+      { src: "", cap: "" },
+      { src: "", cap: "" }
+    ]
+  },
+
   contact: { email: "shjy1124@gmail.com", phone: "010-9700-3270" }
 };
 /* ======================================================== */
@@ -815,9 +847,28 @@ $("#play").innerHTML = `
       ${P.games.some(g => g.deep) ? `<div class="note"><i class="star s">★</i><b>깊게 플레이한 게임</b> ${P.deepNote.replace("깊게 플레이한 게임", "").trim()}</div>` : ""}
     </div>
   </div>
-  ${scroll("contact")}`;
+  ${scroll("fan")}`;
 
-// 05 CONTACT
+// 05 GAME LIFE
+const F = DATA.fan;
+$("#fan").innerHTML = `
+  <div class="inner play fan">
+    <div class="play-text">
+      <div class="eyebrow dk">Off Screen</div>
+      <h3>${F.title}</h3>
+      <ol>${F.points.map((p, i) => `<li><span>${String(i + 1).padStart(2, "0")}</span><p>${p}</p></li>`).join("")}</ol>
+    </div>
+    <div class="fan-grid">${F.photos.map((ph, i) => `
+      <figure class="${i === 0 ? "big" : ""}">
+        ${ph.src ? `<button class="fp" data-f="${i}"><img src="${ph.src}" alt="${ph.cap}" loading="lazy"></button>` : `<div class="fp empty"><span>사진 ${i + 1}</span></div>`}
+        ${ph.cap ? `<figcaption>${ph.cap}</figcaption>` : ""}
+      </figure>`).join("")}
+    </div>
+  </div>
+  ${scroll("contact")}`;
+$("#fan").querySelectorAll("[data-f]").forEach(b => b.onclick = () => openViewer("게임 생활", F.photos.filter(p => p.src).map(p => p.src), F.photos.filter(p => p.src).indexOf(F.photos[+b.dataset.f])));
+
+// 06 CONTACT
 const C = DATA.contact;
 $("#contact").innerHTML = `
   <div class="eyebrow">Contact</div>
