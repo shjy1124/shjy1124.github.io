@@ -452,6 +452,9 @@ const DATA = {
     { kind: "project", platform: "PC", year: "2026", id: "cctv", title: "CCTV 관리 게임 (프로토타입)",
       desc: "CCTV 시점으로 방마다 수용된 존재를 관리하는 1인칭 공포 관리 게임. Unity로 직접 프로토타이핑 중.",
       tags: ["Unity", "인디", "공포"], thumb: "", color: "#2b2b33", link: "", linkLabel: "상세 정보 & 영상 보기" },
+    { kind: "doc", platform: "PC", year: "2023", id: "pio-docs", opens: "pio", title: "PIO 기획서",
+      desc: "맵 진행 시스템 기획서(122쪽)와 1학기 작업 내역 정리(60쪽). 주사위 오브젝트 생성/제거 구조, 보스 패턴, 레벨 진행 방식을 담았습니다.",
+      tags: ["시스템기획", "레벨디자인", "보스패턴"], thumb: "assets/docs/pio-report/01.jpg", color: "#5b4a8a", link: "", linkLabel: "기획서 상세 보기" },
     { kind: "doc", platform: "PC/콘솔", year: "2026", id: "gunlance", title: "몬스터 헌터 와일즈 신규 무기 제안서",
       desc: "오토마 건랜스. 기존 건랜스의 포격 리듬을 확장한 신규 무기의 모션, 콤보 구조, 고유 시스템 설계.",
       tags: ["전투기획", "무기제안"], thumb: "", color: "#2f5d8a", link: "", linkLabel: "기획서 상세 보기" },
@@ -674,7 +677,7 @@ function renderWorks() {
           <h5>${w.title}</h5>
           <p>${w.desc}</p>
           <div class="wtags">${w.tags.map(t => `<span>${t}</span>`).join("")}</div>
-          <span class="wlink">${DATA.details[w.id] && DATA.details[w.id].video ? (w.kind === "doc" ? "기획서 & 영상 보기" : "상세 정보 & 영상 보기") : (w.kind === "doc" ? "기획서 상세 보기" : "상세 정보 보기")} ↗</span>
+          <span class="wlink">${w.opens ? "기획서 상세 보기" : ""}${w.opens ? "" : (DATA.details[w.id] && DATA.details[w.id].video ? (w.kind === "doc" ? "기획서 & 영상 보기" : "상세 정보 & 영상 보기") : (w.kind === "doc" ? "기획서 상세 보기" : "상세 정보 보기"))} ↗</span>
         </div>
       </article>`).join("")}
     </div>`;
@@ -682,11 +685,20 @@ function renderWorks() {
     ${scroll("play")}`;
   $("#works").querySelectorAll(".tabs button").forEach(b => b.onclick = () => { filter = b.dataset.k; renderWorks(); });
   $("#works").querySelectorAll(".wcard").forEach(c => {
-    c.onclick = () => openWork(c.dataset.id);
-    c.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openWork(c.dataset.id); } };
+    c.onclick = () => openCard(c.dataset.id);
+    c.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCard(c.dataset.id); } };
   });
 }
 renderWorks();
+
+// 다른 작업의 팝업을 여는 카드 (예: PIO 기획서 -> PIO 프로젝트의 기획서 위치)
+function openCard(id) {
+  const w = DATA.works.find(x => x.id === id);
+  if (!w.opens) return openWork(id);
+  openWork(w.opens);
+  const target = document.querySelector("#work-modal .doc-sec");
+  if (target) requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+}
 
 // 작업 상세 팝업
 const pad2 = n => String(n).padStart(2, "0");
@@ -699,7 +711,7 @@ function openWork(id) {
   const docs = d.docs || (d.doc ? [Object.assign({ title: w.title }, d.doc)] : []);
   const docHtml = docs.map((doc, di) => {
     const pages = docPages(doc);
-    return `<section class="m-sec"><h4>${doc.title}</h4>${doc.desc ? `<p class="doc-desc">${doc.desc}</p>` : ""}${pages.length
+    return `<section class="m-sec doc-sec"><h4>${doc.title}</h4>${doc.desc ? `<p class="doc-desc">${doc.desc}</p>` : ""}${pages.length
       ? `<div class="doc-thumbs">${pages.slice(0, 7).map((src, i) => `<button class="doc-thumb" data-d="${di}" data-i="${i}"><img src="${src}" alt="${i + 1}쪽" loading="lazy"><span>${i + 1}</span></button>`).join("")}${pages.length > 7 ? `<button class="doc-thumb more" data-d="${di}" data-i="7">+${pages.length - 7}쪽</button>` : ""}</div>
          <div class="doc-actions"><button class="btn primary" data-d="${di}" data-i="0">전체 ${pages.length}쪽 크게 보기</button>${doc.pdf ? `<a class="btn" href="${doc.pdf}" target="_blank" download>PDF 다운로드</a>` : ""}</div>`
       : `<p class="doc-empty">기획서 페이지를 정리하고 있습니다.</p>`}</section>`;
