@@ -412,6 +412,7 @@ const DATA = {
     { y: "2025", title: "(MOBILE) 쿠키런: 모험의 탑", role: "레벨/맵 디자인" },
     { y: "2023", title: "(PC) PIO", role: "시스템/콘텐츠/레벨 기획" },
     { y: "2022", title: "(모바일) 지니버거", role: "팀장, 시스템/콘텐츠 기획" },
+    { y: "", title: "(PC) 오르비스 탑 (넥슨 MOD PROJECT)", role: "시스템/콘텐츠 기획" },
     { y: "", title: "(PC) Space Bakery", role: "시스템 기획" }
   ],
   education: [
@@ -449,6 +450,8 @@ const DATA = {
       desc: "내가 밟고 있는 주사위 지형으로 보스를 공략하는 3D 액션 플랫포머. Steam 10만 다운로드, BIC 2023 디볼버 디지털 픽 등 수상과 전시를 이어간 졸업 작품입니다.", tags: ["보스러쉬", "레벨디자인", "시스템"], thumb: "assets/works/pio/thumb.jpg", color: "#5b4a8a", link: "", linkLabel: "상세 정보 & 영상 보기" },
     { kind: "project", platform: "모바일", year: "2022", id: "geniburger", title: "지니버거",
       desc: "손님에게 음식을 던져서 서빙하는 하이퍼 캐주얼 게임. KT 메타버스 '지니버스' 산학 프로젝트로, 팀장을 맡아 핵심 플레이 시스템을 기획했습니다.", tags: ["팀장", "하이퍼캐주얼", "KT산학"], thumb: "assets/works/geniburger/title.jpg", color: "#c48a1f", link: "", linkLabel: "상세 정보 & 영상 보기" },
+    { kind: "project", platform: "PC", year: "2022", id: "orbis", title: "오르비스 탑",
+      desc: "넥슨 메이플스토리 월드 산학 프로젝트. 미니게임을 투표로 골라 꼴찌가 탈락하는 서바이벌 대결 게임으로, NEXON 2022 MOD PROJECT 모동아리 대상을 받았습니다.", tags: ["메이플월드", "미니게임", "넥슨산학"], thumb: "assets/works/orbis/thumb.jpg", color: "#3a6ea5", link: "", linkLabel: "상세 정보 & 영상 보기" },
     { kind: "doc", platform: "PC", year: "2023", id: "pio-docs", opens: "pio", title: "PIO 기획서",
       desc: "맵 진행 시스템 기획서(122쪽)와 1학기 작업 내역 정리(60쪽). 주사위 오브젝트 생성/제거 구조, 보스 패턴, 레벨 진행 방식을 담았습니다.",
       tags: ["시스템기획", "레벨디자인", "보스패턴"], thumb: "assets/docs/pio-report/01.jpg", color: "#5b4a8a", link: "", linkLabel: "기획서 상세 보기" },
@@ -514,6 +517,23 @@ const DATA = {
       docs: [
         { title: "맵 진행 시스템 기획서", desc: "게임 진행에 필요한 오브젝트(주사위 등)의 생성과 제거를 구조화한 맵 오브젝트 스폰 시스템 기획서", folder: "assets/docs/pio-map", pages: 122, pdf: "assets/docs/pio-map/PIO_맵진행시스템_기획서.pdf" },
         { title: "1학기 작업 내역 정리", desc: "공모전 제출 빌드 기준으로 정리한 1학기 작업 보고서", folder: "assets/docs/pio-report", pages: 60, pdf: "assets/docs/pio-report/PIO_1학기_작업내역.pdf" }
+      ]
+    },
+    orbis: {
+      intro: "\"1등이 되기 위해 살아남아라!\" 매 스테이지마다 랜덤으로 등장하는 미니게임 중 하나를 투표로 고르고, 꼴찌가 탈락하는 메이플스토리 월드 서바이벌 대결 게임입니다. (넥슨 산학 협력 프로젝트, NEXON 2022 MOD PROJECT 모동아리)",
+      video: "0LyHYTIrgyQ",
+      gallery: [
+        { src: "assets/works/orbis/games.jpg", cap: "스테이지마다 등장하는 미니게임" },
+        { src: "assets/works/orbis/list.jpg", cap: "미니게임 목록" },
+        { src: "assets/works/orbis/plan.jpg", cap: "핵심 플레이 시스템 기획" },
+        { src: "assets/works/orbis/present.jpg", cap: "발표/보고 일정 자료 제작 및 발표" }
+      ],
+      meta: [["플랫폼", "PC (메이플스토리 월드)"], ["장르", "캐주얼"], ["형태", "넥슨 산학 협력 프로젝트"], ["개발 인원", "5명 (게임 디자이너 1명)"], ["담당", "시스템 / 콘텐츠 기획"], ["개발 기간", "2022.03 ~ 2022.06"]],
+      role: ["핵심 플레이 시스템 기획 (미니게임 투표, 탈락 구조)", "미니게임 콘텐츠 기획", "발표/보고 일정 자료 제작 및 발표"],
+      results: ["NEXON 2022 MOD PROJECT 제1회 모동아리 프로젝트 대상"],
+      sections: [
+        { h: "기획 방향", p: "메이플스토리 월드 유저들이 불편함 없이 즐길 수 있도록 쉽고 간단한 접근성을 갖추고, 탈락하면 바로 나가거나 다시 도전할 수 있는 빠른 회전율을 목표로 미니게임 콘텐츠를 기획했습니다." },
+        { h: "배운 점", p: "메이플스토리 월드의 개발 툴을 직접 익혀 가며 개발할 수 있었고, 이 과정에서 Lua 스크립트에 대한 이해도를 높였습니다." }
       ]
     },
     geniburger: {
