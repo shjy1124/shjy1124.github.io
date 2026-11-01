@@ -166,6 +166,10 @@
   .tabs{display:flex;gap:8px;justify-content:center;margin-bottom:44px}
   .tabs button{font-family:inherit;font-size:15px;font-weight:700;padding:10px 24px;border-radius:999px;border:1px solid var(--line);background:transparent;color:#fff;cursor:pointer;transition:.2s}
   .tabs button.on{background:#fff;color:#000;border-color:#fff}
+  .wgroup{max-width:1500px;margin:0 auto 18px;padding:0 24px;display:flex;align-items:baseline;gap:10px}
+  .wgroup h3{font-size:22px;font-weight:800;letter-spacing:-.02em}
+  .wgroup span{font-size:14px;color:var(--g500)}
+  .works-grid + .wgroup{margin-top:56px}
   .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;padding:0 24px;max-width:1500px;margin:0 auto}
   .wcard{background:var(--dark);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:.25s}
   .wcard:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.35)}
@@ -657,7 +661,10 @@ function renderWorks() {
   $("#works").innerHTML = `
     <div class="tabs">${[["all", "전체"], ["project", "프로젝트"], ["doc", "기획서"]].map(([k, l]) =>
       `<button class="${filter === k ? "on" : ""}" data-k="${k}">${l}</button>`).join("")}</div>
-    <div class="works-grid">${list.map(w => `
+    ${(filter === "all" ? [["project", "프로젝트"], ["doc", "기획서"]] : [[filter, ""]]).map(([k, label]) => {
+      const items = list.filter(w => w.kind === k);
+      if (!items.length) return "";
+      return `${label ? `<div class="wgroup"><h3>${label}</h3><span>${items.length}</span></div>` : ""}<div class="works-grid">${items.map(w => `
       <article class="wcard" tabindex="0" role="button" data-id="${w.id}" aria-label="${w.title} 상세 보기">
         <div class="wthumb" style="${w.thumb ? "" : `background:linear-gradient(135deg,${w.color},${w.color}aa)`}">
           ${w.thumb ? `<img src="${w.thumb}" alt="${w.title}" loading="lazy">` : `<div class="ph">${w.title}</div>`}
@@ -670,7 +677,8 @@ function renderWorks() {
           <span class="wlink">${DATA.details[w.id] && DATA.details[w.id].video ? (w.kind === "doc" ? "기획서 & 영상 보기" : "상세 정보 & 영상 보기") : (w.kind === "doc" ? "기획서 상세 보기" : "상세 정보 보기")} ↗</span>
         </div>
       </article>`).join("")}
-    </div>
+    </div>`;
+    }).join("")}
     ${scroll("play")}`;
   $("#works").querySelectorAll(".tabs button").forEach(b => b.onclick = () => { filter = b.dataset.k; renderWorks(); });
   $("#works").querySelectorAll(".wcard").forEach(c => {
