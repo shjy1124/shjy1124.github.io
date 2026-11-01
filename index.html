@@ -236,11 +236,11 @@
   .play li b{color:var(--accent-l)}
   .play-panel{background:#f5f5f5;border-radius:var(--radius);padding:24px}
   .play-panel .cap{font-size:13px;color:var(--ink3);margin-bottom:16px}
-  .games{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .games{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
   .game{position:relative}
   .gi{aspect-ratio:1/1;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.12)}
   .gi img{width:100%;height:100%;object-fit:cover}
-  .gi span{color:#fff;font-size:13px;font-weight:700;text-align:center;padding:8px;line-height:1.3}
+  .gi span{color:#fff;font-size:12px;font-weight:700;text-align:center;padding:8px;line-height:1.3}
   .star{position:absolute;top:-6px;left:-6px;width:24px;height:24px;border-radius:50%;background:#ffc53d;color:#fff;font-style:normal;font-size:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.25)}
   .star.s{position:static;display:inline-flex;width:20px;height:20px;font-size:11px;margin-right:8px;vertical-align:middle}
   .note{margin-top:18px;font-size:13px;color:var(--ink3)}
@@ -498,21 +498,26 @@ const DATA = {
   // deep: true 는 깊게 플레이한 게임 (별 표시)
   play: {
     title: "직접 플레이하며<br><b>레벨과 운영</b>을 분석합니다",
-    caption: "최근 6개월 이내 플레이한 게임 (2026.10 기준)",
+    caption: "최근 6개월 이내 플레이한 게임 (2026.11 기준)",
     deepNote: "깊게 플레이한 게임 (주요 콘텐츠 완주, 장기 플레이)",
     points: [
       "장르를 가리지 않고 플레이하며 <b>스테이지 구성과 기믹 배치</b>, 이벤트 운영 주기를 기록합니다.",
       "인상 깊은 레벨은 <b>역기획서로 정리</b>합니다. 왕국의 눈물 하이랄 성 레벨디자인 역기획서가 그 결과물입니다."
     ],
     games: [
-      { name: "명일방주", color: "#2b2f36", deep: true, icon: "" },
-      { name: "승리의 여신: 니케", color: "#b23a48", deep: true, icon: "" },
-      { name: "마비노기 모바일", color: "#3a6ea5", icon: "" },
-      { name: "몬스터 헌터 와일즈", color: "#7a5a2f", deep: true, icon: "" },
-      { name: "젤다의 전설 왕국의 눈물", color: "#2f6b5a", deep: true, icon: "" },
-      { name: "쿠키런: 모험의 탑", color: "#d9572b", deep: true, icon: "" },
-      { name: "게임 이름", color: "#555b66", icon: "" },
-      { name: "게임 이름", color: "#555b66", icon: "" }
+      { name: "명조: 워더링 웨이브", color: "#1f3b4d", icon: "" },  // assets/games/wuwa.png
+      { name: "명일방주", color: "#2b2f36", icon: "" },  // assets/games/arknights.png
+      { name: "명일방주: 엔드필드", color: "#c9a227", icon: "" },  // assets/games/endfield.png
+      { name: "리버스: 1999", color: "#6b4b3a", icon: "" },  // assets/games/reverse1999.png
+      { name: "승리의 여신: 니케", color: "#b23a48", icon: "" },  // assets/games/nikke.png
+      { name: "마비노기 모바일", color: "#3a6ea5", icon: "" },  // assets/games/mabinogi.png
+      { name: "몬스터 헌터 와일즈", color: "#7a5a2f", icon: "" },  // assets/games/mhwilds.png
+      { name: "클레르 옵스퀴르: 33원정대", color: "#4a3f5c", icon: "" },  // assets/games/expedition33.png
+      { name: "리썰 컴퍼니", color: "#5c3a2e", icon: "" },  // assets/games/lethalcompany.png
+      { name: "바이오하자드", color: "#3d1f1f", icon: "" },  // assets/games/residentevil.png
+      { name: "빅 워크", color: "#3f7d5a", icon: "" },  // assets/games/bigwalk.png
+      { name: "발더스 게이트 3", color: "#2d2a4a", icon: "" },  // assets/games/bg3.png
+      { name: "프로젝트 좀보이드", color: "#4f5a3a", icon: "" }  // assets/games/zomboid.png
     ]
   },
 
@@ -697,7 +702,7 @@ $("#play").innerHTML = `
           ${g.deep ? `<i class="star">★</i>` : ""}
         </div>`).join("")}
       </div>
-      <div class="note"><i class="star s">★</i><b>깊게 플레이한 게임</b> ${P.deepNote.replace("깊게 플레이한 게임", "").trim()}</div>
+      ${P.games.some(g => g.deep) ? `<div class="note"><i class="star s">★</i><b>깊게 플레이한 게임</b> ${P.deepNote.replace("깊게 플레이한 게임", "").trim()}</div>` : ""}
     </div>
   </div>
   ${scroll("contact")}`;
