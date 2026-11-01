@@ -226,6 +226,7 @@
   .donut b{display:block;font-size:22px;color:#fff}
   .donut small{font-size:12px}
   .m-sec p{font-size:15px;color:var(--g300);line-height:1.8}
+  .doc-desc{font-size:14px;color:var(--g300);margin:-4px 0 12px}
   .doc-thumbs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
   .doc-thumb{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#222;cursor:pointer;padding:0;color:#fff;font-family:inherit;font-weight:700}
   .doc-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
@@ -382,7 +383,7 @@ const DATA = {
       { big: "55", unit: "스테이지", title: "라이브 서비스 레벨 디자인", lead: "쿠키런: 모험의 탑 (2023 ~ 2026)",
         points: ["스토리 챕터 스테이지 55종, <b>이벤트 모드 5종</b> 메인 기획", "방어전선 <b>평균 플레이 타임 4.68배</b>, 정기 운영 모드 전환", "몬스터/기믹 기획부터 <b>데이터 테이블과 BT</b> 제작까지"] },
       { big: "10만", unit: "다운로드", title: "직접 만들어 출시한 게임", lead: "청강대 팀 프로젝트 (2022 ~ 2023)",
-        points: ["지니버거 <b>팀장</b>, PIO 시스템/콘텐츠/레벨 기획", "STOVE INDIE, <b>Steam 출시</b> 및 10만 다운로드", "<b>BIC 2023</b> 루키 선정, 유니티 MWU Best Student 수상"] },
+        points: ["지니버거 <b>팀장</b>, PIO 시스템/콘텐츠/레벨 기획", "PIO <b>Steam, STOVE INDIE 출시</b>, 10만 다운로드", "<b>BIC 2023</b> 루키 선정, 유니티 MWU Best Student 수상"] },
       { big: "4", unit: "역기획/제안서", title: "분석하고 제안하는 기획", lead: "플레이와 분석을 문서로 정리",
         points: ["왕국의 눈물 <b>하이랄 성 레벨디자인 역기획</b>", "몬스터 헌터 와일즈 <b>신규 무기 제안</b> (오토마 건랜스)", "시즈널 이벤트 구조 제안, <b>맵 툴 개선 제안서</b> 작성"] }
     ]
@@ -405,7 +406,7 @@ const DATA = {
     { y: "(중퇴)", title: "영산대학교", when: "2019.03 ~ 2020.06", sub: "문화콘텐츠학부 / 학점 3.99/4.5" }
   ],
   selections: [
-    { y: "2023", title: "STOVE INDIE, Steam 게임 출시", sub: "Steam 10만 다운로드 달성" },
+    { y: "2023", title: "PIO STOVE INDIE, Steam 출시", sub: "Steam 10만 다운로드 달성" },
     { y: "2023", title: "BIC 2023 루키 부문 선정 및 전시", sub: "Rising Star, Art, GameDesign 노미네이트" },
     { y: "", title: "BIC 2023 BIGEM 2기 선정", sub: "싱가포르 Gamescom asia 전시" },
     { y: "", title: "방구석 인디게임쇼 (BIGS 2023)", sub: "선정 및 전시" },
@@ -431,7 +432,7 @@ const DATA = {
       desc: "스토리 챕터 스테이지 55종 제작, 이벤트 모드 5종 메인 기획, 몬스터 리소스 조립과 BT 제작까지 담당했습니다.",
       tags: ["레벨디자인", "이벤트모드", "몬스터BT"], thumb: "assets/works/cookierun/thumb.jpg", color: "#d9572b", link: "", linkLabel: "상세 정보 보기" },
     { kind: "project", platform: "PC", year: "2023", id: "pio", title: "PIO",
-      desc: "시스템, 콘텐츠, 레벨 기획 담당.", tags: ["시스템", "콘텐츠", "레벨"], thumb: "", color: "#5b4a8a", link: "", linkLabel: "상세 정보 & 영상 보기" },
+      desc: "내가 밟고 있는 주사위 지형으로 보스를 공략하는 3D 액션 플랫포머. Steam 10만 다운로드, BIC 2023 디볼버 디지털 픽 등 수상과 전시를 이어간 졸업 작품입니다.", tags: ["보스러쉬", "레벨디자인", "시스템"], thumb: "assets/works/pio/boss.jpg", color: "#5b4a8a", link: "", linkLabel: "상세 정보 & 영상 보기" },
     { kind: "project", platform: "PC", year: "2022", id: "geniburger", title: "지니버거",
       desc: "팀장으로서 시스템과 콘텐츠 기획 담당.", tags: ["팀장", "시스템", "콘텐츠"], thumb: "", color: "#c48a1f", link: "", linkLabel: "상세 정보 & 영상 보기" },
     { kind: "project", platform: "PC", year: "2026", id: "cctv", title: "CCTV 관리 게임 (프로토타입)",
@@ -476,9 +477,27 @@ const DATA = {
       ]
     },
     pio: {
-      intro: "청강문화산업대학교 팀 프로젝트",
-      meta: [["플랫폼", "PC"], ["메인 담당", "시스템 / 콘텐츠 / 레벨 기획"], ["참여 기간", "2023.01 ~ 2023.11"]],
-      sections: [{ h: "개요", p: "시스템, 콘텐츠, 레벨 기획을 담당했습니다." }]
+      intro: "\"가장 밝은 별이 되기 위한 여정.\" 내가 밟고 있는 주사위 모양의 플랫폼이 공격 수단이 되는 보스 러쉬 게임입니다. 공격 기회와 플랫폼 소모 리스크의 균형을 조절하며 적을 물리치는 것이 핵심입니다. (청강문화산업대학교 졸업 작품, Team. 별의별)",
+      video: "uM4YMMF9V9g",
+      gallery: [
+        { src: "assets/works/pio/graybox.jpg", cap: "1. 그레이 박스 상태에서 조작감 검증" },
+        { src: "assets/works/pio/combat.jpg", cap: "2. 전투 타격감 검증" },
+        { src: "assets/works/pio/pattern.jpg", cap: "3. 보스 패턴 조작 재미 검증" },
+        { src: "assets/works/pio/boss.jpg", cap: "4. 리소스 투입 및 폴리싱" }
+      ],
+      meta: [["플랫폼", "PC (Steam / STOVE INDIE)"], ["장르", "3D 액션 플랫포머, 보스 러쉬"], ["시점", "사이드 뷰"], ["엔진", "Unity"], ["담당", "시스템 / 콘텐츠 / 레벨디자인 / 녹음 등"], ["참여 기간", "2023.01 ~ 2023.11"]],
+      role: ["맵 생성, 주사위 등 기본 진행 시스템 문서 작성", "메인 보스 패턴 & 연출 기획, 보스 페이즈 설계 / BT 배치", "문서 작성부터 배치까지 전반적인 레벨디자인", "튜토리얼 진행 시나리오, 시스템/콘텐츠 문서 작성", "이펙트 & 애니메이션 아트 콘텐츠 문서 작성"],
+      results: ["Steam, STOVE INDIE 출시 / Steam 10만 다운로드 달성", "BIC 2023 스페셜 어워드 디볼버 디지털 픽, 루키 부문 노미네이트 (Art, GameDesign, Rising Star)", "BIC 2023 BIGEM 2기 선정, 게임스컴 아시아 전시", "BIGS 2023 PC/콘솔 베스트 유망주, Unity MWU KR AWARD 2023 Best Student", "스토브 인디 어워드 2023 월드와이드 베스트 뮤직&사운드, 인디크래프트 TOP50, 버닝비버 2023 전시"],
+      sections: [
+        { h: "재미 검증부터 구체화까지", p: "그래픽 리소스를 만들기 전, 그레이 박스 상태에서도 재밌어야 게임이 재밌다는 생각으로 프로토타입을 진행했습니다. 리소스 없이 조작감과 전투 패턴을 반복 테스트해 재미를 검증한 뒤, 애니메이션과 이펙트를 적용하며 완성도를 높였습니다. 방향성이 흔들리지 않은 덕분에 3개월 안에 공모전 출품과 수상까지 이어갈 수 있었습니다." },
+        { h: "문제 해결: 한 맵에서 다양한 레벨을 만드는 진행 방식 제안", p: "아트 디렉터가 여러 번 교체되면서 아트 방향성이 잡히지 않아, 원래 목표한 볼륨으로는 제작이 어려운 상황이 생겼습니다. 할로우 나이트의 '바보들의 투기장'에서 영감을 얻어, 한 맵에서 지형과 몬스터 배치만 바꿔 다양한 레벨을 만드는 진행 방식을 제안했고 채택되었습니다. 그 결과 기간 안에 아트 퀄리티와 게임 볼륨을 유지하며 게임을 완성했습니다." },
+        { h: "출시 이후: 데이터로 레벨 의도 검증", p: "개발이 끝난 뒤에도 운영과 개선 관점의 인사이트를 얻고 싶어, 팀원들과 합의해 게임에 로그를 심고 GameAnalytics로 레벨별 이탈과 실패 데이터를 확인했습니다. 재도전/실패 횟수로 레벨이 기획 의도대로 동작하는지 확인하고, 지표가 튀는 구간은 난이도 외 에러가 없었는지까지 분석했습니다." },
+        { h: "담당 업무", p: "인디 게임 개발에서 자기 파트 업무만 하는 것은 의미가 없다고 생각했습니다. 팀원 모집과 초기 시스템 프로토타입부터 출시까지 참여하며, 게임 완성을 목표로 시스템, 콘텐츠, 레벨디자인, 녹음 등 맡을 수 있는 모든 업무를 진행했습니다." }
+      ],
+      docs: [
+        { title: "맵 진행 시스템 기획서", desc: "게임 진행에 필요한 오브젝트(주사위 등)의 생성과 제거를 구조화한 맵 오브젝트 스폰 시스템 기획서", folder: "assets/docs/pio-map", pages: 122, pdf: "assets/docs/pio-map/PIO_맵진행시스템_기획서.pdf" },
+        { title: "1학기 작업 내역 정리", desc: "공모전 제출 빌드 기준으로 정리한 1학기 작업 보고서", folder: "assets/docs/pio-report", pages: 60, pdf: "assets/docs/pio-report/PIO_1학기_작업내역.pdf" }
+      ]
     },
     geniburger: {
       intro: "청강문화산업대학교 팀 프로젝트",
@@ -650,20 +669,20 @@ renderWorks();
 
 // 작업 상세 팝업
 const pad2 = n => String(n).padStart(2, "0");
-function docPages(d) { return Array.from({ length: d.pages }, (_, i) => `${d.folder}/${pad2(i + 1)}.jpg`); }
+function docPages(d) { const n = d.pages >= 100 ? 3 : 2; return Array.from({ length: d.pages }, (_, i) => `${d.folder}/${String(i + 1).padStart(n, "0")}.jpg`); }
 function openWork(id) {
   const w = DATA.works.find(x => x.id === id), d = DATA.details[id] || {};
   const M = $("#work-modal");
   const list = (t, arr) => arr && arr.length ? `<section class="m-card"><h4>${t}</h4><ul>${arr.map(x => `<li>${x}</li>`).join("")}</ul></section>` : "";
   const donut = d.contrib ? `<div class="donut" style="--p:${d.contrib}"><span>전체 기획<b>${d.contrib}<small>%</small></b></span></div>` : "";
-  let docHtml = "";
-  if (d.doc) {
-    const pages = docPages(d.doc);
-    docHtml = `<section class="m-sec"><h4>${w.title}</h4>${pages.length
-      ? `<div class="doc-thumbs">${pages.slice(0, 8).map((src, i) => `<button class="doc-thumb" data-i="${i}"><img src="${src}" alt="${i + 1}쪽" loading="lazy"><span>${i + 1}</span></button>`).join("")}${pages.length > 8 ? `<button class="doc-thumb more" data-i="8">+${pages.length - 8}쪽</button>` : ""}</div>
-         <div class="doc-actions"><button class="btn primary" data-i="0">전체 ${pages.length}쪽 크게 보기</button>${d.doc.pdf ? `<a class="btn" href="${d.doc.pdf}" target="_blank">PDF 다운로드</a>` : ""}</div>`
+  const docs = d.docs || (d.doc ? [Object.assign({ title: w.title }, d.doc)] : []);
+  const docHtml = docs.map((doc, di) => {
+    const pages = docPages(doc);
+    return `<section class="m-sec"><h4>${doc.title}</h4>${doc.desc ? `<p class="doc-desc">${doc.desc}</p>` : ""}${pages.length
+      ? `<div class="doc-thumbs">${pages.slice(0, 7).map((src, i) => `<button class="doc-thumb" data-d="${di}" data-i="${i}"><img src="${src}" alt="${i + 1}쪽" loading="lazy"><span>${i + 1}</span></button>`).join("")}${pages.length > 7 ? `<button class="doc-thumb more" data-d="${di}" data-i="7">+${pages.length - 7}쪽</button>` : ""}</div>
+         <div class="doc-actions"><button class="btn primary" data-d="${di}" data-i="0">전체 ${pages.length}쪽 크게 보기</button>${doc.pdf ? `<a class="btn" href="${doc.pdf}" target="_blank" download>PDF 다운로드</a>` : ""}</div>`
       : `<p class="doc-empty">기획서 페이지를 정리하고 있습니다.</p>`}</section>`;
-  }
+  }).join("");
   M.querySelector(".m-content").innerHTML = `
     <div class="m-head" style="${w.thumb ? `background-image:linear-gradient(transparent 30%,#111),url('${w.thumb}')` : `background:linear-gradient(135deg,${w.color},${w.color}66)`}">
       <div><div class="m-kind">${kindLabel[w.kind]} / ${w.platform} / ${w.year}</div><h3 id="m-title">${w.title}</h3></div>
@@ -673,12 +692,12 @@ function openWork(id) {
       ${d.intro ? `<p class="m-intro">${d.intro}</p>` : ""}
       ${d.gallery ? `<div class="m-gallery">${d.gallery.map((g, i) => `<figure><button class="g-img" data-g="${i}"><img src="${g.src}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`).join("")}</div>` : ""}
       ${d.meta ? `<dl class="m-meta">${d.meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` : ""}
-      ${docHtml}
       ${(d.role || d.results) ? `<div class="m-stats">${d.role ? `<section class="m-card"><h4>담당 업무</h4><div class="contrib">${donut}<ul>${d.role.map(x => `<li>${x}</li>`).join("")}</ul></div></section>` : ""}${list("성과 및 결과", d.results)}</div>` : ""}
       ${(d.sections || []).map(s => `<section class="m-sec"><h4>${s.h}</h4><p>${s.p}</p></section>`).join("")}
+      ${docHtml}
       ${!d.sections && !d.doc ? `<p class="m-sec">${w.desc}</p>` : ""}
     </div>`;
-  M.querySelectorAll("[data-i]").forEach(b => b.onclick = () => openViewer(w.title, docPages(d.doc), +b.dataset.i));
+  M.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { const doc = docs[+b.dataset.d || 0]; openViewer(doc.title, docPages(doc), +b.dataset.i); });
   M.querySelectorAll("[data-g]").forEach(b => b.onclick = () => openViewer(w.title, d.gallery.map(g => g.src), +b.dataset.g));
   M.showModal();
   M.querySelector(".m-content").scrollTop = 0;
