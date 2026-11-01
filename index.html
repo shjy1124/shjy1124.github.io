@@ -278,6 +278,9 @@
   .gi{aspect-ratio:1/1;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.12)}
   .gi img{width:100%;height:100%;object-fit:cover}
   .gi span{color:#fff;font-size:12px;font-weight:700;text-align:center;padding:8px;line-height:1.3}
+  .game.has-note{cursor:pointer}
+  .gnote{position:absolute;inset:0;border-radius:16px;background:rgba(17,17,17,.78);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;text-align:center;opacity:0;transition:opacity .2s;pointer-events:none}
+  .game.show-note .gnote{opacity:1}
   .star{position:absolute;top:-6px;left:-6px;width:24px;height:24px;border-radius:50%;background:#ffc53d;color:#fff;font-style:normal;font-size:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.25)}
   .star.s{position:static;display:inline-flex;width:20px;height:20px;font-size:11px;margin-right:8px;vertical-align:middle}
   .note{margin-top:18px;font-size:13px;color:var(--ink3)}
@@ -650,7 +653,12 @@ const DATA = {
       { name: "포켓몬 포코피아", color: "#6bb34a", icon: "assets/games/pokopia.jpg" },
       { name: "친구모아 아일랜드 두근두근 라이프", color: "#ffd900", icon: "assets/games/tomodachi.jpg" },
       { name: "R.E.P.O.", color: "#1a1a1a", icon: "assets/games/repo.jpg" },
-      { name: "작혼: 리치 마작", color: "#c96a7a", icon: "assets/games/mahjongsoul.jpg" }  // assets/games/zomboid.png
+      { name: "작혼: 리치 마작", color: "#c96a7a", icon: "assets/games/mahjongsoul.jpg" },
+      { name: "엘든 링", color: "#1f2f2c", icon: "assets/games/eldenring.jpg" },
+      { name: "P의 거짓", color: "#2a3346", icon: "assets/games/liesofp.jpg" },
+      { name: "아스트라에 오라티오", color: "#d9706a", icon: "assets/games/astrae.jpg", note: "CBT 플레이" },
+      { name: "팰월드", color: "#3b8fd1", icon: "assets/games/palworld.jpg" },
+      { name: "리리의 세계", color: "#e9d6b0", icon: "assets/games/lily.jpg", note: "CBT 플레이" }  // assets/games/zomboid.png
     ]
   },
 
@@ -881,15 +889,21 @@ $("#play").innerHTML = `
     <div class="play-panel">
       <div class="cap">${P.caption}</div>
       <div class="games">${P.games.map(g => `
-        <div class="game" title="${g.name}">
+        <div class="game ${g.note ? "has-note" : ""}" title="${g.name}${g.note ? " (" + g.note + ")" : ""}" ${g.note ? `tabindex="0" role="button" aria-label="${g.name}, ${g.note}"` : ""}>
           <div class="gi" style="background:${g.color}">${g.icon ? `<img src="${g.icon}" alt="${g.name}">` : `<span>${g.name}</span>`}</div>
           ${g.deep ? `<i class="star">★</i>` : ""}
+          ${g.note ? `<span class="gnote">${g.note}</span>` : ""}
         </div>`).join("")}
       </div>
       ${P.games.some(g => g.deep) ? `<div class="note"><i class="star s">★</i><b>깊게 플레이한 게임</b> ${P.deepNote.replace("깊게 플레이한 게임", "").trim()}</div>` : ""}
     </div>
   </div>
   ${scroll("fan")}`;
+
+document.querySelectorAll(".game.has-note").forEach(g => {
+  const t = () => g.classList.toggle("show-note");
+  g.onclick = t; g.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } };
+});
 
 // 05 GAME LIFE
 const F = DATA.fan;
