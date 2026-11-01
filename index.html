@@ -282,16 +282,19 @@
 
   /* ===== 05 GAME LIFE ===== */
   .fan-sec{background:#f7f7f5;padding:120px 0 20px}
-  .fan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:150px;gap:12px}
-  .fan-grid figure{margin:0;display:flex;flex-direction:column;min-height:0}
-  .fan-grid figure.big{grid-column:span 2;grid-row:span 2}
+  .fan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:76px;grid-auto-flow:dense;gap:12px}
+  .fan-grid figure{margin:0;display:flex;flex-direction:column;min-height:0;grid-row:span 2}
+  .fan-grid figure.wide{grid-column:span 2;grid-row:span 3}
+  .fan-grid figure.tall{grid-row:span 5}
   .fan-grid .fp{flex:1;min-height:0;width:100%;padding:0;border:0;border-radius:12px;overflow:hidden;background:#e9e9e6;cursor:zoom-in}
   .fan-grid .fp img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
   .fan-grid .fp:hover img{transform:scale(1.04)}
   .fan-grid .fp.empty{display:grid;place-items:center;border:1.5px dashed #c9c9c4;background:transparent;cursor:default}
   .fan-grid .fp.empty span{font-size:13px;color:var(--ink3)}
-  .fan-grid figcaption{font-size:12px;color:var(--ink2);margin-top:6px}
-  @media(max-width:960px){ .fan-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:130px} }
+  .fan-grid figcaption{font-size:12px;color:var(--ink2);margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .play.fan{align-items:start}
+  .play.fan .play-text{position:sticky;top:80px}
+  @media(max-width:960px){ .fan-grid{grid-template-columns:repeat(2,minmax(0,1fr))} .play.fan .play-text{position:static} }
 
   /* ===== 04 CONTACT ===== */
   #contact{padding:110px 0 0;text-align:center}
@@ -637,13 +640,17 @@ const DATA = {
       "지스타, AGF, 게임 페스티벌, 오케스트라 공연, 팝업 행사까지 좋아하는 게임이 있는 곳이라면 직접 찾아갑니다. 현장에서 팬들이 <b>무엇에 줄을 서고 무엇을 간직하는지</b> 보며, 게임 밖의 경험도 IP의 일부라는 것을 배웁니다.",
       "BIC와 게임스컴 아시아에서는 PIO를 직접 전시하며, <b>유저가 어디서 웃고 어디서 막히는지</b> 눈앞에서 확인했습니다."
     ],
+    // size: "wide"(가로 2칸 크게), "tall"(세로로 길게), 비우면 기본
     photos: [
-      { src: "", cap: "" },
-      { src: "", cap: "" },
-      { src: "", cap: "" },
-      { src: "", cap: "" },
-      { src: "", cap: "" },
-      { src: "", cap: "" }
+      { src: "assets/fan/undertale.jpg", cap: "언더테일 오케스트라 월드 투어", size: "wide" },
+      { src: "assets/fan/figures.jpg", cap: "모아 온 피규어와 굿즈", size: "tall" },
+      { src: "assets/fan/ff14.jpg", cap: "파이널판타지14 오케스트라 2024" },
+      { src: "assets/fan/wuwa_2nd.jpg", cap: "명조 2주년 행사" },
+      { src: "assets/fan/wuwa_tour.jpg", cap: "명조 월드 투어 콘서트" },
+      { src: "assets/fan/agf.jpg", cap: "AGF 현장" },
+      { src: "assets/fan/nintendo.jpg", cap: "젤다의 전설, 동물의 숲 굿즈", size: "tall" },
+      { src: "assets/fan/photozone.jpg", cap: "게임 행사 포토존 (왼쪽)" },
+      { src: "assets/fan/wuwa_fes.jpg", cap: "명조 페스티벌 (KINTEX)" }
     ]
   },
 
@@ -859,7 +866,7 @@ $("#fan").innerHTML = `
       <ol>${F.points.map((p, i) => `<li><span>${String(i + 1).padStart(2, "0")}</span><p>${p}</p></li>`).join("")}</ol>
     </div>
     <div class="fan-grid">${F.photos.map((ph, i) => `
-      <figure class="${i === 0 ? "big" : ""}">
+      <figure class="${ph.size || ""}">
         ${ph.src ? `<button class="fp" data-f="${i}"><img src="${ph.src}" alt="${ph.cap}" loading="lazy"></button>` : `<div class="fp empty"><span>사진 ${i + 1}</span></div>`}
         ${ph.cap ? `<figcaption>${ph.cap}</figcaption>` : ""}
       </figure>`).join("")}
