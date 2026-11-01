@@ -70,7 +70,10 @@
       background-size:cover;background-position:center;filter:saturate(1.1)}
   .hero-bg.img{filter:blur(2px) brightness(.55)}
   .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 65% at 50% 45%,transparent 30%,rgba(0,0,0,.92) 85%);pointer-events:none}
-  .hero > *:not(.hero-bg){position:relative;z-index:1}
+  .hero > *:not(.hero-bg):not(.hero-slides){position:relative;z-index:1}
+  .hero-slides{position:absolute;inset:0;overflow:hidden}
+  .hero-slides .hs{position:absolute;inset:-20px;background-size:cover;background-position:center;opacity:0;filter:blur(3px) brightness(.42) saturate(1.1);transform:scale(1.04);transition:opacity 1.6s ease,transform 7s linear}
+  .hero-slides .hs.on{opacity:1;transform:scale(1.12)}
   .hero .eyebrow{margin-bottom:22px}
   .hero .sub{font-size:clamp(24px,3vw,36px);font-weight:600;letter-spacing:-.03em}
   .hero .sub b{color:var(--accent);font-weight:800}
@@ -397,6 +400,14 @@ const DATA = {
   resumeFile: "assets/docs/resume.pdf",
   photo: "assets/photo.jpg",
   heroBg: "",
+  // 첫 화면 배경에서 차례로 재생되는 작업 이미지
+  heroSlides: [
+    "assets/works/pio/boss.jpg",
+    "assets/works/cookierun/thumb.jpg",
+    "assets/works/geniburger/play.jpg",
+    "assets/works/pio/thumb.jpg",
+    "assets/works/spacebakery/title.jpg"
+  ],
 
   hero: {
     sub: "<b>플레이를 만드는</b> 기획자",
@@ -677,6 +688,7 @@ const A = DATA.about;
 $("#about").innerHTML = `
   <div class="hero">
     <div class="hero-bg ${DATA.heroBg ? "img" : ""}" ${DATA.heroBg ? `style="background:url('${DATA.heroBg}') center/cover"` : ""}></div>
+    ${DATA.heroSlides && DATA.heroSlides.length ? `<div class="hero-slides" aria-hidden="true">${DATA.heroSlides.map((src, i) => `<div class="hs ${i === 0 ? "on" : ""}" style="background-image:url('${src}')"></div>`).join("")}</div>` : ""}
     <div class="eyebrow">Game Designer Portfolio</div>
     <div class="sub">${DATA.hero.sub}</div>
     <h2>${DATA.fullName}</h2>
@@ -705,6 +717,18 @@ $("#about").innerHTML = `
     </div>
     ${scroll("resume")}
   </div>`;
+
+// 첫 화면 배경 슬라이드
+(() => {
+  const slides = document.querySelectorAll(".hero-slides .hs");
+  if (slides.length < 2 || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let cur = 0;
+  setInterval(() => {
+    slides[cur].classList.remove("on");
+    cur = (cur + 1) % slides.length;
+    slides[cur].classList.add("on");
+  }, 5000);
+})();
 
 // 02 RESUME
 const erows = arr => arr.map(r => `
