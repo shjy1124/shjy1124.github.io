@@ -100,7 +100,7 @@
   .about-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;text-align:left}
   .acard{background:var(--dark);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px}
   .acard .big{font-family:var(--mono);font-size:clamp(28px,2.8vw,40px);font-weight:700;color:var(--accent);letter-spacing:-.04em;line-height:1.1}
-  .acard .big small{font-size:14px;color:var(--g500);font-family:"Pretendard Variable",Pretendard,sans-serif;font-weight:500;margin-left:6px;letter-spacing:0}
+  .acard .big small{white-space:nowrap;font-size:14px;color:var(--g500);font-family:"Pretendard Variable",Pretendard,sans-serif;font-weight:500;margin-left:6px;letter-spacing:0}
   .acard h5{font-size:20px;font-weight:800;margin:18px 0 4px}
   .acard .lead{font-size:13px;color:var(--accent);font-weight:600;margin-bottom:14px}
   .acard ul{list-style:none;display:grid;gap:6px}
@@ -300,12 +300,12 @@ const DATA = {
       { when: "2023.08 ~ 2026.06", title: "게임 기획", org: "오븐게임즈 / 쿠키런: 모험의 탑", chip: "레벨/콘텐츠 설계", now: true }
     ],
     cards: [
-      { big: "55", unit: "스테이지", title: "직접 만드는 레벨", lead: "기획부터 조립까지 한 사람이 끝까지",
-        points: ["스토리모드 <b>1~15챕터 스테이지 55종</b> 제작", "화산 챕터 몬스터/기믹 메인 기획", "몬스터 리소스 조립, <b>데이터 테이블과 BT</b> 직접 제작"] },
-      { big: "4.68x", unit: "플레이 타임", title: "숫자로 확인한 재미", lead: "기존 리소스로 만든 최다 플레이 모드",
-        points: ["방어전선 2종 <b>메인 기획 및 맵 제작</b>", "2025년 인게임 전체 콘텐츠 중 <b>최다 평균 플레이 타임</b>", "유저 대회 개최 후 <b>정기 운영 모드</b>로 전환"] },
-      { big: "1:1→문서", unit: "인수인계 방식", title: "팀을 위한 개선", lead: "반복되는 비용을 줄이는 구조 만들기",
-        points: ["레벨디자인 <b>맵 툴 단계별 가이드</b> 작성", "신규 입사자 교육을 <b>문서 확인 방식</b>으로 전환", "팀 니즈를 모아 <b>툴 개선 제안서</b> 작성 및 적용"] }
+      { big: "55", unit: "스테이지", title: "라이브 서비스 레벨 디자인", lead: "쿠키런: 모험의 탑 (2023 ~ 2026)",
+        points: ["스토리 챕터 스테이지 55종, <b>이벤트 모드 4종</b> 메인 기획", "방어전선 <b>평균 플레이 타임 4.68배</b>, 정기 운영 모드 전환", "몬스터/기믹 기획부터 <b>데이터 테이블과 BT</b> 제작까지"] },
+      { big: "10만", unit: "다운로드", title: "직접 만들어 출시한 게임", lead: "청강대 팀 프로젝트 (2022 ~ 2023)",
+        points: ["지니버거 <b>팀장</b>, PIO 시스템/콘텐츠/레벨 기획", "STOVE INDIE, <b>Steam 출시</b> 및 10만 다운로드", "<b>BIC 2023</b> 루키 선정, 유니티 MWU Best Student 수상"] },
+      { big: "4", unit: "역기획/제안서", title: "분석하고 제안하는 기획", lead: "플레이와 분석을 문서로 정리",
+        points: ["왕국의 눈물 <b>하이랄 성 레벨디자인 역기획</b>", "몬스터 헌터 와일즈 <b>신규 무기 제안</b> (오토마 건랜스)", "시즈널 이벤트 구조 제안, <b>맵 툴 개선 제안서</b> 작성"] }
     ]
   },
 
