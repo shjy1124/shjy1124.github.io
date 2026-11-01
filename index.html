@@ -204,6 +204,12 @@
   .m-vcap a{color:var(--accent);font-weight:600;margin-left:4px}
   .m-body{padding:28px 32px 36px;display:grid;gap:26px}
   .m-intro{font-size:15px;color:var(--g300)}
+  .m-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .m-gallery figure{margin:0}
+  .m-gallery .g-img{display:block;width:100%;aspect-ratio:16/9;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#1a1a1a;cursor:zoom-in}
+  .m-gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
+  .m-gallery .g-img:hover img{transform:scale(1.03)}
+  .m-gallery figcaption{font-size:13px;color:var(--g300);margin-top:8px;text-align:center}
   .m-meta{display:grid;grid-template-columns:auto 1fr;gap:8px 24px;font-size:15px;padding:18px 20px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
   .m-meta dt{color:var(--g500)}
   .m-stats{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
@@ -234,7 +240,7 @@
   .v-title{font-size:15px;font-weight:700}
   .v-pages{overflow-y:auto;flex:1;display:flex;flex-direction:column;align-items:center;gap:16px;padding:24px 16px 60px}
   .v-pages img{width:min(1100px,100%);height:auto;border-radius:4px;background:#222;scroll-margin-top:16px}
-  @media(max-width:700px){ .m-stats{grid-template-columns:1fr} .doc-thumbs{grid-template-columns:repeat(2,1fr)} .m-head h3{font-size:24px} .m-body,.m-head{padding-left:20px;padding-right:20px} }
+  @media(max-width:700px){ .m-gallery{grid-template-columns:1fr} .m-stats{grid-template-columns:1fr} .doc-thumbs{grid-template-columns:repeat(2,1fr)} .m-head h3{font-size:24px} .m-body,.m-head{padding-left:20px;padding-right:20px} }
 
   /* ===== PLAY ===== */
   #play{padding:120px 0 20px}
@@ -423,7 +429,7 @@ const DATA = {
   works: [
     { kind: "project", platform: "모바일", year: "2023~2026", id: "cookierun", title: "쿠키런: 모험의 탑",
       desc: "스토리 챕터 스테이지 55종 제작, 이벤트 모드 5종 메인 기획, 몬스터 리소스 조립과 BT 제작까지 담당했습니다.",
-      tags: ["레벨디자인", "이벤트모드", "몬스터BT"], thumb: "", color: "#d9572b", link: "", linkLabel: "상세 정보 보기" },
+      tags: ["레벨디자인", "이벤트모드", "몬스터BT"], thumb: "assets/works/cookierun/thumb.jpg", color: "#d9572b", link: "", linkLabel: "상세 정보 보기" },
     { kind: "project", platform: "PC", year: "2023", id: "pio", title: "PIO",
       desc: "시스템, 콘텐츠, 레벨 기획 담당.", tags: ["시스템", "콘텐츠", "레벨"], thumb: "", color: "#5b4a8a", link: "", linkLabel: "상세 정보 & 영상 보기" },
     { kind: "project", platform: "PC", year: "2022", id: "geniburger", title: "지니버거",
@@ -446,10 +452,16 @@ const DATA = {
      - contrib: 기여도(%)를 넣으면 도넛 그래프로 표시 */
   details: {
     cookierun: {
-      intro: "데브시스터즈 / (주)오븐게임즈 라이브 서비스 프로젝트",
+      intro: "쿠키런 IP 최초 3D 멀티플레이 액션 게임. 파티원과 함께 보스 레이드를 하거나 기믹이 있는 모험 스테이지를 즐기는 캐릭터 수집형 RPG입니다.",
+      gallery: [
+        { src: "assets/works/cookierun/event.jpg", cap: "캔디하키 / 방어전선 이벤트 모드 제작" },
+        { src: "assets/works/cookierun/story.jpg", cap: "총 55개 스토리 모드 맵 제작 및 개선 작업" },
+        { src: "assets/works/cookierun/volcano.jpg", cap: "스토리 모드 메인 기믹/몬스터 기획 및 조립 (화산 테마 메인 기획)" },
+        { src: "assets/works/cookierun/tutorial.jpg", cap: "튜토리얼 연출 추가 개선 작업" }
+      ],
       video: "cRlbPieiMwI",
       videoCaption: "쿠키런: 모험의 탑 공식 채널 라이브 '방어전선 최강자전!' (2025.07.02). 방어전선 출시 후 반응이 좋아 즉석으로 꾸린 유저 대회입니다.",
-      meta: [["플랫폼", "모바일 (AOS / iOS)"], ["소속", "레벨디자인 맵 기획셀 (사원)"], ["메인 담당", "레벨/맵 디자인, 이벤트 모드, 몬스터/기믹 기획"], ["참여 기간", "2023.08 ~ 2026.06 (2년 10개월)"]],
+      meta: [["개발사", "데브시스터즈 / (주)오븐게임즈"], ["플랫폼", "모바일 (AOS / iOS), PC"], ["장르", "3D 멀티플레이 액션"], ["엔진", "Unity"], ["소속", "레벨디자인 맵 기획셀 (사원)"], ["메인 담당", "레벨/맵 디자인, 이벤트 모드, 몬스터/기믹 기획"], ["참여 기간", "2023.08 ~ 2026.06 (2년 10개월)"], ["게임 수상", "구글 플레이 2024 올해의 베스트 게임, '올해를 빛낸 PC 게임' 최우수상"]],
       role: ["스토리모드 1~15챕터 스테이지 55종 제작", "이벤트 모드 5종 메인 기획 (방어전선 3종, 캔디하키, 그린벨)", "화산 챕터, 어드벤처 3챕터 몬스터/기믹 기획", "몬스터 리소스 조립, 데이터 테이블/BT 제작"],
       results: ["방어전선 출시 후(25.06) 2.0 버전 내 최다 평균 플레이 타임 모드 달성", "두 번째 출시 후(25.10) 2025년 인게임 전체 콘텐츠 중 최다 평균 플레이 타임 (타 이벤트 모드 대비 약 4.68배)", "공식 유튜브 '방어전선 최강자전' 유저 대회 개최, 정기 운영 모드로 전환", "맵 툴 가이드로 인수인계를 1:1 방식에서 문서 확인으로 전환, 교육 시간 단축", "툴 개선 제안서 작성 및 적용으로 맵 디자인 업무 효율 증가"],
       sections: [
@@ -459,6 +471,7 @@ const DATA = {
         { h: "방어전선 이벤트 (슈가랜드를 지켜라!, 송편을 지켜라!, 겨울 버전)", p: "2인 멀티 방어 모드의 기획과 맵 제작을 담당했습니다. 기존 리소스를 최대한 활용해 적은 비용으로 제작했고, 2025년 기준 인게임 전체 콘텐츠 중 최다 평균 플레이 타임을 기록했습니다. 반응이 좋아 공식 유튜브에서 유저 대회 '방어전선 최강자전'을 열었고, 이후 정기 운영 모드로 전환되었습니다." },
         { h: "캔디하키 이벤트", p: "3vs3로 미끄러지는 공을 쳐서 상대 골대에 넣는 설산 테마 캐주얼 대전 모드입니다. 공은 칠수록 빨라지고, 속도에서 오는 긴장감과 순간 판단을 핵심 재미로 잡았습니다. 기존 레이스 모드의 매칭, 정산, 보상 기능을 재활용해 신규 제작 비용을 줄이고, 공을 칠 때의 타격감과 속도감을 가장 먼저 다듬었습니다." },
         { h: "그린벨 이벤트 연출 맵, 2주년 별석탄 이벤트", p: "1인 싱글 이벤트인 그린벨의 연출 맵을 제작했고, 2주년 별석탄 이벤트에는 서포트로 참여했습니다." },
+        { h: "튜토리얼 연출 추가 개선", p: "신규 유저가 처음 만나는 튜토리얼 구간의 연출을 추가하고 개선했습니다. 초반 경험 흐름을 정리한 뒤 비주얼 스크립팅으로 연출을 직접 세팅했습니다." },
         { h: "운영 구조 제안과 팀 업무 개선", p: "반복되는 시즈널 이벤트의 제작 비용을 줄이기 위한 구조 개선안을 제안했습니다. 또한 레벨디자인 맵 제작 단계별 툴 가이드를 작성해 신규 입사자 교육을 1:1 방식에서 문서 확인 방식으로 바꿨고, 맵 디자인 팀의 니즈를 모아 툴 개선 및 기능 추가 제안서를 작성해 적용했습니다." }
       ]
     },
@@ -658,6 +671,7 @@ function openWork(id) {
     ${d.video ? `<div class="m-video"><iframe src="https://www.youtube-nocookie.com/embed/${d.video}" title="${w.title} 영상" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>${d.videoCaption ? `<p class="m-vcap">${d.videoCaption} <a href="https://www.youtube.com/watch?v=${d.video}" target="_blank">유튜브에서 보기 ↗</a></p>` : ""}` : ""}
     <div class="m-body">
       ${d.intro ? `<p class="m-intro">${d.intro}</p>` : ""}
+      ${d.gallery ? `<div class="m-gallery">${d.gallery.map((g, i) => `<figure><button class="g-img" data-g="${i}"><img src="${g.src}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`).join("")}</div>` : ""}
       ${d.meta ? `<dl class="m-meta">${d.meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` : ""}
       ${docHtml}
       ${(d.role || d.results) ? `<div class="m-stats">${d.role ? `<section class="m-card"><h4>담당 업무</h4><div class="contrib">${donut}<ul>${d.role.map(x => `<li>${x}</li>`).join("")}</ul></div></section>` : ""}${list("성과 및 결과", d.results)}</div>` : ""}
@@ -665,6 +679,7 @@ function openWork(id) {
       ${!d.sections && !d.doc ? `<p class="m-sec">${w.desc}</p>` : ""}
     </div>`;
   M.querySelectorAll("[data-i]").forEach(b => b.onclick = () => openViewer(w.title, docPages(d.doc), +b.dataset.i));
+  M.querySelectorAll("[data-g]").forEach(b => b.onclick = () => openViewer(w.title, d.gallery.map(g => g.src), +b.dataset.g));
   M.showModal();
   M.querySelector(".m-content").scrollTop = 0;
 }
