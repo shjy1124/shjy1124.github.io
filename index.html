@@ -628,15 +628,15 @@ const DATA = {
   play: {
     title: "직접 플레이하며<br><b>레벨과 운영</b>을 분석합니다",
     caption: "최근 6개월 이내 플레이한 게임 (2026.11 기준)",
-    deepNote: "깊게 플레이한 게임 (주요 콘텐츠 완주, 장기 플레이)",
+    deepNote: "엔드 콘텐츠까지 즐긴 게임",
     points: [
       "장르를 가리지 않고 플레이하며 <b>스테이지 구성과 기믹 배치</b>, 이벤트 운영 주기를 기록합니다.",
       "인상 깊은 레벨은 <b>역기획서로 정리</b>합니다. 왕국의 눈물 하이랄 성 레벨디자인 역기획서가 그 결과물입니다."
     ],
     games: [
-      { name: "명조: 워더링 웨이브", color: "#1f3b4d", icon: "assets/games/wuwa.jpg" },  // assets/games/wuwa.png
-      { name: "명일방주", color: "#2b2f36", icon: "assets/games/arknights.jpg" },  // assets/games/arknights.png
-      { name: "명일방주: 엔드필드", color: "#c9a227", icon: "assets/games/endfield.jpg" },  // assets/games/endfield.png
+      { name: "명조: 워더링 웨이브", color: "#1f3b4d", icon: "assets/games/wuwa.jpg", deep: true },
+      { name: "명일방주: 엔드필드", color: "#c9a227", icon: "assets/games/endfield.jpg", deep: true },
+      { name: "명일방주", color: "#2b2f36", icon: "assets/games/arknights.jpg", deep: true },
       { name: "리버스: 1999", color: "#6b4b3a", icon: "assets/games/reverse1999.jpg" },  // assets/games/reverse1999.png
       { name: "승리의 여신: 니케", color: "#b23a48", icon: "assets/games/nikke.jpg" },  // assets/games/nikke.png
       { name: "마비노기 모바일", color: "#3a6ea5", icon: "assets/games/mabinogi.jpg" },  // assets/games/mabinogi.png
@@ -894,11 +894,11 @@ $("#play").innerHTML = `
       <div class="games">${P.games.map(g => `
         <div class="game ${g.note ? "has-note" : ""}" title="${g.name}${g.note ? " (" + g.note + ")" : ""}" ${g.note ? `tabindex="0" role="button" aria-label="${g.name}, ${g.note}"` : ""}>
           <div class="gi" style="background:${g.color}">${g.icon ? `<img src="${g.icon}" alt="${g.name}">` : `<span>${g.name}</span>`}</div>
-          ${g.deep ? `<i class="star">★</i>` : ""}
+          ${g.deep ? `<i class="star" title="엔드 콘텐츠까지 즐긴 게임">★</i>` : ""}
           ${g.note ? `<span class="gnote">${g.note}</span><i class="gbadge" aria-hidden="true">!</i>` : ""}
         </div>`).join("")}
       </div>
-      ${P.games.some(g => g.deep) ? `<div class="note"><i class="star s">★</i><b>깊게 플레이한 게임</b> ${P.deepNote.replace("깊게 플레이한 게임", "").trim()}</div>` : ""}
+      ${P.games.some(g => g.deep) ? `<div class="note"><i class="star s">★</i><b>${P.deepNote}</b></div>` : ""}
     </div>
   </div>
   ${scroll("fan")}`;
