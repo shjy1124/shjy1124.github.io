@@ -244,6 +244,12 @@
   .m-link small{display:block;font-size:13px;color:var(--g300);margin-bottom:6px}
   .m-link em{font-style:normal;font-size:13px;font-weight:700;color:var(--accent)}
   @media(max-width:700px){ .m-link{grid-template-columns:1fr} }
+  .doc-chap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:14px}
+  .doc-chap button{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;border:1px solid var(--line);background:var(--dark-2);color:#fff;font-family:inherit;font-size:14px;font-weight:600;text-align:left;cursor:pointer;transition:border-color .2s}
+  .doc-chap button:hover{border-color:var(--accent)}
+  .doc-chap span{font-size:12px;color:var(--accent);font-weight:800}
+  .doc-chap em{margin-left:auto;font-style:normal;font-size:12px;color:var(--g500);font-weight:500}
+  @media(max-width:700px){ .doc-chap{grid-template-columns:1fr} }
   .doc-desc{font-size:14px;color:var(--g300);margin:-4px 0 12px}
   .doc-thumbs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
   .doc-thumb{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#222;cursor:pointer;padding:0;color:#fff;font-family:inherit;font-weight:700}
@@ -490,7 +496,7 @@ const DATA = {
     { kind: "project", platform: "VR", year: "2022", id: "spacebakery", title: "Space Bakery",
       desc: "손님이 원하는 음식을 던져라! 상대 가게보다 더 많은 주문을 받아 높은 매출을 올리는 VR 캐주얼 멀티 대전 게임. 핵심 코어 플레이와 시스템을 기획했습니다.", tags: ["VR", "멀티경쟁", "코어플레이"], thumb: "assets/works/spacebakery/title.jpg", color: "#7a5fc7", link: "", linkLabel: "상세 정보 & 영상 보기" },
     { kind: "doc", platform: "PC", year: "2023", id: "pio-docs", opens: "pio", title: "PIO 기획서",
-      desc: "맵 진행 시스템 기획서(122쪽)와 1학기 작업 내역 정리(60쪽). 주사위 오브젝트 생성/제거 구조, 보스 패턴, 레벨 진행 방식을 담았습니다.",
+      desc: "맵 진행, 주사위 스킬, 보스 패턴, 튜토리얼 시나리오, 애니메이션, 이펙트까지 기획서 6종(122쪽)과 1학기 작업 내역 정리(60쪽)입니다.",
       tags: ["시스템기획", "레벨디자인", "보스패턴"], thumb: "assets/docs/pio-report/01.jpg", color: "#5b4a8a", link: "", linkLabel: "기획서 상세 보기" },
     { kind: "doc", platform: "모바일/PC", year: "2026", id: "astrae-meal", title: "아스트라에 오라티오 특구청 식사 콘텐츠 제안서",
       desc: "동료와 함께 식사하며 교감하고, 다음 출격 N회 동안 버프를 얻는 교감 + 전투 연계 콘텐츠 제안. 규칙, UI 화면 명세, 데이터 테이블까지 정리한 62쪽 기획서입니다.", tags: ["콘텐츠기획", "교감", "데이터설계"], thumb: "assets/docs/astrae-meal/01.jpg", color: "#2d3f6b", link: "", linkLabel: "기획서 상세 보기" },
@@ -551,7 +557,9 @@ const DATA = {
         { h: "담당 업무", p: "인디 게임 개발에서 자기 파트 업무만 하는 것은 의미가 없다고 생각했습니다. 팀원 모집과 초기 시스템 프로토타입부터 출시까지 참여하며, 게임 완성을 목표로 시스템, 콘텐츠, 레벨디자인, 녹음 등 맡을 수 있는 모든 업무를 진행했습니다." }
       ],
       docs: [
-        { title: "맵 진행 시스템 기획서", desc: "게임 진행에 필요한 오브젝트(주사위 등)의 생성과 제거를 구조화한 맵 오브젝트 스폰 시스템 기획서", folder: "assets/docs/pio-map", pages: 122, pdf: "assets/docs/pio-map/PIO_맵진행시스템_기획서.pdf" },
+        { title: "PIO 기획서 모음 (6종)", desc: "프로토타이핑과 개발 중 작성한 기획서 6종을 하나로 묶은 문서입니다. 아래 항목을 누르면 해당 기획서로 바로 이동합니다.",
+          chapters: [["맵 진행 시스템", 1], ["주사위 / 주사위 스킬 시스템", 13], ["보스 간이 패턴", 22], ["튜토리얼 시나리오", 46], ["애니메이션 작업 리스트 / 오프닝 시네마틱", 70], ["이펙트 기획서", 95]],
+          folder: "assets/docs/pio-map", pages: 122, pdf: "assets/docs/pio-map/PIO_기획서모음.pdf" },
         { title: "1학기 작업 내역 정리", desc: "공모전 제출 빌드 기준으로 정리한 1학기 작업 보고서", folder: "assets/docs/pio-report", pages: 60, pdf: "assets/docs/pio-report/PIO_1학기_작업내역.pdf" }
       ]
     },
@@ -843,7 +851,7 @@ function openWork(id) {
   const docs = d.docs || (d.doc ? [Object.assign({ title: w.title }, d.doc)] : []);
   const docHtml = docs.map((doc, di) => {
     const pages = docPages(doc);
-    return `<section class="m-sec doc-sec"><h4>${doc.title}</h4>${doc.desc ? `<p class="doc-desc">${doc.desc}</p>` : ""}${pages.length
+    return `<section class="m-sec doc-sec"><h4>${doc.title}</h4>${doc.desc ? `<p class="doc-desc">${doc.desc}</p>` : ""}${doc.chapters ? `<div class="doc-chap">${doc.chapters.map(([t, pg], ci) => `<button data-d="${di}" data-i="${pg - 1}"><span>${String(ci + 1).padStart(2, "0")}</span>${t}<em>${pg}쪽</em></button>`).join("")}</div>` : ""}${pages.length
       ? `<div class="doc-thumbs">${pages.slice(0, 7).map((src, i) => `<button class="doc-thumb" data-d="${di}" data-i="${i}"><img src="${src}" alt="${i + 1}쪽" loading="lazy"><span>${i + 1}</span></button>`).join("")}${pages.length > 7 ? `<button class="doc-thumb more" data-d="${di}" data-i="7">+${pages.length - 7}쪽</button>` : ""}</div>
          <div class="doc-actions"><button class="btn primary" data-d="${di}" data-i="0">전체 ${pages.length}쪽 크게 보기</button>${doc.pdf ? `<a class="btn" href="${doc.pdf}" target="_blank" download>PDF 다운로드</a>` : ""}</div>`
       : `<p class="doc-empty">기획서 페이지를 정리하고 있습니다.</p>`}</section>`;
@@ -863,15 +871,15 @@ function openWork(id) {
       ${docHtml}
       ${!d.sections && !d.doc ? `<p class="m-sec">${w.desc}</p>` : ""}
     </div>`;
-  M.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { const doc = docs[+b.dataset.d || 0]; openViewer(doc.title, docPages(doc), +b.dataset.i); });
+  M.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { const doc = docs[+b.dataset.d || 0]; openViewer(doc.title, docPages(doc), +b.dataset.i, "16 / 9"); });
   M.querySelectorAll("[data-g]").forEach(b => b.onclick = () => openViewer(w.title, d.gallery.map(g => g.src), +b.dataset.g));
   M.showModal();
   M.querySelector(".m-content").scrollTop = 0;
 }
-function openViewer(title, pages, start) {
+function openViewer(title, pages, start, ratio) {
   const V = $("#doc-viewer");
   V.querySelector(".v-title").textContent = `${title} (${pages.length}쪽)`;
-  V.querySelector(".v-pages").innerHTML = pages.map((src, i) => `<img id="vp${i}" src="${src}" alt="${i + 1}쪽" loading="lazy">`).join("");
+  V.querySelector(".v-pages").innerHTML = pages.map((src, i) => `<img id="vp${i}" src="${src}" alt="${i + 1}쪽" loading="lazy"${ratio ? ` style="aspect-ratio:${ratio}"` : ""}>`).join("");
   V.showModal();
   requestAnimationFrame(() => { const t = V.querySelector("#vp" + start); if (t) t.scrollIntoView(); });
 }
