@@ -112,10 +112,10 @@
   .acard li b{color:#fff}
 
   /* ===== 02 RESUME (밝은 섹션) ===== */
-  .light{background:#fff;color:var(--ink)}
+  .light{background:#0b0b0b;color:#fff;--ink:#fff;--ink2:#bdbdbd;--ink3:#8a8a8a;--rule:rgba(255,255,255,.12);--accent-l:#60a5fa;border-top:1px solid rgba(255,255,255,.06)}
   #resume{padding:110px 0 20px}
   .resume{display:grid;grid-template-columns:260px 1fr;gap:44px}
-  .pcard{background:#f5f5f5;border-radius:var(--radius);padding:30px 26px;align-self:start}
+  .pcard{background:#141414;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:30px 26px;align-self:start}
   .pcard h3{font-size:24px;font-weight:800;color:var(--accent-l);border-left:3px solid var(--accent-l);padding-left:10px;line-height:1.1;margin-bottom:26px}
   .pcard .photo{width:100%;aspect-ratio:1/1;border-radius:6px;overflow:hidden;background:#ddd;margin-bottom:26px}
   .pcard .photo img{width:100%;height:100%;object-fit:cover;object-position:center 25%}
@@ -128,7 +128,7 @@
   .rg{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px 48px}
   .rg h4{font-size:17px;font-weight:800;color:var(--accent-l);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
   .rg h4 small{font-size:12px;color:var(--ink3);font-weight:500;margin-left:6px}
-  .rg h4 .more-btn{font-size:12px;font-weight:600;color:var(--ink);border:1px solid var(--rule);padding:3px 12px;border-radius:999px;background:#fff;cursor:pointer;font-family:inherit}
+  .rg h4 .more-btn{font-size:12px;font-weight:600;color:var(--ink);border:1px solid var(--rule);padding:3px 12px;border-radius:999px;background:transparent;cursor:pointer;font-family:inherit}
   .rsec{padding-bottom:28px;border-bottom:1px solid var(--rule)}
   .stats{display:flex;gap:0;margin-bottom:22px}
   .stats div{padding-right:28px}
@@ -145,7 +145,7 @@
   .prow{display:grid;grid-template-columns:52px 1fr auto;gap:12px;font-size:14px;padding:5px 0}
   .prow .y{font-weight:800}
   .prow .r{color:var(--ink2)}
-  .cdetail{grid-column:1/-1;padding:24px 26px;background:#f5f5f5;border-radius:var(--radius)}
+  .cdetail{grid-column:1/-1;padding:24px 26px;background:#141414;border-radius:var(--radius)}
   .cdetail h4{font-size:17px;font-weight:800;color:var(--accent-l);margin-bottom:18px}
   .cd-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px}
   .cd-lab{font-size:13px;font-weight:700;color:var(--ink3);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
@@ -154,7 +154,9 @@
   .cd-g ul{list-style:none;display:grid;gap:4px}
   .cd-g li{font-size:13px;color:var(--ink2);padding-left:12px;position:relative;line-height:1.6}
   .cd-g li::before{content:"";position:absolute;left:0;top:.68em;width:4px;height:4px;border-radius:50%;background:var(--accent-l)}
-  .rg3{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+  .rg3{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 48px}
+  .rg3 > .rsec:last-child{grid-column:1/-1}
+  .rg3 > .rsec:last-child .erows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}
   .erow{display:grid;grid-template-columns:52px 1fr;gap:10px;font-size:14px;padding:6px 0}
   .erow .y{font-weight:800;color:var(--ink)}
   .erow .t{font-weight:600}
@@ -165,15 +167,24 @@
   .rsec.col{border-bottom:none}
 
   /* ===== 03 WORKS ===== */
-  #works{padding:100px 0 0}
+  #works{padding:110px 0 40px}
+  .works-head{text-align:center;margin-bottom:28px}
+  .works-head h3{font-size:clamp(30px,3.6vw,44px);font-weight:800;letter-spacing:-.04em;margin-top:14px}
   .tabs{display:flex;gap:8px;justify-content:center;margin-bottom:44px}
   .tabs button{font-family:inherit;font-size:15px;font-weight:700;padding:10px 24px;border-radius:999px;border:1px solid var(--line);background:transparent;color:#fff;cursor:pointer;transition:.2s}
   .tabs button.on{background:#fff;color:#000;border-color:#fff}
-  .wgroup{max-width:1500px;margin:0 auto 18px;padding:0 24px;display:flex;align-items:baseline;gap:10px}
+  .wgroup{max-width:1240px;margin:0 auto 18px;padding:0 40px;display:flex;align-items:baseline;gap:10px}
   .wgroup h3{font-size:22px;font-weight:800;letter-spacing:-.02em}
   .wgroup span{font-size:14px;color:var(--g500)}
   .works-grid + .wgroup{margin-top:56px}
-  .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;padding:0 24px;max-width:1500px;margin:0 auto}
+  .works-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding:0 40px;max-width:1240px;margin:0 auto}
+  .wcard.wide{grid-column:span 2}
+  .wcard.wide{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+  .wcard.wide .wthumb{aspect-ratio:auto;height:100%;min-height:260px}
+  .wcard.wide .wthumb img{object-position:left center}
+  @media(max-width:1100px){ .wcard.wide{display:flex} .wcard.wide .wthumb{aspect-ratio:16/10;height:auto;min-height:0} }
+  @media(max-width:1100px){ .works-grid{grid-template-columns:repeat(2,minmax(0,1fr))} .wcard.wide{grid-column:auto} }
+  @media(max-width:640px){ .works-grid{grid-template-columns:1fr} }
   .wcard{background:var(--dark);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:.25s}
   .wcard:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.35)}
   .wthumb{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -296,7 +307,7 @@
   .play li{display:grid;grid-template-columns:36px 1fr;font-size:15px;color:var(--ink2)}
   .play li span{font-weight:800;color:var(--accent-l)}
   .play li b{color:var(--accent-l)}
-  .play-panel{background:#f5f5f5;border-radius:var(--radius);padding:24px}
+  .play-panel{background:#141414;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:24px}
   .play-panel .cap{font-size:13px;color:var(--ink3);margin-bottom:16px}
   .games{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
   .game{position:relative}
@@ -306,7 +317,7 @@
   .game.has-note{cursor:pointer}
   .gnote{position:absolute;inset:0;border-radius:16px;background:rgba(17,17,17,.78);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;text-align:center;opacity:0;transition:opacity .2s;pointer-events:none}
   .game.show-note .gnote{opacity:1}
-  .gbadge{position:absolute;top:-6px;left:-6px;width:22px;height:22px;border-radius:50%;background:#ff5b2e;color:#fff;font-style:normal;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #f5f5f5,0 1px 3px rgba(0,0,0,.25)}
+  .gbadge{position:absolute;top:-6px;left:-6px;width:22px;height:22px;border-radius:50%;background:#ff5b2e;color:#fff;font-style:normal;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #141414,0 1px 3px rgba(0,0,0,.25)}
   .game.show-note .gbadge{opacity:0}
   .star{position:absolute;top:-6px;left:-6px;width:24px;height:24px;border-radius:50%;background:#ffc53d;color:#fff;font-style:normal;font-size:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.25)}
   .star.s{position:static;display:inline-flex;width:20px;height:20px;font-size:11px;margin-right:8px;vertical-align:middle}
@@ -314,12 +325,12 @@
   .note b{color:var(--ink)}
 
   /* ===== 05 GAME LIFE ===== */
-  .fan-sec{background:#f7f7f5;padding:120px 0 20px}
+  .fan-sec{background:#000;padding:120px 0 20px}
   .fan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:76px;grid-auto-flow:dense;gap:12px}
   .fan-grid figure{margin:0;display:flex;flex-direction:column;min-height:0;grid-row:span 2}
   .fan-grid figure.wide{grid-column:span 2;grid-row:span 3}
   .fan-grid figure.tall{grid-row:span 5}
-  .fan-grid .fp{flex:1;min-height:0;width:100%;padding:0;border:0;border-radius:12px;overflow:hidden;background:#e9e9e6;cursor:zoom-in}
+  .fan-grid .fp{flex:1;min-height:0;width:100%;padding:0;border:0;border-radius:12px;overflow:hidden;background:#1a1a1a;cursor:zoom-in}
   .fan-grid .fp img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
   .fan-grid .fp:hover img{transform:scale(1.04)}
   .fan-grid .fp.empty{display:grid;place-items:center;border:1.5px dashed #c9c9c4;background:transparent;cursor:default}
@@ -440,13 +451,13 @@ const DATA = {
   ],
 
   hero: {
-    sub: "<b>플레이를 만드는</b> 기획자",
+    sub: "<b>핵심 재미</b>를 찾고, <b>플레이로 증명</b>하는 기획자",
     desc: "<b>레벨과 콘텐츠</b>를 설계하고, 몬스터 BT와 데이터까지 직접 조립합니다.<br>라이브 서비스에서 유저의 플레이 데이터로 재미를 확인하고 다듬어 왔습니다.",
     tags: ["#레벨디자인", "#콘텐츠", "#몬스터BT", "#기믹설계"]
   },
 
   about: {
-    title: "<b>핵심 재미</b>를 찾고, <b>플레이로 증명</b>하는 기획자",
+    title: "기획서에서 끝내지 않고,<br><b>직접 만들어 확인</b>합니다",
     desc: "게임 콘텐츠를 전공하고 인디 게임을 출시한 뒤, 라이브 서비스에서 <b>레벨 디자인, 이벤트 모드, 몬스터 기믹</b>을 맡아 왔습니다.<br>기획서로 끝나지 않고 플레이 가능한 상태까지 만드는 것을 가장 중요하게 생각합니다.",
     timeline: [
       { when: "2021.02", title: "게임 개발 학습", org: "청강문화산업대학교 게임콘텐츠스쿨 입학", chip: "체계적인 게임 개발" },
@@ -503,7 +514,7 @@ const DATA = {
 
   // kind: "project"(실제 작업) 또는 "doc"(기획서)
   works: [
-    { kind: "project", platform: "모바일", year: "2023~2026", id: "cookierun", title: "쿠키런: 모험의 탑",
+    { kind: "project", platform: "모바일", year: "2023~2026", id: "cookierun", wide: true, title: "쿠키런: 모험의 탑",
       desc: "스토리 챕터 스테이지 55종 제작, 이벤트 모드 5종 메인 기획, 몬스터 리소스 조립과 BT 제작까지 담당했습니다.",
       tags: ["레벨디자인", "이벤트모드", "몬스터BT"], thumb: "assets/works/cookierun/thumb.jpg", color: "#d9572b", link: "", linkLabel: "상세 정보 보기" },
     { kind: "project", platform: "PC", year: "2023", id: "pio", title: "PIO",
@@ -517,9 +528,9 @@ const DATA = {
     { kind: "doc", platform: "PC", year: "2023", id: "pio-docs", opens: "pio", title: "PIO 기획서",
       desc: "맵 진행, 주사위 스킬, 보스 패턴, 튜토리얼 시나리오, 애니메이션, 이펙트까지 기획서 6종(122쪽)과 1학기 작업 내역 정리(60쪽)입니다.",
       tags: ["시스템기획", "레벨디자인", "보스패턴"], thumb: "assets/docs/pio-report/01.jpg", color: "#5b4a8a", link: "", linkLabel: "기획서 상세 보기" },
-    { kind: "doc", platform: "모바일/PC", year: "2026", id: "astrae-meal", title: "아스트라에 오라티오 특구청 식사 콘텐츠 제안서",
+    { kind: "doc", platform: "모바일/PC", year: "2026", id: "astrae-meal", wide: true, title: "아스트라에 오라티오 특구청 식사 콘텐츠 제안서",
       desc: "동료와 함께 식사하며 교감하고, 다음 출격 N회 동안 버프를 얻는 교감 + 전투 연계 콘텐츠 제안. 규칙, UI 화면 명세, 데이터 테이블까지 정리한 62쪽 기획서입니다.", tags: ["콘텐츠기획", "교감", "데이터설계"], thumb: "assets/docs/astrae-meal/01.jpg", color: "#2d3f6b", link: "", linkLabel: "기획서 상세 보기" },
-    { kind: "doc", platform: "Switch", year: "2026", id: "hyrule", title: "하이랄 성 레벨디자인 역기획서",
+    { kind: "doc", platform: "Switch", year: "2026", id: "hyrule", hidden: true, title: "하이랄 성 레벨디자인 역기획서",
       desc: "왕국의 눈물 하이랄 성의 부유부, 지상부, 대혈로 이어지는 동선과 시야, 공략 루트 분석.",
       tags: ["역기획", "레벨디자인"], thumb: "", color: "#3f6b52", link: "", linkLabel: "기획서 상세 보기" }
   ],
@@ -762,7 +773,6 @@ $("#about").innerHTML = `
         <ul>${c.points.map(p => `<li>${p}</li>`).join("")}</ul>
       </div>`).join("")}
     </div>
-    ${scroll("resume")}
   </div>`;
 
 // 첫 화면 배경 슬라이드
@@ -808,26 +818,26 @@ $("#resume").innerHTML = `
         <div class="rg3">
           <div class="rsec col"><h4>학력사항</h4>${erows(DATA.education)}</div>
           <div class="rsec col"><h4>선정 및 전시 ${moreBtn(DATA.selections)}</h4>${erows(DATA.selections)}</div>
-          <div class="rsec col"><h4>수상 ${moreBtn(DATA.awards)}</h4>${erows(DATA.awards)}</div>
+          <div class="rsec col"><h4>수상 ${moreBtn(DATA.awards)}</h4><div class="erows">${erows(DATA.awards)}</div></div>
         </div>
       </div>
     </div>
-    ${scroll("works")}
   </div>`;
 
 // 03 WORKS
 const kindLabel = { project: "프로젝트", doc: "기획서" };
 let filter = "all";
 function renderWorks() {
-  const list = DATA.works.filter(w => filter === "all" || w.kind === filter);
+  const list = DATA.works.filter(w => !w.hidden && (filter === "all" || w.kind === filter));
   $("#works").innerHTML = `
+    <div class="works-head"><div class="eyebrow">Works</div><h3>프로젝트 &amp; 기획서</h3></div>
     <div class="tabs">${[["all", "전체"], ["project", "프로젝트"], ["doc", "기획서"]].map(([k, l]) =>
       `<button class="${filter === k ? "on" : ""}" data-k="${k}">${l}</button>`).join("")}</div>
     ${(filter === "all" ? [["project", "프로젝트"], ["doc", "기획서"]] : [[filter, ""]]).map(([k, label]) => {
       const items = list.filter(w => w.kind === k);
       if (!items.length) return "";
       return `${label ? `<div class="wgroup"><h3>${label}</h3><span>${items.length}</span></div>` : ""}<div class="works-grid">${items.map(w => `
-      <article class="wcard" tabindex="0" role="button" data-id="${w.id}" aria-label="${w.title} 상세 보기">
+      <article class="wcard ${filter === "all" && w.wide ? "wide" : ""}" tabindex="0" role="button" data-id="${w.id}" aria-label="${w.title} 상세 보기">
         <div class="wthumb" style="${w.thumb ? "" : `background:linear-gradient(135deg,${w.color},${w.color}aa)`}">
           ${w.thumb ? `<img src="${w.thumb}" alt="${w.title}" loading="lazy">` : `<div class="ph">${w.title}</div>`}
         </div>
@@ -840,8 +850,7 @@ function renderWorks() {
         </div>
       </article>`).join("")}
     </div>`;
-    }).join("")}
-    ${scroll("play")}`;
+    }).join("")}`;
   $("#works").querySelectorAll(".tabs button").forEach(b => b.onclick = () => { filter = b.dataset.k; renderWorks(); });
   $("#works").querySelectorAll(".wcard").forEach(c => {
     c.onclick = () => openCard(c.dataset.id);
@@ -943,8 +952,7 @@ $("#play").innerHTML = `
       </div>
       ${P.games.some(g => g.deep) ? `<div class="note"><i class="star s">★</i><b>${P.deepNote}</b></div>` : ""}
     </div>
-  </div>
-  ${scroll("fan")}`;
+  </div>`;
 
 document.querySelectorAll(".game.has-note").forEach(g => {
   const t = () => g.classList.toggle("show-note");
@@ -967,8 +975,7 @@ $("#fan").innerHTML = `
       </figure>`).join("")}
       <p class="fan-note">모두 직접 촬영한 사진입니다.</p>
     </div>
-  </div>
-  ${scroll("contact")}`;
+  </div>`;
 $("#fan").querySelectorAll("[data-f]").forEach(b => b.onclick = () => openViewer("게임 생활", F.photos.filter(p => p.src).map(p => p.src), F.photos.filter(p => p.src).indexOf(F.photos[+b.dataset.f])));
 
 // 06 CONTACT
