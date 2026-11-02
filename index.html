@@ -428,7 +428,7 @@ const DATA = {
   role: "게임 기획자 (레벨/콘텐츠)",
   birth: "2000. 11. 24",
   resumeFile: "assets/docs/resume.pdf",
-  photo: "assets/photo.jpg",
+  photo: "",
   heroBg: "",
   // 첫 화면 배경에서 차례로 재생되는 작업 이미지
   heroSlides: [
@@ -787,7 +787,7 @@ $("#resume").innerHTML = `
     <div class="resume">
       <div class="pcard">
         <h3>이력서</h3>
-        <div class="photo">${DATA.photo ? `<img src="${DATA.photo}" alt="${DATA.fullName}">` : ""}</div>
+        ${DATA.photo ? `<div class="photo"><img src="${DATA.photo}" alt="${DATA.fullName}"></div>` : ""}
         <div class="nm">${DATA.fullName.split("").join(" ")}</div>
         <div class="en">${DATA.enName}</div>
         <div class="bd">${DATA.birth}</div>
