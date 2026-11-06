@@ -750,7 +750,7 @@ const DATA = {
   play: {
     title: "직접 플레이하며 트렌드를 읽고<br><b>찾은 재미를 개발에 담습니다</b>",
     caption: "최근 6개월 이내 플레이한 게임 (2026.11 기준)",
-    deepNote: "엔드 콘텐츠까지 즐긴 게임",
+    deepNote: "1년 이상 매일 플레이하는 게임",
     points: [
       "모바일, PC, 콘솔을 오가며 서브컬처, 액션, 협동, 인디까지 <b>장르를 가리지 않고</b> 플레이합니다.",
       "신작과 CBT는 출시 직후 직접 해보며, <b>지금 유저들이 어떤 재미에 반응하는지</b> 놓치지 않으려 합니다.",
@@ -760,17 +760,17 @@ const DATA = {
       { name: "명조: 워더링 웨이브", color: "#1f3b4d", icon: "assets/games/wuwa.jpg", deep: true },
       { name: "명일방주: 엔드필드", color: "#c9a227", icon: "assets/games/endfield.jpg", deep: true },
       { name: "명일방주", color: "#2b2f36", icon: "assets/games/arknights.jpg", deep: true },
-      { name: "리버스: 1999", color: "#6b4b3a", icon: "assets/games/reverse1999.jpg", points: ["데이터 지표 확인", "데이터를 정리해 개선 리스트 작성", "인 게임 밸런싱으로 이탈/실패율 완화"] },  // assets/games/reverse1999.png
-      { name: "승리의 여신: 니케", color: "#b23a48", icon: "assets/games/nikke.jpg", points: ["게임 리소스 관리 시트 작성", "데이터 시트로 효율적인 리소스 관리"] },  // assets/games/nikke.png
-      { name: "마비노기 모바일", color: "#3a6ea5", icon: "assets/games/mabinogi.jpg", points: ["FMOD 상황별 사운드 이벤트 제작", "Cakewalk로 효과음 편집"] },  // assets/games/mabinogi.png
-      { name: "몬스터 헌터 와일즈", color: "#7a5a2f", icon: "assets/games/mhwilds.jpg" },  // assets/games/mhwilds.png
+      { name: "리버스: 1999", color: "#6b4b3a", icon: "assets/games/reverse1999.jpg", deep: true },
+      { name: "승리의 여신: 니케", color: "#b23a48", icon: "assets/games/nikke.jpg" },
+      { name: "마비노기 모바일", color: "#3a6ea5", icon: "assets/games/mabinogi.jpg" },
+      { name: "몬스터 헌터 와일즈", color: "#7a5a2f", icon: "assets/games/mhwilds.jpg" },
       { name: "몬스터 헌터 라이즈", color: "#7b3b3b", icon: "" },
       { name: "몬스터 헌터 월드", color: "#4d5b3a", icon: "" },
-      { name: "클레르 옵스퀴르: 33원정대", color: "#4a3f5c", icon: "assets/games/expedition33.jpg" },  // assets/games/expedition33.png
-      { name: "리썰 컴퍼니", color: "#5c3a2e", icon: "assets/games/lethalcompany.jpg" },  // assets/games/lethalcompany.png
-      { name: "바이오하자드 RE:2", color: "#3d1f1f", icon: "assets/games/residentevil.jpg" },  // assets/games/residentevil.png
-      { name: "빅 워크", color: "#3f7d5a", icon: "assets/games/bigwalk.jpg" },  // assets/games/bigwalk.png
-      { name: "발더스 게이트 3", color: "#2d2a4a", icon: "assets/games/bg3.jpg" },  // assets/games/bg3.png
+      { name: "클레르 옵스퀴르: 33원정대", color: "#4a3f5c", icon: "assets/games/expedition33.jpg" },
+      { name: "리썰 컴퍼니", color: "#5c3a2e", icon: "assets/games/lethalcompany.jpg" },
+      { name: "바이오하자드 RE:2", color: "#3d1f1f", icon: "assets/games/residentevil.jpg" },
+      { name: "빅 워크", color: "#3f7d5a", icon: "assets/games/bigwalk.jpg" },
+      { name: "발더스 게이트 3", color: "#2d2a4a", icon: "assets/games/bg3.jpg" },
       { name: "프로젝트 좀보이드", color: "#4f5a3a", icon: "assets/games/zomboid.jpg" },
       { name: "아크 레이더스", color: "#2b2350", icon: "assets/games/arcraiders.jpg" },
       { name: "모여봐요 동물의 숲", color: "#4aa36c", icon: "assets/games/acnh.jpg" },
@@ -1077,7 +1077,7 @@ $("#play").innerHTML = `
       <div class="games">${P.games.map(g => `
         <div class="game ${g.note ? "has-note" : ""}" title="${g.name}${g.note ? " (" + g.note + ")" : ""}" ${g.note ? `tabindex="0" role="button" aria-label="${g.name}, ${g.note}"` : ""}>
           <div class="gi" style="background:${g.color}">${g.icon ? `<img src="${g.icon}" alt="${g.name}">` : `<span>${g.name}</span>`}</div>
-          ${g.deep ? `<i class="star" title="엔드 콘텐츠까지 즐긴 게임">★</i>` : ""}
+          ${g.deep ? `<i class="star" title="1년 이상 매일 플레이하는 게임">★</i>` : ""}
           ${g.note ? `<span class="gnote">${g.note}</span><i class="gbadge" aria-hidden="true">!</i>` : ""}
         </div>`).join("")}
       </div>
