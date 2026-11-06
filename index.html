@@ -341,11 +341,18 @@
   .game.has-detail .gi::after{content:"i";position:absolute;right:6px;bottom:6px;width:16px;height:16px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:10px;font-weight:800;font-style:italic;display:flex;align-items:center;justify-content:center}
   .game .gi{position:relative}
   .game.sel .gi{outline:3px solid var(--accent-l);outline-offset:2px}
-  .gdetail{margin-top:16px;padding:16px 18px;border-radius:12px;background:#fff;border:1px solid var(--rule)}
-  .gdetail b{font-size:14px;font-weight:800;color:var(--ink)}
-  .gdetail ul{list-style:none;margin-top:8px;display:grid;gap:4px}
-  .gdetail li{display:block;font-size:13px;color:var(--ink2);padding-left:12px;position:relative}
-  .gdetail li::before{content:"";position:absolute;left:0;top:.62em;width:4px;height:4px;border-radius:50%;background:var(--accent-l)}
+  .play-panel{position:relative}
+  .gpop{position:absolute;z-index:30;width:300px;max-width:calc(100% - 16px);padding:16px;border-radius:14px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.18);opacity:0;transform:translateY(4px);transition:opacity .15s,transform .15s;pointer-events:none}
+  .gpop.on{opacity:1;transform:none;pointer-events:auto}
+  .gpop::after{content:"";position:absolute;left:var(--ax,50%);bottom:-7px;width:14px;height:14px;background:#fff;transform:translateX(-50%) rotate(45deg);border-radius:2px}
+  .gpop.below::after{bottom:auto;top:-7px}
+  .gpop h4{font-size:15px;font-weight:800;color:var(--ink);text-align:center;margin-bottom:12px}
+  .gpop .gstats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .gpop .gs{background:#f3f4f6;border-radius:10px;padding:10px 12px;min-width:0}
+  .gpop .gs.w{grid-column:1/-1}
+  .gpop .gs small{display:block;font-size:11px;color:var(--ink3);margin-bottom:3px}
+  .gpop .gs b{display:block;font-size:14px;font-weight:800;color:var(--ink);line-height:1.35;word-break:keep-all}
+  .gpop .gs.w b{font-size:13px}
   .dnote{margin-top:10px}
   .dmark{display:inline-flex;width:18px;height:18px;border-radius:50%;background:#555;color:#fff;font-size:11px;font-weight:800;font-style:italic;align-items:center;justify-content:center;margin-right:8px;vertical-align:middle}
   .gbadge{position:absolute;top:-6px;left:-6px;height:20px;padding:0 7px;border-radius:999px;background:#ff5b2e;color:#fff;font-style:normal;font-size:10px;font-weight:800;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #f5f5f5,0 1px 3px rgba(0,0,0,.25)}
@@ -769,7 +776,7 @@ const DATA = {
     ],
     games: [
       { name: "명조: 워더링 웨이브", color: "#1f3b4d", icon: "assets/games/wuwa.jpg", deep: true,
-        detail: ["플레이타임 300시간 이상", "연각 레벨 80", "경험치 150만 이상", "역경의 탑 ALL 3별 클리어", "죽음의 노래, 바닷속 폐허 SSS 클리어 경험"] },
+        detail: [["플레이타임", "300시간 이상"], ["연각 레벨", "80"], ["경험치", "150만 이상"], ["역경의 탑", "ALL 3별 클리어"], ["특이사항", "죽음의 노래, 바닷속 폐허 SSS 클리어 경험", "w"]] },
       { name: "명일방주: 엔드필드", color: "#c9a227", icon: "assets/games/endfield.jpg", deep: true },
       { name: "명일방주", color: "#2b2f36", icon: "assets/games/arknights.jpg", deep: true },
       { name: "리버스: 1999", color: "#6b4b3a", icon: "assets/games/reverse1999.jpg", deep: true },
@@ -1093,7 +1100,7 @@ $("#play").innerHTML = `
           ${g.note ? `<i class="gbadge">CBT</i>` : ""}
         </div>`).join("")}
       </div>
-      <div class="gdetail" id="gdetail" hidden></div>
+      <div class="gpop" id="gpop" role="dialog" aria-hidden="true"></div>
       ${P.games.some(g => g.detail) ? `<div class="note dnote"><i class="dmark">i</i>아이콘을 누르면 플레이 기록을 볼 수 있어요</div>` : ""}
       ${P.games.some(g => g.deep) ? `<div class="note"><i class="star s">★</i><b>${P.deepNote}</b></div>` : ""}
     </div>
@@ -1106,18 +1113,38 @@ document.querySelectorAll(".game.has-note").forEach(g => {
 });
 
 (() => {
-  const box = document.getElementById("gdetail"); let cur = null;
+  const pop = document.getElementById("gpop"), panel = pop.parentElement; let cur = null;
+  const hide = () => { pop.classList.remove("on"); pop.setAttribute("aria-hidden", "true"); cur && cur.classList.remove("sel"); cur = null; };
+  const place = () => {
+    if (!cur) return;
+    const pr = panel.getBoundingClientRect(), r = cur.getBoundingClientRect();
+    const w = pop.offsetWidth, h = pop.offsetHeight, cx = r.left + r.width / 2 - pr.left;
+    const left = Math.max(8, Math.min(pr.width - w - 8, cx - w / 2));
+    const below = r.top - h - 12 < 8;
+    pop.classList.toggle("below", below);
+    pop.style.left = left + "px";
+    pop.style.top = (below ? r.bottom - pr.top + 12 : r.top - pr.top - h - 12) + "px";
+    pop.style.setProperty("--ax", Math.max(18, Math.min(w - 18, cx - left)) + "px");
+  };
   document.querySelectorAll(".game.has-detail").forEach(el => {
-    const show = () => {
+    const show = e => {
+      e && e.stopPropagation();
+      if (cur === el) return hide();
+      hide();
       const g = DATA.play.games[+el.dataset.gi];
-      document.querySelectorAll(".game.has-detail").forEach(x => x.classList.remove("sel"));
-      if (cur === el) { box.hidden = true; cur = null; return; }
-      cur = el; el.classList.add("sel");
-      box.innerHTML = `<b>${g.name} 플레이 기록</b><ul>${g.detail.map(d => `<li>${d}</li>`).join("")}</ul>`;
-      box.hidden = false;
+      pop.innerHTML = `<h4>${g.name}</h4><div class="gstats">${g.detail.map(d => Array.isArray(d)
+        ? `<div class="gs ${d[2] ? "w" : ""}"><small>${d[0]}</small><b>${d[1]}</b></div>`
+        : `<div class="gs w"><b>${d}</b></div>`).join("")}</div>`;
+      cur = el; el.classList.add("sel"); place();
+      pop.classList.add("on"); pop.setAttribute("aria-hidden", "false");
     };
-    el.onclick = show; el.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(); } };
+    el.onclick = show; el.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(e); } };
   });
+  pop.onclick = e => e.stopPropagation();
+  document.addEventListener("click", hide);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") hide(); });
+  window.addEventListener("resize", place);
+  window.addEventListener("scroll", place, { passive: true });
 })();
 
 // 05 GAME LIFE
