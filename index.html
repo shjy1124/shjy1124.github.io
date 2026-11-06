@@ -337,6 +337,17 @@
   .game.has-note{cursor:pointer}
   .gnote{position:absolute;inset:0;border-radius:16px;background:rgba(17,17,17,.78);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;text-align:center;opacity:0;transition:opacity .2s;pointer-events:none}
   .game.show-note .gnote{opacity:1}
+  .game.has-detail{cursor:pointer}
+  .game.has-detail .gi::after{content:"i";position:absolute;right:6px;bottom:6px;width:16px;height:16px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:10px;font-weight:800;font-style:italic;display:flex;align-items:center;justify-content:center}
+  .game .gi{position:relative}
+  .game.sel .gi{outline:3px solid var(--accent-l);outline-offset:2px}
+  .gdetail{margin-top:16px;padding:16px 18px;border-radius:12px;background:#fff;border:1px solid var(--rule)}
+  .gdetail b{font-size:14px;font-weight:800;color:var(--ink)}
+  .gdetail ul{list-style:none;margin-top:8px;display:grid;gap:4px}
+  .gdetail li{display:block;font-size:13px;color:var(--ink2);padding-left:12px;position:relative}
+  .gdetail li::before{content:"";position:absolute;left:0;top:.62em;width:4px;height:4px;border-radius:50%;background:var(--accent-l)}
+  .dnote{margin-top:10px}
+  .dmark{display:inline-flex;width:18px;height:18px;border-radius:50%;background:#555;color:#fff;font-size:11px;font-weight:800;font-style:italic;align-items:center;justify-content:center;margin-right:8px;vertical-align:middle}
   .gbadge{position:absolute;top:-6px;left:-6px;height:20px;padding:0 7px;border-radius:999px;background:#ff5b2e;color:#fff;font-style:normal;font-size:10px;font-weight:800;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #f5f5f5,0 1px 3px rgba(0,0,0,.25)}
   .game.show-note .gbadge{opacity:0}
   .star{position:absolute;top:-6px;left:-6px;width:24px;height:24px;border-radius:50%;background:#ffc53d;color:#fff;font-style:normal;font-size:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.25)}
@@ -738,9 +749,9 @@ const DATA = {
           desc: "Blender MCP를 연결해, 모델링 경험 없이도 필요한 3D 모델을 직접 만들어 게임에 적용할 수 있습니다.",
           points: ["Blender MCP로 3D 모델링 제작", "상태별 연출을 위한 부품 분리 모델링", "Unity에 적용하고 머티리얼로 질감 표현"] },
         { icon: "plan", title: "AI 업무 효율화", tag: "Claude",
-          imgs: [["assets/skills/site_home.jpg", "예시: AI와 함께 직접 제작한 이 포트폴리오 사이트"], ["assets/skills/site_viewer.jpg", "예시: 기획서 미리보기, 목차 이동 등 사이트 기능"]],
-          desc: "기획서 구성, 데이터 정리, 간단한 웹 페이지와 툴 제작까지 AI를 활용해 작업 속도를 높일 수 있습니다.",
-          points: ["기획서 초안 작성과 구조 정리", "데이터 시트 작성과 검수 보조", "HTML 페이지, 인터랙티브 프로토타입 제작"] }
+          imgs: [["assets/skills/site_home.jpg", "예시: AI와 함께 직접 제작한 이 포트폴리오 사이트"], ["assets/skills/site_viewer.jpg", "예시: 기획서 미리보기, 목차 이동 등 사이트 기능"], ["assets/skills/tool_calendar.jpg", "예시: AI로 직접 만들어 쓰는 일정 관리 툴 (개인 정보로 블러 처리)"]],
+          desc: "업무에 필요한 툴은 AI로 직접 빠르게 만들어 사용합니다. 기획서 구성, 데이터 정리까지 AI를 활용해 작업 효율을 높일 수 있습니다.",
+          points: ["필요한 업무 툴을 AI로 직접 제작해 사용", "기획서 초안 작성과 구조 정리", "데이터 시트 작성과 검수 보조", "HTML 페이지, 인터랙티브 프로토타입 제작"] }
       ]}
     ]
   },
@@ -757,7 +768,8 @@ const DATA = {
       "각 게임의 좋았던 점을 기억하고, <b>제가 개발하는 게임에 반영</b>하고자 합니다."
     ],
     games: [
-      { name: "명조: 워더링 웨이브", color: "#1f3b4d", icon: "assets/games/wuwa.jpg", deep: true },
+      { name: "명조: 워더링 웨이브", color: "#1f3b4d", icon: "assets/games/wuwa.jpg", deep: true,
+        detail: ["플레이타임 300시간 이상", "연각 레벨 80", "경험치 150만 이상", "역경의 탑 ALL 3별 클리어", "죽음의 노래, 바닷속 폐허 SSS 클리어 경험"] },
       { name: "명일방주: 엔드필드", color: "#c9a227", icon: "assets/games/endfield.jpg", deep: true },
       { name: "명일방주", color: "#2b2f36", icon: "assets/games/arknights.jpg", deep: true },
       { name: "리버스: 1999", color: "#6b4b3a", icon: "assets/games/reverse1999.jpg", deep: true },
@@ -1075,12 +1087,14 @@ $("#play").innerHTML = `
     <div class="play-panel">
       <div class="cap">${P.caption}</div>
       <div class="games">${P.games.map(g => `
-        <div class="game" title="${g.name}${g.note ? " (" + g.note + ")" : ""}">
+        <div class="game ${g.detail ? "has-detail" : ""}" title="${g.name}${g.note ? " (" + g.note + ")" : ""}" ${g.detail ? `data-gi="${P.games.indexOf(g)}" tabindex="0" role="button" aria-label="${g.name} 플레이 기록 보기"` : ""}>
           <div class="gi" style="background:${g.color}">${g.icon ? `<img src="${g.icon}" alt="${g.name}">` : `<span>${g.name}</span>`}</div>
           ${g.deep ? `<i class="star" title="1년 이상 매일 플레이하는 게임">★</i>` : ""}
           ${g.note ? `<i class="gbadge">CBT</i>` : ""}
         </div>`).join("")}
       </div>
+      <div class="gdetail" id="gdetail" hidden></div>
+      ${P.games.some(g => g.detail) ? `<div class="note dnote"><i class="dmark">i</i>아이콘을 누르면 플레이 기록을 볼 수 있어요</div>` : ""}
       ${P.games.some(g => g.deep) ? `<div class="note"><i class="star s">★</i><b>${P.deepNote}</b></div>` : ""}
     </div>
   </div>
@@ -1090,6 +1104,21 @@ document.querySelectorAll(".game.has-note").forEach(g => {
   const t = () => g.classList.toggle("show-note");
   g.onclick = t; g.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } };
 });
+
+(() => {
+  const box = document.getElementById("gdetail"); let cur = null;
+  document.querySelectorAll(".game.has-detail").forEach(el => {
+    const show = () => {
+      const g = DATA.play.games[+el.dataset.gi];
+      document.querySelectorAll(".game.has-detail").forEach(x => x.classList.remove("sel"));
+      if (cur === el) { box.hidden = true; cur = null; return; }
+      cur = el; el.classList.add("sel");
+      box.innerHTML = `<b>${g.name} 플레이 기록</b><ul>${g.detail.map(d => `<li>${d}</li>`).join("")}</ul>`;
+      box.hidden = false;
+    };
+    el.onclick = show; el.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(); } };
+  });
+})();
 
 // 05 GAME LIFE
 const F = DATA.fan;
