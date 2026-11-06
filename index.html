@@ -283,6 +283,7 @@
   .v-zoom button:disabled{opacity:.35;pointer-events:none}
   .v-zv{min-width:52px;text-align:center;font-size:13px;font-weight:700;color:var(--g100);font-variant-numeric:tabular-nums}
   .v-pages{--z:1;overflow:auto;flex:1;display:flex;flex-direction:column;align-items:safe center;gap:16px;padding:24px 16px 60px}
+  .v-cap{width:calc(min(1100px,100%) * var(--z));max-width:100%;flex-shrink:0;margin:-6px 0 20px;font-size:15px;line-height:1.5;color:var(--g100);text-align:center;word-break:keep-all}
   .v-pages img{width:calc(min(1100px,100%) * var(--z));max-width:none;flex-shrink:0;height:auto;border-radius:4px;background:#222;scroll-margin-top:16px}
   @media(max-width:700px){ .m-gallery{grid-template-columns:1fr} .m-stats{grid-template-columns:1fr} .doc-thumbs{grid-template-columns:repeat(2,1fr)} .m-head h3{font-size:24px} .m-body,.m-head{padding-left:20px;padding-right:20px} }
 
@@ -974,7 +975,7 @@ $("#skills").innerHTML = `
   ${scroll("works")}`;
 document.querySelectorAll("#skills .sk-img").forEach(b => b.onclick = () => {
   const it = SK.groups.flatMap(g => g.items).find(x => x.title === decodeURIComponent(b.dataset.sk));
-  openViewer(it.title + " / " + it.imgs.map(x => x[1]).join(", "), it.imgs.map(x => x[0]), 0);
+  openViewer(it.title, it.imgs.map(x => x[0]), 0, null, it.imgs.map(x => x[1]));
 });
 
 // 04 WORKS
@@ -1057,10 +1058,10 @@ function openWork(id) {
   M.showModal();
   M.querySelector(".m-content").scrollTop = 0;
 }
-function openViewer(title, pages, start, ratio) {
+function openViewer(title, pages, start, ratio, caps) {
   const V = $("#doc-viewer");
   V.querySelector(".v-title").textContent = `${title} (${pages.length}쪽)`;
-  V.querySelector(".v-pages").innerHTML = pages.map((src, i) => `<img id="vp${i}" src="${src}" alt="${i + 1}쪽" loading="lazy"${ratio ? ` style="aspect-ratio:${ratio}"` : ""}>`).join("");
+  V.querySelector(".v-pages").innerHTML = pages.map((src, i) => `<img id="vp${i}" src="${src}" alt="${i + 1}쪽" loading="lazy"${ratio ? ` style="aspect-ratio:${ratio}"` : ""}>${caps && caps[i] ? `<p class="v-cap">${caps[i]}</p>` : ""}`).join("");
   setZoom(1);
   V.showModal();
   requestAnimationFrame(() => { const t = V.querySelector("#vp" + start); if (t) t.scrollIntoView(); });
