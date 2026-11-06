@@ -722,6 +722,14 @@ const DATA = {
           imgs: [["assets/skills/snd1.jpg", "사운드 편집 영상: 원래 사운드를 모두 지우고 효과음을 직접 편집"], ["assets/skills/snd2.jpg", "FMOD 이벤트 제작"]],
           desc: "상황별 사운드 이벤트와 효과음을 직접 만들 수 있어, 사운드까지 고려해 콘텐츠를 기획합니다.",
           points: ["FMOD 상황별 사운드 이벤트 제작", "Cakewalk로 효과음 편집"] }
+      ]},
+      { name: "AI로 빠르게 만들기", items: [
+        { icon: "ai", title: "AI 협업 프로토타이핑", tag: "Unity + Claude Code",
+          desc: "Claude Code와 MCP for Unity를 연결해, 기획한 시스템을 AI와 함께 직접 구현합니다. 개인 프로젝트인 CCTV 관리 공포 게임을 이 방식으로 프로토타이핑하고 있습니다.",
+          points: ["방 구조, CCTV 뷰 전환, 개체 데이터 조립 구조 구현", "배고픔, 안정도, 정신력 등 시스템을 바로 붙여 플레이로 검증", "기획 의도를 정확한 요구사항으로 정리해 AI에 전달"] },
+        { icon: "asset", title: "AI 활용 에셋 제작", tag: "Blender",
+          desc: "모델링 경험이 없어도 AI와 함께 Blender로 로우폴리 소품을 만들고 Unity에 바로 적용합니다. 레트로 공포 질감 같은 머티리얼 표현도 AI와 함께 실험합니다.",
+          points: ["사료 그릇, 해치, 경고등 등 게임용 3D 소품 제작", "상태별 연출을 위한 부품 분리 모델링", "머티리얼 단위 질감 표현 적용"] }
       ]}
     ]
   },
@@ -905,6 +913,7 @@ const SK_ICON = {
   plan: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/>',
   data: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
   sheet: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16"/>',
+  ai: '<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9zM9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>',
   sound: '<path d="M4 10v4h4l5 4V6L8 10z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/>'
 };
 const SK = DATA.skills;
