@@ -296,12 +296,13 @@
   .sk-gname span{font-size:12px;font-weight:800;color:var(--accent);padding:2px 8px;border:1px solid rgba(96,165,250,.4);border-radius:999px}
   .sk-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
   .sk-grid.n2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sk-grid.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
   .sk-card{background:var(--dark);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 24px}
   .sk-card{display:flex;flex-direction:column}
   .sk-img{position:relative;display:block;width:calc(100% + 44px);margin:-22px -22px 18px;aspect-ratio:16/9;padding:0;border:0;border-bottom:1px solid var(--line);border-radius:var(--radius) var(--radius) 0 0;overflow:hidden;background:#0d0d0d;cursor:zoom-in}
   .sk-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
   .sk-img:hover img{transform:scale(1.04)}
-  .sk-grid.n2 .sk-img{aspect-ratio:21/8}
+  .sk-grid.n2 .sk-img{aspect-ratio:2/1}
   .sk-img.fit img{object-fit:contain}
   .sk-cnt{position:absolute;right:10px;bottom:10px;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;background:rgba(0,0,0,.7);color:#fff}
   .sk-blur{position:absolute;left:10px;bottom:10px;font-size:11px;padding:2px 8px;border-radius:999px;background:rgba(0,0,0,.65);color:var(--g300)}
@@ -314,7 +315,7 @@
   .sk-card h5 em{font-style:normal;font-size:11px;font-weight:700;color:var(--accent);background:rgba(96,165,250,.12);padding:2px 8px;border-radius:999px}
   .sk-card p{font-size:14px;color:var(--g300);line-height:1.7}
   @media(max-width:1100px){ .sk-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
-  @media(max-width:640px){ .sk-grid,.sk-grid.n2{grid-template-columns:1fr} }
+  @media(max-width:640px){ .sk-grid,.sk-grid.n2,.sk-grid.n3{grid-template-columns:1fr} }
 
   /* ===== PLAY ===== */
   #play{padding:120px 0 20px}
@@ -704,6 +705,10 @@ const DATA = {
           points: ["인 게임 콘텐츠 배치와 레벨 제작", "타임라인과 카메라를 활용한 연출 제작"] }
       ]},
       { name: "설계하고 검증하기", items: [
+        { icon: "map", title: "레벨 디자인", tag: "55 스테이지",
+          imgs: [["assets/works/cookierun/story.jpg", "쿠키런: 모험의 탑 스토리 모드 맵 제작"], ["assets/works/pio/flow.jpg", "PIO: 한 맵에서 지형과 몬스터 배치만 바꿔 레벨 구성"]],
+          desc: "동선과 난이도 흐름을 설계하고, 기믹과 몬스터를 배치해 스테이지를 완성합니다. 라이브 서비스에서 스토리 모드 스테이지 55종을 제작했습니다.",
+          points: ["스테이지 동선과 난이도 곡선 설계", "기믹, 몬스터 배치로 플레이 리듬 구성", "같은 맵을 재배치해 볼륨을 효율적으로 확보"] },
         { icon: "plan", title: "콘텐츠 기획", blur: true,
           imgs: [["assets/skills/plan1.jpg", "콘텐츠/기믹/몬스터 등 기획서 작성"], ["assets/skills/plan2.jpg", "여러 프로젝트에서의 핵심 플레이 시스템/콘텐츠 기획"]],
           desc: "개발 기간과 리소스 비용을 고려해 볼륨에 맞는 콘텐츠를 설계합니다. 라이브 서비스 콘텐츠를 메인으로 기획한 경험이 있습니다.",
@@ -924,7 +929,7 @@ $("#skills").innerHTML = `
     ${SK.groups.map((g, gi) => `
       <div class="sk-group">
         <div class="sk-gname"><span>${String(gi + 1).padStart(2, "0")}</span>${g.name}</div>
-        <div class="sk-grid ${g.items.length <= 2 ? "n2" : ""}">${g.items.map(it => `
+        <div class="sk-grid ${g.items.length <= 2 ? "n2" : g.items.length === 3 ? "n3" : ""}">${g.items.map(it => `
           <div class="sk-card">
             ${it.imgs ? `<button class="sk-img ${it.fit ? "fit" : ""}" data-sk="${encodeURIComponent(it.title)}" aria-label="${it.title} 작업 화면 크게 보기"><img src="${it.imgs[0][0]}" alt="${it.imgs[0][1]}" loading="lazy">${it.imgs.length > 1 ? `<span class="sk-cnt">+${it.imgs.length - 1}</span>` : ""}${it.blur ? `<span class="sk-blur">회사 작업물 블러 처리</span>` : ""}</button>` : ""}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SK_ICON[it.icon] || ""}</svg>
