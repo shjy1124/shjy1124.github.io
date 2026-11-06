@@ -297,6 +297,18 @@
   .sk-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
   .sk-grid.n2{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sk-card{background:var(--dark);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 24px}
+  .sk-card{display:flex;flex-direction:column}
+  .sk-img{position:relative;display:block;width:calc(100% + 44px);margin:-22px -22px 18px;aspect-ratio:16/9;padding:0;border:0;border-bottom:1px solid var(--line);border-radius:var(--radius) var(--radius) 0 0;overflow:hidden;background:#0d0d0d;cursor:zoom-in}
+  .sk-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+  .sk-img:hover img{transform:scale(1.04)}
+  .sk-grid.n2 .sk-img{aspect-ratio:21/8}
+  .sk-img.fit img{object-fit:contain}
+  .sk-cnt{position:absolute;right:10px;bottom:10px;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;background:rgba(0,0,0,.7);color:#fff}
+  .sk-blur{position:absolute;left:10px;bottom:10px;font-size:11px;padding:2px 8px;border-radius:999px;background:rgba(0,0,0,.65);color:var(--g300)}
+  .sk-pts{list-style:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:grid;gap:5px}
+  .sk-pts li{font-size:13px;color:var(--g100);padding-left:12px;position:relative}
+  .sk-pts li::before{content:"";position:absolute;left:0;top:.62em;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+  .sk-vid{margin-top:12px;font-size:13px;font-weight:700;color:var(--accent)}
   .sk-card svg{width:30px;height:30px;color:var(--accent);margin-bottom:14px}
   .sk-card h5{font-size:17px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
   .sk-card h5 em{font-style:normal;font-size:11px;font-weight:700;color:var(--accent);background:rgba(96,165,250,.12);padding:2px 8px;border-radius:999px}
@@ -674,18 +686,42 @@ const DATA = {
     title: "툴을 직접 다루며<br><b>기획을 플레이 가능한 상태</b>로 만듭니다",
     groups: [
       { name: "직접 만들기", items: [
-        { icon: "build", title: "비주얼 스크립트", desc: "노드 연결로 이벤트와 연출 흐름을 직접 설계하고 제작합니다. 기능 개발이 필요할 때는 기존 노드로 예시를 먼저 만들어 개발자와 빠르게 소통합니다." },
-        { icon: "bt", title: "Behavior Tree", desc: "몬스터와 NPC의 전투 패턴, 연출 로직을 BT로 구현합니다. BT 구성만 바꿔 같은 리소스로 전혀 다른 콘텐츠처럼 느껴지게 만든 경험이 있습니다.", tag: "방어전선" },
-        { icon: "asset", title: "리소스 조립", desc: "몬스터와 기믹에 애니메이션, 이펙트, 사운드, 스킬을 직접 적용합니다. 기존 기능을 응용해 추가 개발 없이 새로운 몬스터와 기믹을 만듭니다." },
-        { icon: "map", title: "3D 맵 툴", desc: "Unity와 Unreal에서 레벨을 직접 배치하고, 타임라인과 카메라로 연출을 제작합니다.", tag: "Unity / Unreal" }
+        { icon: "build", title: "비주얼 스크립트", blur: true,
+          imgs: [["assets/skills/vs1.jpg", "노드 기반 이벤트/연출 스크립트 작업"]],
+          desc: "노드 연결로 이벤트와 연출 흐름을 직접 설계하고 제작합니다. 기능 개발이 필요할 때는 기존 노드로 예시를 먼저 만들어 개발자와 빠르게 소통합니다.",
+          points: ["트리거와 연출 로직을 직관적으로 구성하고 정리", "기존 노드로 예시를 만들어 기능 개발 요청"] },
+        { icon: "bt", title: "Behavior Tree", tag: "방어전선", blur: true,
+          imgs: [["assets/skills/bt1.jpg", "BT 작업 화면"], ["assets/skills/bt2.jpg", "방어전선: BT 방식만 바꿔 다른 콘텐츠처럼 느껴지도록 제작"], ["assets/skills/bt3.jpg", "보스 몬스터 BT 조립"]],
+          desc: "몬스터와 NPC의 전투 패턴, 연출 로직을 BT로 구현합니다. BT 구성만 바꿔 같은 리소스로 전혀 다른 콘텐츠처럼 느껴지게 만든 경험이 있습니다.",
+          points: ["여러 상황에 대응하는 몬스터 전투 AI 설계", "보스 몬스터 패턴과 연출 BT 조립"] },
+        { icon: "asset", title: "리소스 조립", blur: true,
+          imgs: [["assets/skills/res1.jpg", "용도에 맞게 애니메이터 변경"], ["assets/skills/res2.jpg", "필요한 리소스 컴포넌트 사용/조립"], ["assets/skills/res3.jpg", "스킬 제작 및 테스트"]],
+          desc: "몬스터와 기믹에 애니메이션, 이펙트, 사운드, 스킬을 직접 적용합니다. 기존 기능을 응용해 추가 개발 없이 새로운 몬스터와 기믹을 만듭니다.",
+          points: ["용도에 맞게 애니메이터 변경", "리소스 컴포넌트 조립, 스킬 제작과 테스트", "적용 방식을 고려한 리소스 제작 요청"] },
+        { icon: "map", title: "3D 맵 툴", tag: "Unity / Unreal", blur: true,
+          imgs: [["assets/skills/map1.jpg", "인 게임 레벨 배치 및 제작"], ["assets/skills/map2.jpg", "Unity / Unreal 레벨과 연출 작업 (개인/학생 프로젝트)"]],
+          desc: "Unity와 Unreal에서 레벨을 직접 배치하고, 타임라인과 카메라로 연출을 제작합니다.",
+          points: ["인 게임 콘텐츠 배치와 레벨 제작", "타임라인과 카메라를 활용한 연출 제작"] }
       ]},
       { name: "설계하고 검증하기", items: [
-        { icon: "plan", title: "콘텐츠 기획", desc: "개발 기간과 리소스 비용을 고려해 볼륨에 맞는 콘텐츠를 설계합니다. 라이브 서비스 콘텐츠를 메인으로 기획한 경험이 있습니다." },
-        { icon: "data", title: "데이터 분석", desc: "플레이 데이터로 이탈과 실패가 몰리는 구간을 찾고, 밸런싱으로 부정적인 경험을 줄입니다." }
+        { icon: "plan", title: "콘텐츠 기획", blur: true,
+          imgs: [["assets/skills/plan1.jpg", "콘텐츠/기믹/몬스터 등 기획서 작성"], ["assets/skills/plan2.jpg", "여러 프로젝트에서의 핵심 플레이 시스템/콘텐츠 기획"]],
+          desc: "개발 기간과 리소스 비용을 고려해 볼륨에 맞는 콘텐츠를 설계합니다. 라이브 서비스 콘텐츠를 메인으로 기획한 경험이 있습니다.",
+          points: ["콘텐츠, 기믹, 몬스터 기획서 작성", "프로젝트마다 핵심 플레이 시스템 설계"] },
+        { icon: "data", title: "데이터 분석", blur: true, fit: true,
+          imgs: [["assets/skills/data1.jpg", "데이터 지표 확인 → 개선 리스트 작성 → 인 게임 밸런싱"]],
+          desc: "플레이 데이터로 이탈과 실패가 몰리는 구간을 찾고, 밸런싱으로 부정적인 경험을 줄입니다.",
+          points: ["데이터 지표 확인", "데이터를 정리해 개선 리스트 작성", "인 게임 밸런싱으로 이탈/실패율 완화"] }
       ]},
       { name: "함께 일하기", items: [
-        { icon: "sheet", title: "데이터/리소스 관리", desc: "엑셀로 게임 데이터 시트와 리소스를 체계적으로 관리합니다." },
-        { icon: "sound", title: "사운드 (FMOD / Cakewalk)", desc: "상황별 사운드 이벤트와 효과음을 직접 만들 수 있어, 사운드까지 고려해 콘텐츠를 기획합니다." }
+        { icon: "sheet", title: "데이터/리소스 관리", blur: true,
+          imgs: [["assets/skills/sheet1.jpg", "용도에 맞게 데이터/리소스 관리"]],
+          desc: "엑셀로 게임 데이터 시트와 리소스를 체계적으로 관리합니다.",
+          points: ["게임 리소스 관리 시트 작성", "데이터 시트로 효율적인 리소스 관리"] },
+        { icon: "sound", title: "사운드 (FMOD / Cakewalk)", video: "W5pgIm9nbiA",
+          imgs: [["assets/skills/snd1.jpg", "사운드 편집 영상: 원래 사운드를 모두 지우고 효과음을 직접 편집"], ["assets/skills/snd2.jpg", "FMOD 이벤트 제작"]],
+          desc: "상황별 사운드 이벤트와 효과음을 직접 만들 수 있어, 사운드까지 고려해 콘텐츠를 기획합니다.",
+          points: ["FMOD 상황별 사운드 이벤트 제작", "Cakewalk로 효과음 편집"] }
       ]}
     ]
   },
@@ -705,9 +741,9 @@ const DATA = {
       { name: "명조: 워더링 웨이브", color: "#1f3b4d", icon: "assets/games/wuwa.jpg", deep: true },
       { name: "명일방주: 엔드필드", color: "#c9a227", icon: "assets/games/endfield.jpg", deep: true },
       { name: "명일방주", color: "#2b2f36", icon: "assets/games/arknights.jpg", deep: true },
-      { name: "리버스: 1999", color: "#6b4b3a", icon: "assets/games/reverse1999.jpg" },  // assets/games/reverse1999.png
-      { name: "승리의 여신: 니케", color: "#b23a48", icon: "assets/games/nikke.jpg" },  // assets/games/nikke.png
-      { name: "마비노기 모바일", color: "#3a6ea5", icon: "assets/games/mabinogi.jpg" },  // assets/games/mabinogi.png
+      { name: "리버스: 1999", color: "#6b4b3a", icon: "assets/games/reverse1999.jpg", points: ["데이터 지표 확인", "데이터를 정리해 개선 리스트 작성", "인 게임 밸런싱으로 이탈/실패율 완화"] },  // assets/games/reverse1999.png
+      { name: "승리의 여신: 니케", color: "#b23a48", icon: "assets/games/nikke.jpg", points: ["게임 리소스 관리 시트 작성", "데이터 시트로 효율적인 리소스 관리"] },  // assets/games/nikke.png
+      { name: "마비노기 모바일", color: "#3a6ea5", icon: "assets/games/mabinogi.jpg", points: ["FMOD 상황별 사운드 이벤트 제작", "Cakewalk로 효과음 편집"] },  // assets/games/mabinogi.png
       { name: "몬스터 헌터 와일즈", color: "#7a5a2f", icon: "assets/games/mhwilds.jpg" },  // assets/games/mhwilds.png
       { name: "몬스터 헌터 라이즈", color: "#7b3b3b", icon: "" },
       { name: "몬스터 헌터 월드", color: "#4d5b3a", icon: "" },
@@ -881,14 +917,21 @@ $("#skills").innerHTML = `
         <div class="sk-gname"><span>${String(gi + 1).padStart(2, "0")}</span>${g.name}</div>
         <div class="sk-grid ${g.items.length <= 2 ? "n2" : ""}">${g.items.map(it => `
           <div class="sk-card">
+            ${it.imgs ? `<button class="sk-img ${it.fit ? "fit" : ""}" data-sk="${encodeURIComponent(it.title)}" aria-label="${it.title} 작업 화면 크게 보기"><img src="${it.imgs[0][0]}" alt="${it.imgs[0][1]}" loading="lazy">${it.imgs.length > 1 ? `<span class="sk-cnt">+${it.imgs.length - 1}</span>` : ""}${it.blur ? `<span class="sk-blur">회사 작업물 블러 처리</span>` : ""}</button>` : ""}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SK_ICON[it.icon] || ""}</svg>
             <h5>${it.title}${it.tag ? `<em>${it.tag}</em>` : ""}</h5>
             <p>${it.desc}</p>
+            ${it.points ? `<ul class="sk-pts">${it.points.map(x => `<li>${x}</li>`).join("")}</ul>` : ""}
+            ${it.video ? `<a class="sk-vid" href="https://www.youtube.com/watch?v=${it.video}" target="_blank">▶ 사운드 편집 영상 보기 ↗</a>` : ""}
           </div>`).join("")}
         </div>
       </div>`).join("")}
   </div>
   ${scroll("works")}`;
+document.querySelectorAll("#skills .sk-img").forEach(b => b.onclick = () => {
+  const it = SK.groups.flatMap(g => g.items).find(x => x.title === decodeURIComponent(b.dataset.sk));
+  openViewer(it.title + " / " + it.imgs.map(x => x[1]).join(", "), it.imgs.map(x => x[0]), 0);
+});
 
 // 04 WORKS
 const kindLabel = { project: "프로젝트", doc: "기획서" };
