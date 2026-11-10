@@ -547,6 +547,8 @@
   @keyframes introFade{to{opacity:1}}
   @keyframes introBlink{0%,100%{opacity:1}50%{opacity:.35}}
   body.intro-on{overflow:hidden}
+  .rv{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){ .intro p,.intro small{animation:none;opacity:1;transform:none} .intro p.l2{background-size:100% 1px} }
   /* 테마 전환 */
   body,aside,.light,.fan-sec,.acard,.wcard,.sk-card,.pcard,.play-panel{transition:background-color .35s,color .35s,border-color .35s}
@@ -1416,6 +1418,26 @@ document.querySelectorAll("main > section").forEach(s => io.observe(s));
     sync();
   };
   sync();
+})();
+
+// 스크롤 등장 애니메이션 (요소마다 처음 한 번만)
+(() => {
+  if (!("IntersectionObserver" in window)) return;
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const sel = "#resume .pcard, #resume .rsec, .wgroup, .wcard, .skills > .eyebrow, .sk-title, .sk-desc, .sk-gname, .sk-grid > *, .tl-grid > *, .play-text > *, .play-panel, .fan-grid > *, #contact > *:not(footer)";
+  const els = [...document.querySelectorAll(sel)];
+  const done = el => { el.classList.remove("rv", "in"); el.style.transitionDelay = ""; };
+  const io = new IntersectionObserver(entries => {
+    let n = 0;
+    entries.filter(e => e.isIntersecting).forEach(e => {
+      const el = e.target; io.unobserve(el);
+      el.style.transitionDelay = Math.min(n++, 5) * 90 + "ms";
+      el.classList.add("in");
+      el.addEventListener("transitionend", () => done(el), { once: true });
+      setTimeout(() => done(el), 2000);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  els.forEach(el => { el.classList.add("rv"); io.observe(el); });
 })();
 </script>
 <script>
