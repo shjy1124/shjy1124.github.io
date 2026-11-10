@@ -519,8 +519,8 @@ const DATA = {
         points: ["스토리 챕터 스테이지 55종, <b>이벤트 모드 5종</b> 메인 기획", "방어전선 <b>평균 플레이 타임 4.68배</b>, 정기 운영 모드 전환", "몬스터/기믹 기획부터 <b>데이터 테이블과 BT</b> 제작까지"] },
       { big: "10만", unit: "스팀 다운로드 (2024 기준)", title: "직접 만들어 출시한 게임", lead: "청강대 팀 프로젝트 (2022 ~ 2023)",
         points: ["지니버거 <b>팀장</b>, PIO 시스템/콘텐츠/레벨 기획", "PIO <b>Steam, STOVE INDIE 출시</b>, 스팀 10만 다운로드 (2024 기준)", "<b>BIC 2023</b> 루키 선정, 유니티 MWU Best Student 수상"] },
-      { big: "4", unit: "역기획/제안서", title: "분석하고 제안하는 기획", lead: "플레이와 분석을 문서로 정리",
-        points: ["왕국의 눈물 <b>하이랄 성 레벨디자인 역기획</b>", "아스트라에 오라티오 <b>식사 콘텐츠 제안</b>", "시즈널 이벤트 구조 제안, <b>맵 툴 개선 제안서</b> 작성"] }
+      { big: "3", unit: "제안서", title: "분석하고 제안하는 기획", lead: "플레이와 분석을 문서로 정리",
+        points: ["아스트라에 오라티오 <b>식사 콘텐츠 제안</b>", "시즈널 이벤트 구조 제안, <b>맵 툴 개선 제안서</b> 작성"] }
     ]
   },
 
@@ -580,7 +580,7 @@ const DATA = {
       tags: ["시스템기획", "레벨디자인", "보스패턴"], thumb: "assets/docs/pio-report/01.jpg", color: "#5b4a8a", link: "", linkLabel: "기획서 상세 보기" },
     { kind: "doc", platform: "모바일/PC", year: "2026", id: "astrae-meal", title: "아스트라에 오라티오 특구청 식사 콘텐츠 제안서",
       desc: "동료와 함께 식사하며 교감하고, 다음 출격 N회 동안 버프를 얻는 교감 + 전투 연계 콘텐츠 제안. 규칙, UI 화면 명세, 데이터 테이블까지 정리한 62쪽 기획서입니다.", tags: ["콘텐츠기획", "교감", "데이터설계"], thumb: "assets/docs/astrae-meal/01.jpg", color: "#2d3f6b", link: "", linkLabel: "기획서 상세 보기" },
-    { kind: "doc", platform: "Switch", year: "2026", id: "hyrule", title: "하이랄 성 레벨디자인 역기획서",
+    { kind: "doc", hidden: true, platform: "Switch", year: "2026", id: "hyrule", title: "하이랄 성 레벨디자인 역기획서",
       desc: "왕국의 눈물 하이랄 성의 부유부, 지상부, 대혈로 이어지는 동선과 시야, 공략 루트 분석.",
       tags: ["역기획", "레벨디자인"], thumb: "", color: "#3f6b52", link: "", linkLabel: "기획서 상세 보기" }
   ],
@@ -797,7 +797,7 @@ const DATA = {
         detail: [["레벨", "102", "w"]] },
       { name: "리버스: 1999", color: "#6b4b3a", icon: "assets/games/reverse1999.jpg" },
       { name: "승리의 여신: 니케", color: "#b23a48", icon: "assets/games/nikke.jpg",
-        detail: [["지휘관 레벨", "316", "w"]] },
+        detail: [["지휘관 레벨", "323", "w"]] },
       { name: "마비노기 모바일", color: "#3a6ea5", icon: "assets/games/mabinogi.jpg" },
       { name: "몬스터 헌터 와일즈", color: "#7a5a2f", icon: "assets/games/mhwilds.jpg" },
       { name: "클레르 옵스퀴르: 33원정대", color: "#4a3f5c", icon: "assets/games/expedition33.jpg" },
@@ -1004,7 +1004,7 @@ document.querySelectorAll("#skills .sk-img").forEach(b => b.onclick = () => {
 const kindLabel = { project: "프로젝트", doc: "기획서" };
 let filter = "all";
 function renderWorks() {
-  const list = DATA.works.filter(w => filter === "all" || w.kind === filter);
+  const list = DATA.works.filter(w => !w.hidden && (filter === "all" || w.kind === filter));
   $("#works").innerHTML = `
     <div class="tabs">${[["all", "전체"], ["project", "프로젝트"], ["doc", "기획서"]].map(([k, l]) =>
       `<button class="${filter === k ? "on" : ""}" data-k="${k}">${l}</button>`).join("")}</div>
