@@ -175,6 +175,14 @@
   .rg3{grid-column:1/-1;display:grid;grid-template-columns:1fr;gap:12px}
   .egrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 32px}
   .egrid .erow{grid-template-columns:44px 1fr}
+  .elist{border-top:1px solid var(--rule)}
+  .lrow{display:grid;grid-template-columns:64px minmax(0,360px) minmax(0,1fr);gap:16px;align-items:baseline;font-size:14px;padding:9px 0}
+  .lrow.ny{border-top:1px solid var(--rule)}
+  .elist .lrow:first-child{border-top:none}
+  .lrow .y{font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+  .lrow .t{font-weight:600}
+  .lrow .s{font-size:13px;color:var(--ink3)}
+  .open .lrow.more{display:grid}
   .erow{display:grid;grid-template-columns:52px 1fr;gap:10px;font-size:14px;padding:6px 0}
   .erow .y{font-weight:800;color:var(--ink)}
   .erow .t{font-weight:600}
@@ -466,6 +474,8 @@
     .inner{padding:0 20px}
     .toast{left:50%}
     .tl,.about-cards,.rg,.rg3,.egrid,.play,.cd-cols{grid-template-columns:1fr}
+    .lrow{grid-template-columns:52px 1fr;gap:4px 10px}
+    .lrow .s{grid-column:2}
     .tl{gap:20px}
     .tl-step::before{right:0}
     .crow{grid-template-columns:1fr}
@@ -1056,6 +1066,8 @@ $("#about").innerHTML = `
 // 02 RESUME
 const erows = arr => { let ly = ""; return `<div class="egrid">${arr.map(r => { ly = r.y || ly; return `
   <div class="erow ${r.more ? "more" : ""}"><span class="y">${ly}</span><span><span class="t">${r.title}</span>${r.when ? `<span class="s wh">${r.when}</span>` : ""}<span class="s">${r.sub}</span></span></div>`; }).join("")}</div>`; };
+const elist = arr => { let ly = ""; return `<div class="elist">${arr.map(r => { const y = r.y || ly; const show = y !== ly; ly = y; return `
+  <div class="lrow ${show ? "ny" : ""} ${r.more ? "erow more" : ""}"><span class="y">${show ? y : ""}</span><span class="t">${r.title}</span><span class="s">${r.sub}</span></div>`; }).join("")}</div>`; };
 const moreBtn = arr => arr.some(r => r.more)
   ? `<button class="more-btn" onclick="const s=this.closest('.rsec');s.classList.toggle('open');this.textContent=s.classList.contains('open')?'− 접기':'+ 더보기'">+ 더보기</button>` : "";
 $("#resume").innerHTML = `
@@ -1083,8 +1095,8 @@ $("#resume").innerHTML = `
         </div>
         <div class="rg3">
           <div class="rsec col"><h4>학력사항</h4>${erows(DATA.education)}</div>
-          <div class="rsec col"><h4>선정 및 전시 ${moreBtn(DATA.selections)}</h4>${erows(DATA.selections)}</div>
-          <div class="rsec col"><h4>수상 ${moreBtn(DATA.awards)}</h4>${erows(DATA.awards)}</div>
+          <div class="rsec col"><h4>선정 및 전시 ${moreBtn(DATA.selections)}</h4>${elist(DATA.selections)}</div>
+          <div class="rsec col"><h4>수상 ${moreBtn(DATA.awards)}</h4>${elist(DATA.awards)}</div>
         </div>
       </div>
     </div>
