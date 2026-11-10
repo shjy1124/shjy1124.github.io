@@ -489,6 +489,7 @@ const DATA = {
   role: "게임 기획자 (레벨/콘텐츠)",
   birth: "2000. 11. 24",
   resumeFile: "assets/docs/resume.pdf",
+  competencyFile: "assets/docs/competency.pdf",
   photo: "",
   heroBg: "",
   // 첫 화면 배경에서 차례로 재생되는 작업 이미지
@@ -864,6 +865,7 @@ $("#side-name").textContent = DATA.fullName;
 $("#side-role").textContent = DATA.role;
 $("#side-foot").innerHTML = `
   ${DATA.resumeFile ? `<a class="dl" href="${DATA.resumeFile}" target="_blank"><span>이력서 PDF</span><span>↓</span></a>` : ""}
+  ${DATA.competencyFile ? `<a class="dl" href="${DATA.competencyFile}" target="_blank" style="margin-top:8px"><span>역량기술서 PDF</span><span>↓</span></a>` : ""}
   <span class="mail">${DATA.contact.email}</span>`;
 
 // 01 HERO + ABOUT
@@ -879,6 +881,7 @@ $("#about").innerHTML = `
     <div class="pills">${DATA.hero.tags.map(t => `<span>${t}</span>`).join("")}</div>
     <div class="btns">
       ${DATA.resumeFile ? `<a class="btn primary" href="${DATA.resumeFile}" target="_blank">${dlIcon}이력서 다운로드</a>` : ""}
+      ${DATA.competencyFile ? `<a class="btn" href="${DATA.competencyFile}" target="_blank">${dlIcon}역량기술서 다운로드</a>` : ""}
       <a class="btn" href="#contact">${mailIcon}연락처</a>
     </div>
     ${scroll("about-me")}
@@ -1205,6 +1208,7 @@ $("#contact").innerHTML = `
   <div class="btns">
     <a class="btn primary" href="mailto:${C.email}">메일 보내기</a>
     ${DATA.resumeFile ? `<a class="btn" href="${DATA.resumeFile}" target="_blank">이력서 다운로드</a>` : ""}
+    ${DATA.competencyFile ? `<a class="btn" href="${DATA.competencyFile}" target="_blank">역량기술서 다운로드</a>` : ""}
   </div>
   <footer><span>© 2026 ${DATA.fullName} / ${DATA.enName}</span><a href="#about">맨 위로 ↑</a></footer>`;
 
