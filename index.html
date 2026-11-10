@@ -457,7 +457,7 @@
   .h3-eyebrow b{letter-spacing:0;font-size:14px;color:#a9cbff}
   .h3-title{font-size:clamp(40px,5.4vw,72px);font-weight:800;letter-spacing:-.05em;line-height:1.18;color:#fff;margin:0 0 30px}
   .h3-title b{color:#a9cbff;font-weight:800}
-  .h3-desc{font-size:17px;line-height:1.85;color:#e6e1d8;max-width:600px;margin-bottom:16px}
+  .h3-desc{font-size:17px;line-height:1.85;color:#e6e1d8;max-width:600px;margin-bottom:36px}
   .h3-desc b{color:#fff}
   .h3-meta{font-size:14px;color:#c9c3b8;display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px}
   .h3-meta a{color:#a9cbff;font-weight:700}
@@ -961,8 +961,6 @@ $("#about").innerHTML = `
       <div class="h3-eyebrow"><span>SON JIYUN</span><b>${DATA.hero.role}</b></div>
       <h2 class="h3-title">${DATA.hero.headline}</h2>
       <p class="h3-desc">${DATA.hero.desc}</p>
-      <p class="h3-meta">${DATA.hero.metaLine}<a href="#" data-open="pio">PIO Steam, STOVE 출시 ↗</a></p>
-      <div class="h3-tags">${DATA.hero.tags.map(t => `<span>${t.replace("#", "")}</span>`).join("")}</div>
       <div class="h3-cta">
         <a class="h3-main" href="#works">대표 작업 살펴보기<i>↓</i></a>
         ${DATA.resumeFile ? `<a class="h3-link" href="${DATA.resumeFile}" target="_blank">이력서 보기 ↗</a>` : ""}
