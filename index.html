@@ -242,6 +242,9 @@
   .m-toc a{font-size:13px;font-weight:600;color:var(--g500);padding:7px 0 7px 12px;border-left:2px solid var(--line);transition:.15s;line-height:1.35}
   .m-toc a:hover{color:var(--white)}
   .m-toc a.on{color:var(--white);border-left-color:var(--accent)}
+  .m-toc a.grp em{font-style:normal;font-size:11px;color:var(--g500);margin-left:6px}
+  .m-toc a.sub{display:none;padding-left:24px;font-size:12px;font-weight:500}
+  .m-toc.open a.sub{display:block}
   .m-anchor{scroll-margin-top:16px;display:grid;gap:22px}
   .m-video{aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden}
   .m-video iframe{width:100%;height:100%;border:0;display:block}
@@ -792,6 +795,7 @@ const DATA = {
       ]
     },
     "astrae-meal": {
+      roleLabel: "설계 범위",
       bar: [["역할", "콘텐츠 기획 (개인 작업)"], ["작성", "2026.10"], ["대상 게임", "아스트라에 오라티오"], ["분량", "62쪽 제안 기획서"]],
       intro: "\"식사를 통해 마음도, 전투의 이점도 얻는다.\" 아스트라에 오라티오(디나미스원)에 제안하는 신규 콘텐츠 기획서입니다. 동료와 함께 식사하며 교감하고, 그 한 끼가 다음 출격의 버프로 이어지는 순환 구조를 설계했습니다. (개인 작업)",
       meta: [["대상 게임", "아스트라에 오라티오"], ["분류", "콘텐츠 기획 제안"], ["분량", "62쪽 (개요, 시스템 구조, 상세 규칙, UI/데이터)"], ["작성", "2026.10"]],
@@ -1161,13 +1165,13 @@ function openWork(id) {
   const metaMap = Object.fromEntries(d.meta || []);
   const kicker = [metaMap["장르"] || metaMap["분류"], metaMap["플랫폼"] || w.platform].filter(Boolean).join(" / ");
   const toc = [];
-  const sec = (id, label, html) => { if (!html) return ""; toc.push([id, label]); return `<div class="m-anchor" id="ms-${id}">${html}</div>`; };
+  const sec = (id, label, html, sub) => { if (!html) return ""; toc.push([id, label, sub]); return `<div class="m-anchor" id="ms-${id}">${html}</div>`; };
     const body = [
     sec("video", "플레이 영상", d.video ? `<div class="m-video"><iframe src="https://www.youtube-nocookie.com/embed/${d.video}" title="${w.title} 영상" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>${d.videoCaption ? `<p class="m-vcap">${d.videoCaption} <a href="https://www.youtube.com/watch?v=${d.video}" target="_blank">유튜브에서 보기 ↗</a></p>` : ""}` : ""),
     sec("overview", "개요", (d.intro ? `<p class="m-intro">${d.intro}</p>` : "") + (d.gallery ? `<div class="m-gallery">${d.gallery.map((g, i) => `<figure><button class="g-img" data-g="${i}"><img src="${g.src}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`).join("")}</div>` : "") + (d.meta ? `<dl class="m-meta">${d.meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` : "")),
-    sec("role", "담당 업무와 성과", (d.role || d.results) ? `<div class="m-stats">${d.role ? `<section class="m-card"><h4>담당 업무</h4><div class="contrib">${donut}<ul>${d.role.map(x => `<li>${x}</li>`).join("")}</ul></div></section>` : ""}${list("성과 및 결과", d.results)}</div>` : ""),
+    sec("role", d.roleLabel ? (d.results ? d.roleLabel + "와 성과" : d.roleLabel) : "담당 업무와 성과", (d.role || d.results) ? `<div class="m-stats">${d.role ? `<section class="m-card"><h4>${d.roleLabel || "담당 업무"}</h4><div class="contrib">${donut}<ul>${d.role.map(x => `<li>${x}</li>`).join("")}</ul></div></section>` : ""}${list("성과 및 결과", d.results)}</div>` : ""),
     sec("links", "관련 영상", d.links ? `<section class="m-sec"><h4>관련 영상</h4><div class="m-links">${d.links.map(l => `<a class="m-link" href="https://www.youtube.com/watch?v=${l.video}" target="_blank"><span class="lt"><img src="https://i.ytimg.com/vi/${l.video}/hqdefault.jpg" alt="" loading="lazy"><i>▶</i></span><span><b>${l.title}</b><small>${l.desc}</small><em>유튜브에서 보기 ↗</em></span></a>`).join("")}</div></section>` : ""),
-    (d.sections || []).map((s, si) => sec("s" + si, s.h, `<section class="m-sec"><h4>${s.h}</h4><p>${s.p}</p>${s.more ? `<details class="m-more"><summary><i></i>${s.more.label}${s.more.note ? `<small>(${s.more.note})</small>` : ""}</summary>${s.more.groups.map(([g, list]) => { const a = list.split(" "); return `<div class="mm-g"><b>${g}<em>${a.length}</em></b><div>${a.map(n => `<span>${n}</span>`).join("")}</div></div>`; }).join("")}</details>` : ""}</section>`)).join(""),
+    (d.sections || []).map((s, si) => sec("s" + si, s.h.replace(/<[^>]+>/g, ""), `<section class="m-sec"><h4>${s.h}</h4><p>${s.p}</p>${s.more ? `<details class="m-more"><summary><i></i>${s.more.label}${s.more.note ? `<small>(${s.more.note})</small>` : ""}</summary>${s.more.groups.map(([g, list]) => { const a = list.split(" "); return `<div class="mm-g"><b>${g}<em>${a.length}</em></b><div>${a.map(n => `<span>${n}</span>`).join("")}</div></div>`; }).join("")}</details>` : ""}</section>`, (d.sections || []).length > 3)).join(""),
     ...docParts.map((html, di) => sec("d" + di, docs.length > 1 ? docs[di].title : "기획서", html)),
     !d.sections && !d.doc ? `<p class="m-sec">${w.desc}</p>` : ""
   ].join("");
@@ -1180,20 +1184,22 @@ function openWork(id) {
       ${d.bar ? `<dl class="m-bar">${d.bar.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>` : ""}
     </div>
     <div class="m-layout">
-      ${toc.length > 1 ? `<nav class="m-toc" aria-label="목차"><small>목차</small>${toc.map(([id, l]) => `<a href="#ms-${id}" data-t="${id}">${l}</a>`).join("")}</nav>` : ""}
+      ${toc.length > 1 ? `<nav class="m-toc" aria-label="목차"><small>목차</small>${toc.map(([id, l, sub], i) => `${sub && !(toc[i - 1] || [])[2] ? `<a class="grp" href="#ms-${id}" data-t="${id}" data-g="1">주요 작업<em>${toc.filter(t => t[2]).length}</em></a>` : ""}<a class="${sub ? "sub" : ""}" href="#ms-${id}" data-t="${id}">${l}</a>`).join("")}</nav>` : ""}
       <div class="m-body">${body}</div>
     </div>`;
   M.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { const doc = docs[+b.dataset.d || 0]; openViewer(doc.title, docPages(doc), +b.dataset.i, "16 / 9"); });
   M.querySelectorAll("[data-g]").forEach(b => b.onclick = () => openViewer(w.title, d.gallery.map(g => g.src), +b.dataset.g));
   M.showModal();
   const MC = M.querySelector(".m-content"); MC.scrollTop = 0;
-  const tocLinks = [...M.querySelectorAll(".m-toc a")];
+  const tocNav = M.querySelector(".m-toc"), tocLinks = [...M.querySelectorAll(".m-toc a:not(.grp)")], tocGrp = M.querySelector(".m-toc a.grp");
+  if (tocGrp) tocGrp.onclick = e => { e.preventDefault(); M.querySelector("#ms-" + tocGrp.dataset.t).scrollIntoView({ behavior: "smooth", block: "start" }); };
   tocLinks.forEach(a => a.onclick = e => { e.preventDefault(); M.querySelector("#ms-" + a.dataset.t).scrollIntoView({ behavior: "smooth", block: "start" }); });
   const markToc = () => {
     let cur = tocLinks[0];
     tocLinks.forEach(a => { const el = M.querySelector("#ms-" + a.dataset.t); if (el && el.getBoundingClientRect().top - MC.getBoundingClientRect().top < 120) cur = a; });
     if (MC.scrollTop + MC.clientHeight >= MC.scrollHeight - 4) cur = tocLinks[tocLinks.length - 1];
     tocLinks.forEach(a => a.classList.toggle("on", a === cur));
+    if (tocNav) { tocNav.classList.toggle("open", !!cur && cur.classList.contains("sub")); if (tocGrp) tocGrp.classList.toggle("on", !!cur && cur.classList.contains("sub")); }
   };
   MC.onscroll = markToc; markToc();
 }
