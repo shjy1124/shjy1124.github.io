@@ -1229,6 +1229,7 @@ try {
   if (q.has("me")) localStorage.setItem("hits_off", "1");
   if (q.has("notme")) localStorage.removeItem("hits_off");
   if (!localStorage.getItem("hits_off")) { const px = new Image(); px.referrerPolicy = "no-referrer"; px.src = "https://hits.sh/shjy1124.github.io/visitors.svg"; }
+  else { const tag = document.createElement("div"); tag.textContent = "방문자 수 제외 중"; tag.style.cssText = "position:fixed;right:10px;bottom:10px;z-index:9999;font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.6);color:#9ca3af;pointer-events:none"; document.body.appendChild(tag); }
 } catch (e) {}
 </script>
 </body>
