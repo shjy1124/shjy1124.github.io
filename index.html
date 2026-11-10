@@ -451,6 +451,8 @@
   .hero.hero3 > .h3-bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#161513}
   .h3-img{position:absolute;inset:-12px;background-size:cover;background-position:center;opacity:0;filter:blur(1.5px) saturate(1.05);transform:scale(1.03);transition:opacity 1.2s ease,transform 7s linear}
   .h3-img.on{opacity:1;transform:scale(1.08)}
+  .h3-img video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .h3-img:has(video){filter:saturate(1.05);transform:none !important}
   .h3-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,15,13,.92) 0%,rgba(16,15,13,.78) 38%,rgba(16,15,13,.35) 75%,rgba(16,15,13,.2) 100%),linear-gradient(180deg,transparent 86%,var(--black) 100%)}
   .h3-in{position:relative;z-index:1;width:100%;max-width:1180px;margin:0 auto;padding:110px 40px 64px}
   .h3-eyebrow{display:flex;gap:18px;align-items:baseline;font-size:12px;letter-spacing:.14em;color:#d8d3ca;margin-bottom:26px}
@@ -584,9 +586,9 @@ const DATA = {
     headline: "핵심 재미를 찾고,<br><b>플레이로 증명합니다.</b>",
     // 첫 화면 프로젝트 미리보기 (open: 누르면 열리는 작업 id)
     showcase: [
+      { img: "assets/hero/pio.jpg", video: "assets/hero/pio.mp4", meta: "INDIE GAME / 2023", sub: "Steam, STOVE 출시, 인디 게임 어워드 4관왕", title: "PIO", line: "Steam, STOVE INDIE 출시. 스팀 10만 다운로드, 인디 게임 어워드 4관왕을 받았습니다.", open: "pio" },
       { img: "assets/works/cookierun/thumb.jpg", meta: "PROJECT / 2023 ~ 2026", sub: "레벨 디자인, 이벤트 모드 기획, 몬스터 BT", title: "쿠키런: 모험의 탑", line: "스토리 모드 스테이지 55종과 이벤트 모드 5종을 메인으로 기획하고 직접 제작했습니다.", open: "cookierun" },
       { img: "assets/works/cookierun/event.jpg", meta: "EVENT MODE / 2025", sub: "평균 플레이 타임 4.68배, 정기 운영 모드 전환", title: "방어전선: 슈가랜드를 지켜라", line: "타 이벤트 모드 대비 평균 플레이 타임 4.68배, 정기 운영 모드로 전환되었습니다.", open: "cookierun" },
-      { img: "assets/works/pio/boss.jpg", meta: "INDIE GAME / 2023", sub: "Steam, STOVE 출시, 인디 게임 어워드 4관왕", title: "PIO", line: "Steam, STOVE INDIE 출시. 스팀 10만 다운로드, 인디 게임 어워드 4관왕을 받았습니다.", open: "pio" },
       { img: "assets/docs/astrae-meal/01.jpg", meta: "PROPOSAL / 2026", sub: "규칙, UI 화면 명세, 데이터 테이블 62쪽", title: "아스트라에 오라티오 식사 콘텐츠 제안서", line: "규칙부터 UI 화면 명세, 데이터 테이블까지 정리한 62쪽 제안 기획서입니다.", open: "astrae-meal" }
     ]
   },
@@ -956,7 +958,7 @@ $("#side-foot").innerHTML = `
 const A = DATA.about;
 $("#about").innerHTML = `
   <div class="hero hero3" id="showcase">
-    <div class="h3-bg">${DATA.hero.showcase.map((c, i) => `<div class="h3-img ${i === 0 ? "on" : ""}" style="background-image:url('${c.img}')"></div>`).join("")}</div>
+    <div class="h3-bg">${DATA.hero.showcase.map((c, i) => `<div class="h3-img ${i === 0 ? "on" : ""}" style="background-image:url('${c.img}')">${c.video ? `<video src="${c.video}" poster="${c.img}" muted loop playsinline preload="${i === 0 ? "auto" : "none"}"></video>` : ""}</div>`).join("")}</div>
     <div class="h3-in">
       <div class="h3-eyebrow"><span>SON JIYUN</span><b>${DATA.hero.role}</b></div>
       <h2 class="h3-title">${DATA.hero.headline}</h2>
@@ -1005,18 +1007,25 @@ $("#about").innerHTML = `
   const SEC = 6000; let cur = 0, timer = null;
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   root.style.setProperty("--h3-sec", SEC / 1000 + "s");
-  const restart = () => { clearInterval(timer); if (!reduce) timer = setInterval(() => go(cur + 1), SEC); };
+  const dur = () => imgs[cur].querySelector("video") ? 13000 : SEC;
+  const restart = () => { clearTimeout(timer); root.style.setProperty("--h3-sec", dur() / 1000 + "s"); if (!reduce) timer = setTimeout(() => go(cur + 1), dur()); };
   const go = n => {
     cur = (n + imgs.length) % imgs.length;
     [imgs, items].forEach(list => list.forEach((el, i) => el.classList.toggle("on", i === cur)));
+    playVid();
     num.textContent = String(cur + 1).padStart(2, "0");
     prog.style.animation = "none"; void prog.offsetWidth; prog.style.animation = "";
     restart();
   };
+  function playVid() {
+    imgs.forEach((el, i) => { const v = el.querySelector("video"); if (!v) return;
+      if (i === cur && !reduce) { v.currentTime = 0; v.play().catch(() => {}); } else v.pause(); });
+  }
   root.querySelector(".h3-arrow.prev").onclick = () => go(cur - 1);
   root.querySelector(".h3-arrow.next").onclick = () => go(cur + 1);
   root.querySelectorAll("[data-open]").forEach(el => el.onclick = e => { e.preventDefault(); openWork(el.dataset.open); });
   if (reduce) root.classList.add("still");
+  playVid();
   restart();
 })();
 
