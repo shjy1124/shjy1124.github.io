@@ -454,7 +454,7 @@
   .h3-img video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .h3-img:has(video){filter:saturate(1.05);transform:none !important}
   .h3-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,15,13,.92) 0%,rgba(16,15,13,.78) 38%,rgba(16,15,13,.35) 75%,rgba(16,15,13,.2) 100%),linear-gradient(180deg,transparent 86%,var(--black) 100%)}
-  .h3-in{position:relative;z-index:1;width:100%;max-width:1180px;margin:0 auto;padding:110px 40px 64px}
+  .h3-in{position:relative;z-index:1;width:100%;max-width:1180px;margin:0 auto;padding:110px 40px 120px}
   .h3-eyebrow{display:flex;gap:18px;align-items:baseline;font-size:12px;letter-spacing:.14em;color:#d8d3ca;margin-bottom:26px}
   .h3-eyebrow b{letter-spacing:0;font-size:14px;color:#a9cbff}
   .h3-title{font-size:clamp(40px,5.4vw,72px);font-weight:800;letter-spacing:-.05em;line-height:1.18;color:#fff;margin:0 0 30px}
@@ -958,7 +958,7 @@ $("#side-foot").innerHTML = `
 const A = DATA.about;
 $("#about").innerHTML = `
   <div class="hero hero3" id="showcase">
-    <div class="h3-bg">${DATA.hero.showcase.map((c, i) => `<div class="h3-img ${i === 0 ? "on" : ""}" style="background-image:url('${c.img}')">${c.video ? `<video src="${c.video}" poster="${c.img}" muted loop playsinline preload="${i === 0 ? "auto" : "none"}"></video>` : ""}</div>`).join("")}</div>
+    <div class="h3-bg">${DATA.hero.showcase.slice(0, 1).map((c, i) => `<div class="h3-img ${i === 0 ? "on" : ""}" style="background-image:url('${c.img}')">${c.video ? `<video src="${c.video}" poster="${c.img}" muted loop playsinline preload="${i === 0 ? "auto" : "none"}"></video>` : ""}</div>`).join("")}</div>
     <div class="h3-in">
       <div class="h3-eyebrow"><span>SON JIYUN</span><b>${DATA.hero.role}</b></div>
       <h2 class="h3-title">${DATA.hero.headline}</h2>
@@ -967,16 +967,6 @@ $("#about").innerHTML = `
         <a class="h3-main" href="#works">대표 작업 살펴보기<i>↓</i></a>
         ${DATA.resumeFile ? `<a class="h3-link" href="${DATA.resumeFile}" target="_blank">이력서 보기 ↗</a>` : ""}
         ${DATA.competencyFile ? `<a class="h3-link" href="${DATA.competencyFile}" target="_blank">역량기술서 보기 ↗</a>` : ""}
-      </div>
-      <div class="h3-bar">
-        <div class="h3-cur">${DATA.hero.showcase.map((c, i) => `
-          <div class="h3-item ${i === 0 ? "on" : ""}"><small>${c.meta}</small><button data-open="${c.open}">${c.title}<i>↗</i></button><p>${c.sub}</p></div>`).join("")}
-        </div>
-        <div class="h3-nav">
-          <span class="h3-count"><b>01</b> / ${String(DATA.hero.showcase.length).padStart(2, "0")}</span>
-          <button class="h3-arrow prev" aria-label="이전">←</button><button class="h3-arrow next" aria-label="다음">→</button>
-          <div class="h3-prog"><i></i></div>
-        </div>
       </div>
     </div>
     ${scroll("about-me")}
@@ -999,34 +989,11 @@ $("#about").innerHTML = `
     ${scroll("resume")}
   </div>`;
 
-// 첫 화면 프로젝트 슬라이드
+// 첫 화면 배경 영상
 (() => {
-  const root = document.getElementById("showcase"); if (!root) return;
-  const imgs = root.querySelectorAll(".h3-img"), items = root.querySelectorAll(".h3-item"), num = root.querySelector(".h3-count b");
-  const prog = root.querySelector(".h3-prog i");
-  const SEC = 6000; let cur = 0, timer = null;
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  root.style.setProperty("--h3-sec", SEC / 1000 + "s");
-  const dur = () => imgs[cur].querySelector("video") ? 13000 : SEC;
-  const restart = () => { clearTimeout(timer); root.style.setProperty("--h3-sec", dur() / 1000 + "s"); if (!reduce) timer = setTimeout(() => go(cur + 1), dur()); };
-  const go = n => {
-    cur = (n + imgs.length) % imgs.length;
-    [imgs, items].forEach(list => list.forEach((el, i) => el.classList.toggle("on", i === cur)));
-    playVid();
-    num.textContent = String(cur + 1).padStart(2, "0");
-    prog.style.animation = "none"; void prog.offsetWidth; prog.style.animation = "";
-    restart();
-  };
-  function playVid() {
-    imgs.forEach((el, i) => { const v = el.querySelector("video"); if (!v) return;
-      if (i === cur && !reduce) { v.currentTime = 0; v.play().catch(() => {}); } else v.pause(); });
-  }
-  root.querySelector(".h3-arrow.prev").onclick = () => go(cur - 1);
-  root.querySelector(".h3-arrow.next").onclick = () => go(cur + 1);
-  root.querySelectorAll("[data-open]").forEach(el => el.onclick = e => { e.preventDefault(); openWork(el.dataset.open); });
-  if (reduce) root.classList.add("still");
-  playVid();
-  restart();
+  const v = document.querySelector("#showcase .h3-img video"); if (!v) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); return; }
+  v.play().catch(() => {});
 })();
 
 // 02 RESUME
