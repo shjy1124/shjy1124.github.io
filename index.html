@@ -172,7 +172,9 @@
   .cd-g ul{list-style:none;display:grid;gap:4px}
   .cd-g li{font-size:13px;color:var(--ink2);padding-left:12px;position:relative;line-height:1.6}
   .cd-g li::before{content:"";position:absolute;left:0;top:.68em;width:4px;height:4px;border-radius:50%;background:var(--accent-l)}
-  .rg3{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+  .rg3{grid-column:1/-1;display:grid;grid-template-columns:1fr;gap:12px}
+  .egrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 32px}
+  .egrid .erow{grid-template-columns:44px 1fr}
   .erow{display:grid;grid-template-columns:52px 1fr;gap:10px;font-size:14px;padding:6px 0}
   .erow .y{font-weight:800;color:var(--ink)}
   .erow .t{font-weight:600}
@@ -180,7 +182,7 @@
   .erow .s.wh{color:var(--accent-l);font-weight:600;font-variant-numeric:tabular-nums}
   .erow.more{display:none}
   .open .erow.more{display:grid}
-  .rsec.col{border-bottom:none}
+  .rsec.col{border-bottom:none;padding-bottom:16px}
 
   /* ===== 03 WORKS ===== */
   #works{padding:100px 0 0}
@@ -463,7 +465,7 @@
     main{margin-left:0}
     .inner{padding:0 20px}
     .toast{left:50%}
-    .tl,.about-cards,.rg,.rg3,.play,.cd-cols{grid-template-columns:1fr}
+    .tl,.about-cards,.rg,.rg3,.egrid,.play,.cd-cols{grid-template-columns:1fr}
     .tl{gap:20px}
     .tl-step::before{right:0}
     .crow{grid-template-columns:1fr}
@@ -1052,8 +1054,8 @@ $("#about").innerHTML = `
 })();
 
 // 02 RESUME
-const erows = arr => arr.map(r => `
-  <div class="erow ${r.more ? "more" : ""}"><span class="y">${r.y}</span><span><span class="t">${r.title}</span>${r.when ? `<span class="s wh">${r.when}</span>` : ""}<span class="s">${r.sub}</span></span></div>`).join("");
+const erows = arr => { let ly = ""; return `<div class="egrid">${arr.map(r => { ly = r.y || ly; return `
+  <div class="erow ${r.more ? "more" : ""}"><span class="y">${ly}</span><span><span class="t">${r.title}</span>${r.when ? `<span class="s wh">${r.when}</span>` : ""}<span class="s">${r.sub}</span></span></div>`; }).join("")}</div>`; };
 const moreBtn = arr => arr.some(r => r.more)
   ? `<button class="more-btn" onclick="const s=this.closest('.rsec');s.classList.toggle('open');this.textContent=s.classList.contains('open')?'− 접기':'+ 더보기'">+ 더보기</button>` : "";
 $("#resume").innerHTML = `
