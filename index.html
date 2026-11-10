@@ -196,7 +196,8 @@
   .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;padding:0 24px;max-width:1500px;margin:0 auto}
   .wcard{background:var(--dark);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:.25s}
   .wcard:hover{transform:translateY(-4px);border-color:var(--btn-line)}
-  .wthumb{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .wthumb{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+  .wbadge{position:absolute;top:12px;left:12px;z-index:1;padding:4px 10px;border-radius:999px;background:var(--signal);color:#fff;font-size:12px;font-weight:800;letter-spacing:.02em;box-shadow:0 2px 8px rgba(0,0,0,.25)}
   .wthumb img{width:100%;height:100%;object-fit:cover}
   .wthumb .ph{font-size:20px;font-weight:800;color:#fff;padding:20px;text-align:center;line-height:1.35;letter-spacing:-.02em}
   .wbody{padding:18px 18px 18px;display:flex;flex-direction:column;flex:1}
@@ -517,6 +518,20 @@
   @keyframes h3bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
   .hero3 .scroll{display:none}
   @media(max-width:960px){ .h3-in{padding:80px 20px 70px} .h3-bg::after{background:linear-gradient(180deg,rgba(16,15,13,.72),rgba(16,15,13,.9) 55%,rgba(16,15,13,.92) 92%,var(--black))} .h3-bar{flex-direction:column;align-items:stretch} .h3-count{margin-right:auto} }
+  /* 첫 입장 인트로 */
+  .intro{position:fixed;inset:0;z-index:200;padding:0 24px;background:var(--black);color:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:opacity .7s ease,visibility .7s}
+  .intro.out{opacity:0;visibility:hidden}
+  .intro p{font-size:clamp(26px,3.6vw,44px);letter-spacing:-.04em;line-height:1.35;text-align:center;opacity:0;transform:translateY(14px);animation:introUp .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .intro p.l1{font-weight:800}
+  .intro p.l2{font-weight:500;margin-top:6px;padding-bottom:6px;background:linear-gradient(var(--g500),var(--g500)) left bottom/0 1px no-repeat;animation:introUp .9s .55s cubic-bezier(.2,.7,.2,1) forwards,introLine .9s 1.3s ease forwards}
+  .intro p.l2 b{color:var(--accent);font-weight:800}
+  .intro small{position:absolute;bottom:56px;font-family:var(--mono);font-size:12px;letter-spacing:.32em;color:var(--g500);opacity:0;animation:introFade .8s 1.9s forwards,introBlink 2.2s 2.7s ease-in-out infinite}
+  @keyframes introUp{to{opacity:1;transform:none}}
+  @keyframes introLine{to{background-size:100% 1px}}
+  @keyframes introFade{to{opacity:1}}
+  @keyframes introBlink{0%,100%{opacity:1}50%{opacity:.35}}
+  body.intro-on{overflow:hidden}
+  @media(prefers-reduced-motion:reduce){ .intro p,.intro small{animation:none;opacity:1;transform:none} .intro p.l2{background-size:100% 1px} }
   /* 테마 전환 */
   body,aside,.light,.fan-sec,.acard,.wcard,.sk-card,.pcard,.play-panel{transition:background-color .35s,color .35s,border-color .35s}
   .theme-btn{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--btn-line);background:var(--dark);color:var(--white);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.12)}
@@ -540,6 +555,30 @@
   ===========================================================
 -->
 
+<div class="intro" id="intro" role="button" tabindex="0" aria-label="포트폴리오 들어가기">
+  <p class="l1">핵심 플레이 경험을 중시하는 디자이너</p>
+  <p class="l2"><b>손지윤</b>입니다</p>
+  <small>CLICK TO ENTER</small>
+</div>
+<script>
+(() => {
+  const el = document.getElementById("intro");
+  let seen = false; try { seen = sessionStorage.getItem("intro_seen") === "1"; } catch (e) {}
+  if (seen) { el.remove(); return; }
+  document.body.classList.add("intro-on");
+  const enter = () => {
+    if (el.classList.contains("out")) return;
+    el.classList.add("out"); document.body.classList.remove("intro-on");
+    try { sessionStorage.setItem("intro_seen", "1"); } catch (e) {}
+    setTimeout(() => el.remove(), 800);
+  };
+  el.addEventListener("click", enter);
+  el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") enter(); });
+  window.addEventListener("wheel", enter, { once: true, passive: true });
+  window.addEventListener("touchmove", enter, { once: true, passive: true });
+  el.focus();
+})();
+</script>
 <aside>
   <div class="id">
     <small>PORTFOLIO</small>
@@ -678,10 +717,10 @@ const DATA = {
 
   // kind: "project"(실제 작업) 또는 "doc"(기획서)
   works: [
-    { kind: "project", platform: "모바일", year: "2023~2026", id: "cookierun", title: "쿠키런: 모험의 탑",
+    { kind: "project", badge: "출시", platform: "모바일", year: "2023~2026", id: "cookierun", title: "쿠키런: 모험의 탑",
       desc: "스토리 챕터 스테이지 55종 제작, 이벤트 모드 5종 메인 기획, 몬스터 리소스 조립과 BT 제작까지 담당했습니다.",
       tags: ["레벨디자인", "이벤트모드", "몬스터BT"], thumb: "assets/works/cookierun/thumb.jpg", color: "#d9572b", link: "", linkLabel: "상세 정보 보기" },
-    { kind: "project", platform: "PC", year: "2023", id: "pio", title: "PIO",
+    { kind: "project", badge: "출시", platform: "PC", year: "2023", id: "pio", title: "PIO",
       desc: "내가 밟고 있는 주사위 지형으로 보스를 공략하는 3D 액션 플랫포머. Steam 10만 다운로드, BIC 2023 디볼버 디지털 픽 등 수상과 전시를 이어간 졸업 작품입니다.", tags: ["보스러쉬", "레벨디자인", "시스템"], thumb: "assets/works/pio/thumb.jpg", color: "#5b4a8a", link: "", linkLabel: "상세 정보 & 영상 보기" },
     { kind: "project", platform: "모바일", year: "2022", id: "geniburger", title: "지니버거",
       desc: "손님에게 음식을 던져서 서빙하는 하이퍼 캐주얼 게임. KT 메타버스 '지니버스' 산학 프로젝트로, 팀장을 맡아 핵심 플레이 시스템을 기획했습니다.", tags: ["팀장", "하이퍼캐주얼", "KT산학"], thumb: "assets/works/geniburger/title.jpg", color: "#c48a1f", link: "", linkLabel: "상세 정보 & 영상 보기" },
@@ -1116,6 +1155,7 @@ function renderWorks() {
       <article class="wcard" tabindex="0" role="button" data-id="${w.id}" aria-label="${w.title} 상세 보기">
         <div class="wthumb" style="${w.thumb ? "" : `background:linear-gradient(135deg,${w.color},${w.color}aa)`}">
           ${w.thumb ? `<img src="${w.thumb}" alt="${w.title}" loading="lazy">` : `<div class="ph">${w.title}</div>`}
+          ${w.badge ? `<span class="wbadge">${w.badge}</span>` : ""}
         </div>
         <div class="wbody">
           <div class="wmeta">${kindLabel[w.kind]} / ${w.platform} / ${w.year}</div>
