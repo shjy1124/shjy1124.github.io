@@ -15,7 +15,7 @@
     --black:#f3f1ec; --dark:#faf9f6; --dark-2:#ebe8e1; --white:#1e1e20;
     --g100:#3a3833; --g300:#58564f; --g500:#8b8880;
     --line:rgba(30,30,32,.12); --hair:rgba(30,30,32,.08); --soft:rgba(30,30,32,.04); --soft2:rgba(30,30,32,.05); --soft3:rgba(30,30,32,.1);
-    --side-bg:#eceae4; --hero-bg:#f3f1ec; --veil-in:rgba(243,241,236,.74); --veil-out:rgba(243,241,236,.97);
+    --side-bg:#e5e1d9; --nav-fg:#5f5c55; --hero-bg:#f3f1ec; --veil-in:rgba(243,241,236,.74); --veil-out:rgba(243,241,236,.97);
     --hs-filter:blur(3px) brightness(.95) saturate(.9); --hb-filter:blur(2px) brightness(.95);
     --btn-line:rgba(30,30,32,.28); --btn-bg:rgba(250,249,246,.6); --inv-bg:#1e1e20; --inv-fg:#faf9f6;
     --light-bg:#faf9f6; --panel:#f1eee8; --panel2:#ebe8e1;
@@ -31,7 +31,7 @@
     --black:#161513; --dark:#1f1d1a; --dark-2:#282622; --white:#f3efe8;
     --g100:#e6e1d8; --g300:#b3ada3; --g500:#807a71;
     --line:rgba(243,239,232,.13); --hair:rgba(243,239,232,.08); --soft:rgba(243,239,232,.04); --soft2:rgba(243,239,232,.08); --soft3:rgba(243,239,232,.1);
-    --side-bg:#11100e; --hero-bg:#0f0e0c; --veil-in:transparent; --veil-out:rgba(16,15,13,.92);
+    --side-bg:#11100e; --nav-fg:#9a948a; --hero-bg:#0f0e0c; --veil-in:transparent; --veil-out:rgba(16,15,13,.92);
     --hs-filter:blur(3px) brightness(.42) saturate(1.1); --hb-filter:blur(2px) brightness(.55);
     --btn-line:rgba(243,239,232,.35); --btn-bg:rgba(22,21,19,.5); --inv-bg:#f3efe8; --inv-fg:#161513;
     --light-bg:#f3f1ec; --panel:#ebe8e1; --panel2:#ebe8e1;
@@ -50,7 +50,7 @@
   .id h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:6px 0 2px}
   .id p{font-size:14px;color:var(--g300)}
   .side-nav{margin-top:56px;list-style:none;display:flex;flex-direction:column;gap:2px}
-  .side-nav a{display:flex;align-items:baseline;gap:14px;padding:10px 0;color:var(--g500);font-weight:600;font-size:15px;transition:.2s;border-bottom:1px solid var(--hair)}
+  .side-nav a{display:flex;align-items:baseline;gap:14px;padding:10px 0;color:var(--nav-fg);font-weight:600;font-size:15px;transition:.2s;border-bottom:1px solid var(--line)}
   .side-nav a span{font-family:var(--mono);font-size:11px;width:20px}
   .side-nav a:hover,.side-nav a.on{color:var(--white)}
   .side-nav a.on span{color:var(--signal)}
@@ -448,6 +448,10 @@
   body,aside,.light,.fan-sec,.acard,.wcard,.sk-card,.pcard,.play-panel{transition:background-color .35s,color .35s,border-color .35s}
   .theme-btn{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--btn-line);background:var(--dark);color:var(--white);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.12)}
   .theme-btn:hover{border-color:var(--white)}
+  aside .theme-btn{position:static;align-self:flex-start;margin-top:22px;height:34px;background:transparent;box-shadow:none;color:var(--nav-fg)}
+  aside .theme-btn:hover{color:var(--white)}
+  aside .theme-btn i{background:currentColor;box-shadow:inset -4px -3px 0 var(--side-bg)}
+  @media(max-width:960px){ aside .theme-btn{position:fixed;right:20px;bottom:20px;margin:0;height:38px;background:var(--dark);color:var(--white);box-shadow:0 6px 18px rgba(0,0,0,.12)} aside .theme-btn i{box-shadow:inset -4px -3px 0 var(--dark)} }
   .theme-btn i{width:12px;height:12px;border-radius:50%;background:var(--white);box-shadow:inset -4px -3px 0 var(--dark)}
 </style>
 </head>
@@ -480,6 +484,7 @@
       <li><a href="#contact"><span>07</span>연락처</a></li>
     </ul>
   </nav>
+  <button class="theme-btn" id="themeBtn" type="button" aria-label="화면 테마 전환"><i></i><span></span></button>
   <div class="side-foot" id="side-foot"></div>
 </aside>
 
@@ -1247,7 +1252,6 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), { rootMargin: "-45% 0px -50% 0px" });
 document.querySelectorAll("main > section").forEach(s => io.observe(s));
 </script>
-<button class="theme-btn" id="themeBtn" type="button" aria-label="화면 테마 전환"><i></i><span></span></button>
 <script>
 (() => {
   const b = document.getElementById("themeBtn"), root = document.documentElement;
