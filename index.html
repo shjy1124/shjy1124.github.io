@@ -513,7 +513,7 @@ const DATA = {
     timeline: [
       { when: "2021.02", title: "게임 개발 학습", org: "청강문화산업대학교 게임콘텐츠스쿨 입학 및 수석졸업" },
       { when: "2023", title: "인디 게임 출시", org: "PIO Steam, STOVE INDIE 출시", chip: "인디 게임 어워드 4관왕" },
-      { when: "2023.08", title: "게임 기획", org: "오븐게임즈 입사 / 쿠키런: 모험의 탑", chip: "레벨/콘텐츠 설계", now: true }
+      { when: "2023.08", title: "게임 기획", org: "오븐게임즈 입사 / 쿠키런: 모험의 탑<br>출시부터 라이브 서비스 경험까지", chip: ["레벨/콘텐츠 설계", "출시 경험"], now: true }
     ],
     showCards: true,
     cards: [
@@ -891,7 +891,7 @@ $("#about").innerHTML = `
     <h3>${A.title}</h3>
     <p class="desc">${A.desc}</p>
     <div class="tl">${A.timeline.map(t => `
-      <div class="tl-step ${t.now ? "now" : ""}"><small>${t.when}</small><h4>${t.title}</h4><p>${t.org}</p>${t.chip ? `<span class="chip">${t.chip}</span>` : ""}</div>`).join("")}
+      <div class="tl-step ${t.now ? "now" : ""}"><small>${t.when}</small><h4>${t.title}</h4><p>${t.org}</p>${[].concat(t.chip || []).map(c => `<span class="chip">${c}</span>`).join(" ")}</div>`).join("")}
     </div>
     ${A.showCards ? `<div class="about-cards">${A.cards.map(c => `
       <div class="acard">
