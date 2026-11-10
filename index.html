@@ -268,6 +268,9 @@
   .m-gallery .g-img{display:block;width:100%;aspect-ratio:16/9;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--dark-2);cursor:zoom-in}
   .m-gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
   .m-gallery .g-img:hover img{transform:scale(1.03)}
+  .sec-gal{margin-top:16px}
+  .sec-gal .g-img{aspect-ratio:auto;background:#111}
+  .sec-gal img{height:auto}
   .m-gallery figcaption{font-size:13px;color:var(--g300);margin-top:8px;text-align:center}
   .m-meta{display:grid;grid-template-columns:auto 1fr;gap:8px 24px;font-size:15px;padding:18px 20px;border-radius:12px;background:var(--soft);border:1px solid var(--line)}
   .m-meta dt{color:var(--g500)}
@@ -801,7 +804,7 @@ const DATA = {
       sections: [
         { h: "재미 검증부터 구체화까지", p: "그래픽 리소스를 만들기 전, 그레이 박스 상태에서도 재밌어야 게임이 재밌다는 생각으로 프로토타입을 진행했습니다. 리소스 없이 조작감과 전투 패턴을 반복 테스트해 재미를 검증한 뒤, 애니메이션과 이펙트를 적용하며 완성도를 높였습니다. 방향성이 흔들리지 않은 덕분에 3개월 안에 공모전 출품과 수상까지 이어갈 수 있었습니다." },
         { h: "문제 해결: 한 맵에서 다양한 레벨을 만드는 진행 방식 제안", p: "아트 디렉터가 여러 번 교체되면서 아트 방향성이 잡히지 않아, 원래 목표한 볼륨으로는 제작이 어려운 상황이 생겼습니다. 할로우 나이트의 '바보들의 투기장'에서 영감을 얻어, 한 맵에서 지형과 몬스터 배치만 바꿔 다양한 레벨을 만드는 진행 방식을 제안했고 채택되었습니다. 그 결과 기간 안에 아트 퀄리티와 게임 볼륨을 유지하며 게임을 완성했습니다." },
-        { h: "출시 이후: 데이터로 레벨 의도 검증", p: "개발이 끝난 뒤에도 운영과 개선 관점의 인사이트를 얻고 싶어, 팀원들과 합의해 게임에 로그를 심고 GameAnalytics로 레벨별 이탈과 실패 데이터를 확인했습니다. 재도전/실패 횟수로 레벨이 기획 의도대로 동작하는지 확인하고, 지표가 튀는 구간은 난이도 외 에러가 없었는지까지 분석했습니다." },
+        { h: "출시 이후: 데이터 지표 분석 (개인 진행)", p: "개발이 끝난 뒤에도 운영과 개선 관점의 인사이트를 얻고 싶어, 팀 프로젝트와 별개로 팀원들과 합의한 뒤 <b>개인적으로</b> 진행했습니다. 게임에 로그를 심고 GameAnalytics로 스테이지별 이탈과 실패 데이터를 수집했습니다.<br>- 재도전/실패 횟수로 레벨이 기획 의도에 맞게 동작하는지 확인했습니다.<br>- 지표가 튀는 구간은 난이도 외에 에러 로그 문제가 없었는지 분석했습니다.<br>- 난이도를 기획 의도에서 끝내지 않고, 지표 분석을 거쳐 의도에 가깝도록 개선했습니다.", imgs: [["assets/works/pio/ga-funnel.png", "스테이지별 완료율과 이탈률 (GameAnalytics)"], ["assets/works/pio/ga-realtime.png", "실시간 유저/세션 지표 (GameAnalytics)"]] },
         { h: "담당 업무", p: "인디 게임 개발에서 자기 파트 업무만 하는 것은 의미가 없다고 생각했습니다. 팀원 모집과 초기 시스템 프로토타입부터 출시까지 참여하며, 게임 완성을 목표로 시스템, 콘텐츠, 레벨디자인, 녹음 등 맡을 수 있는 모든 업무를 진행했습니다." }
       ],
       docs: [
@@ -1228,7 +1231,7 @@ function openWork(id) {
     sec("overview", "개요", (d.intro ? `<p class="m-intro">${d.intro}</p>` : "") + (d.gallery ? `<div class="m-gallery">${d.gallery.map((g, i) => `<figure><button class="g-img" data-g="${i}"><img src="${g.src}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`).join("")}</div>` : "") + (d.meta ? `<dl class="m-meta">${d.meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` : "")),
     sec("role", d.roleLabel ? (d.results ? d.roleLabel + "와 성과" : d.roleLabel) : "담당 업무와 성과", (d.role || d.results) ? `<div class="m-stats">${d.role ? `<section class="m-card"><h4>${d.roleLabel || "담당 업무"}</h4><div class="contrib">${donut}<ul>${d.role.map(x => `<li>${x}</li>`).join("")}</ul></div></section>` : ""}${list("성과 및 결과", d.results)}</div>` : ""),
     sec("links", "관련 영상", d.links ? `<section class="m-sec"><h4>관련 영상</h4><div class="m-links">${d.links.map(l => `<a class="m-link" href="https://www.youtube.com/watch?v=${l.video}" target="_blank"><span class="lt"><img src="https://i.ytimg.com/vi/${l.video}/hqdefault.jpg" alt="" loading="lazy"><i>▶</i></span><span><b>${l.title}</b><small>${l.desc}</small><em>유튜브에서 보기 ↗</em></span></a>`).join("")}</div></section>` : ""),
-    (d.sections || []).map((s, si) => sec("s" + si, s.h.replace(/<[^>]+>/g, ""), `<section class="m-sec"><h4>${s.h}</h4><p>${s.p}</p>${s.more ? `<details class="m-more"><summary><i></i>${s.more.label}${s.more.note ? `<small>(${s.more.note})</small>` : ""}</summary>${s.more.groups.map(([g, list]) => { const a = list.split(" "); return `<div class="mm-g"><b>${g}<em>${a.length}</em></b><div>${a.map(n => `<span>${n}</span>`).join("")}</div></div>`; }).join("")}</details>` : ""}</section>`, (d.sections || []).length > 3)).join(""),
+    (d.sections || []).map((s, si) => sec("s" + si, s.h.replace(/<[^>]+>/g, ""), `<section class="m-sec"><h4>${s.h}</h4><p>${s.p}</p>${s.imgs ? `<div class="m-gallery sec-gal">${s.imgs.map(([src, cap], i) => `<figure><button class="g-img" data-sg="${si}:${i}"><img src="${src}" alt="${cap}" loading="lazy"></button><figcaption>${cap}</figcaption></figure>`).join("")}</div>` : ""}${s.more ? `<details class="m-more"><summary><i></i>${s.more.label}${s.more.note ? `<small>(${s.more.note})</small>` : ""}</summary>${s.more.groups.map(([g, list]) => { const a = list.split(" "); return `<div class="mm-g"><b>${g}<em>${a.length}</em></b><div>${a.map(n => `<span>${n}</span>`).join("")}</div></div>`; }).join("")}</details>` : ""}</section>`, (d.sections || []).length > 3)).join(""),
     ...docParts.map((html, di) => sec("d" + di, docs.length > 1 ? docs[di].title : "기획서", html)),
     !d.sections && !d.doc ? `<p class="m-sec">${w.desc}</p>` : ""
   ].join("");
@@ -1246,6 +1249,7 @@ function openWork(id) {
     </div>`;
   M.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { const doc = docs[+b.dataset.d || 0]; openViewer(doc.title, docPages(doc), +b.dataset.i, "16 / 9"); });
   M.querySelectorAll("[data-g]").forEach(b => b.onclick = () => openViewer(w.title, d.gallery.map(g => g.src), +b.dataset.g));
+  M.querySelectorAll("[data-sg]").forEach(b => b.onclick = () => { const [si, i] = b.dataset.sg.split(":").map(Number); const im = d.sections[si].imgs; openViewer(w.title, im.map(x => x[0]), i, null, im.map(x => x[1])); });
   M.showModal();
   const MC = M.querySelector(".m-content"); MC.scrollTop = 0;
   const tocNav = M.querySelector(".m-toc"), tocLinks = [...M.querySelectorAll(".m-toc a:not(.grp)")], tocGrp = M.querySelector(".m-toc a.grp");
