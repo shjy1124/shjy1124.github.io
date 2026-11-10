@@ -449,6 +449,15 @@
   .play.fan .play-text{position:sticky;top:80px}
   @media(max-width:960px){ .fan-grid{grid-template-columns:repeat(2,minmax(0,1fr))} .play.fan .play-text{position:static} }
 
+  /* ===== 마무리 메시지 ===== */
+  #outro{padding:120px 0 40px;text-align:center}
+  .o-title{font-size:clamp(28px,3.6vw,46px);font-weight:800;letter-spacing:-.045em;line-height:1.35;margin:18px 0 56px}
+  .o-title b{color:var(--accent)}
+  .o-vids{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1200px;margin:0 auto}
+  .o-vids figure{margin:0;border-radius:14px;overflow:hidden;aspect-ratio:16/9;background:#111}
+  .o-vids video{width:100%;height:100%;object-fit:cover;display:block}
+  @media(max-width:760px){ .o-vids{grid-template-columns:1fr} }
+
   /* ===== 04 CONTACT ===== */
   #contact{padding:110px 0 0;text-align:center}
   #contact .eyebrow{margin-bottom:18px}
@@ -640,6 +649,7 @@
   <section id="skills"></section>
   <section id="play" class="light"></section>
   <section id="fan" class="light fan-sec"></section>
+  <section id="outro"></section>
   <section id="contact"></section>
 </main>
 
@@ -1409,11 +1419,30 @@ $("#fan").innerHTML = `
       <p class="fan-note">모두 직접 촬영한 사진입니다.</p>
     </div>
   </div>
-  ${scroll("contact")}`;
+  ${scroll("outro")}`;
 $("#fan").querySelectorAll("[data-f]").forEach(b => b.onclick = () => openViewer("게임 생활", F.photos.filter(p => p.src).map(p => p.src), F.photos.filter(p => p.src).indexOf(F.photos[+b.dataset.f])));
 
 // 06 CONTACT
 const C = DATA.contact;
+// 마무리 메시지
+$("#outro").innerHTML = `
+  <div class="inner outro">
+    <div class="eyebrow">Together</div>
+    <h3 class="o-title">함께 <b>게임의 감동</b>을 만들어 나갈<br>동료가 되고 싶습니다.</h3>
+    <div class="o-vids">
+      <figure><video src="assets/outro/zelda.mp4" poster="assets/outro/zelda.jpg" muted loop playsinline preload="metadata" aria-label="젤다의 전설 플레이 영상"></video></figure>
+      <figure><video src="assets/outro/wuwa.mp4" poster="assets/outro/wuwa.jpg" muted loop playsinline preload="metadata" aria-label="명조 플레이 영상"></video></figure>
+    </div>
+  </div>
+  ${scroll("contact")}`;
+(() => {
+  const vids = document.querySelectorAll("#outro video");
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!("IntersectionObserver" in window)) { vids.forEach(v => v.play().catch(() => {})); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.play().catch(() => {}); else e.target.pause(); }), { threshold: .2 });
+  vids.forEach(v => io.observe(v));
+})();
+
 $("#contact").innerHTML = `
   <div class="eyebrow">Contact</div>
   <div class="c-sub">${DATA.hero.sub}</div>
@@ -1456,7 +1485,7 @@ document.querySelectorAll("main > section").forEach(s => io.observe(s));
 (() => {
   if (!("IntersectionObserver" in window)) return;
   if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const sel = "#resume .pcard, #resume .rsec > h4, #resume .stats, #resume .crow, #resume .prow, #resume .egrid > :not(.more), #resume .elist > :not(.more), #works .tabs, .wgroup, .wcard, .skills > .eyebrow, .sk-title, .sk-desc, .sk-gname, .sk-grid > *, .tl-grid > *, .play-text > *, .play-panel > .cap, .play-panel > .note, .games > *, .fan-grid > *, #contact > *:not(footer), main section > .scroll";
+  const sel = "#resume .pcard, #resume .rsec > h4, #resume .stats, #resume .crow, #resume .prow, #resume .egrid > :not(.more), #resume .elist > :not(.more), #works .tabs, .wgroup, .wcard, .skills > .eyebrow, .sk-title, .sk-desc, .sk-gname, .sk-grid > *, .tl-grid > *, .play-text > *, .play-panel > .cap, .play-panel > .note, .games > *, .fan-grid > *, #outro .eyebrow, .o-title, .o-vids > *, #contact > *:not(footer), main section > .scroll";
   const els = [...document.querySelectorAll(sel)];
   const done = el => { el.classList.remove("rv", "in"); el.style.transitionDelay = ""; };
   const io = new IntersectionObserver(entries => {
