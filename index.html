@@ -503,6 +503,19 @@
   .h3-eyebrow b{letter-spacing:0;font-size:14px;color:#a9cbff}
   .h3-title{font-size:clamp(40px,5.4vw,72px);font-weight:800;letter-spacing:-.05em;line-height:1.18;color:#fff;margin:0 0 30px}
   .h3-title b{color:#a9cbff;font-weight:800}
+  .h3-title .hl{display:block}
+  .hero3.pre > .h3-bg{opacity:0;transform:scale(1.07)}
+  .hero3.pre .h3-eyebrow,.hero3.pre .h3-title .hl,.hero3.pre .h3-desc,.hero3.pre .h3-btn,.hero3.pre > .scroll{opacity:0;transform:translateY(30px)}
+  .hero3.play > .h3-bg{opacity:1;transform:none;transition:opacity 1.2s ease,transform 2.4s cubic-bezier(.2,.7,.2,1)}
+  .hero3.play .h3-eyebrow,.hero3.play .h3-title .hl,.hero3.play .h3-desc,.hero3.play .h3-btn,.hero3.play > .scroll{opacity:1;transform:none;transition:opacity .8s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
+  .hero3.play .h3-eyebrow{transition-delay:.3s}
+  .hero3.play .h3-title .hl:nth-child(1){transition-delay:.45s}
+  .hero3.play .h3-title .hl:nth-child(2){transition-delay:.6s}
+  .hero3.play .h3-desc{transition-delay:.8s}
+  .hero3.play .h3-btn:nth-child(1){transition-delay:.95s}
+  .hero3.play .h3-btn:nth-child(2){transition-delay:1.03s}
+  .hero3.play .h3-btn:nth-child(3){transition-delay:1.11s}
+  .hero3.play > .scroll{transition-delay:1.4s}
   .h3-desc{font-size:17px;line-height:1.85;color:#e6e1d8;max-width:600px;margin-bottom:36px}
   .h3-desc b{color:#fff}
   .h3-meta{font-size:14px;color:#c9c3b8;display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px}
@@ -1057,7 +1070,7 @@ $("#about").innerHTML = `
     <div class="h3-bg">${DATA.hero.showcase.slice(0, 1).map((c, i) => `<div class="h3-img ${i === 0 ? "on" : ""}" style="background-image:url('${c.img}')">${c.video ? `<video src="${c.video}" poster="${c.img}" muted loop playsinline preload="${i === 0 ? "auto" : "none"}"></video>` : ""}</div>`).join("")}</div>
     <div class="h3-in">
       <div class="h3-eyebrow"><span>SON JIYUN</span><b>${DATA.hero.role}</b></div>
-      <h2 class="h3-title">${DATA.hero.headline}</h2>
+      <h2 class="h3-title">${DATA.hero.headline.split("<br>").map(l => `<span class="hl">${l}</span>`).join("")}</h2>
       <p class="h3-desc">${DATA.hero.desc}</p>
       <div class="h3-cta">
         ${DATA.resumeFile ? `<a class="h3-btn" href="${DATA.resumeFile.split("#")[0]}" download="손지윤_이력서.pdf">${DL_ICON}이력서 다운로드</a>` : ""}
@@ -1073,6 +1086,23 @@ $("#about").innerHTML = `
   const v = document.querySelector("#showcase .h3-img video"); if (!v) return;
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); return; }
   v.play().catch(() => {});
+})();
+
+// 첫 화면 등장 애니메이션 (세션당 처음 한 번, 인트로가 있으면 인트로가 끝난 뒤)
+(() => {
+  const h = document.getElementById("showcase"); if (!h) return;
+  let played = false; try { played = sessionStorage.getItem("hero_played") === "1"; } catch (e) {}
+  if (played || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  h.classList.add("pre");
+  const go = () => {
+    requestAnimationFrame(() => requestAnimationFrame(() => h.classList.add("play")));
+    try { sessionStorage.setItem("hero_played", "1"); } catch (e) {}
+    setTimeout(() => h.classList.remove("pre", "play"), 2800);
+  };
+  if (document.body.classList.contains("intro-on")) {
+    const mo = new MutationObserver(() => { if (!document.body.classList.contains("intro-on")) { mo.disconnect(); setTimeout(go, 200); } });
+    mo.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  } else go();
 })();
 
 // 02 RESUME
@@ -1426,7 +1456,7 @@ document.querySelectorAll("main > section").forEach(s => io.observe(s));
 (() => {
   if (!("IntersectionObserver" in window)) return;
   if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const sel = "#resume .pcard, #resume .rsec, .wgroup, .wcard, .skills > .eyebrow, .sk-title, .sk-desc, .sk-gname, .sk-grid > *, .tl-grid > *, .play-text > *, .play-panel, .fan-grid > *, #contact > *:not(footer)";
+  const sel = "#resume .pcard, #resume .rsec > h4, #resume .stats, #resume .crow, #resume .prow, #resume .egrid > :not(.more), #resume .elist > :not(.more), #works .tabs, .wgroup, .wcard, .skills > .eyebrow, .sk-title, .sk-desc, .sk-gname, .sk-grid > *, .tl-grid > *, .play-text > *, .play-panel > .cap, .play-panel > .note, .games > *, .fan-grid > *, #contact > *:not(footer), main section > .scroll";
   const els = [...document.querySelectorAll(sel)];
   const done = el => { el.classList.remove("rv", "in"); el.style.transitionDelay = ""; };
   const io = new IntersectionObserver(entries => {
