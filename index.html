@@ -190,8 +190,8 @@
   .wgroup{max-width:1500px;margin:0 auto 26px;padding:0 24px}
   .wgroup small{display:block;font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--signal);margin-bottom:8px}
   .wg-row{display:flex;align-items:baseline;gap:10px}
-  .wgroup h3{font-size:clamp(40px,4.2vw,60px);font-weight:800;letter-spacing:-.04em;line-height:1.1}
-  .wgroup span{font-size:clamp(22px,2.4vw,34px);font-weight:700;color:var(--g500)}
+  .wgroup h3{font-size:clamp(30px,3.6vw,44px);font-weight:800;letter-spacing:-.04em;line-height:1.1}
+  .wgroup span{font-size:clamp(18px,2vw,26px);font-weight:700;color:var(--g500)}
   .works-grid + .wgroup{margin-top:80px}
   .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;padding:0 24px;max-width:1500px;margin:0 auto}
   .wcard{background:var(--dark);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:.25s}
@@ -216,7 +216,7 @@
   dialog{border:0;padding:0;color:var(--white);background:transparent}
   dialog::backdrop{background:rgba(0,0,0,.72);backdrop-filter:blur(4px)}
   body:has(dialog[open]){overflow:hidden}
-  .modal{width:min(880px,calc(100vw - 32px));max-height:calc(100vh - 48px);margin:auto;border-radius:18px;background:var(--dark);border:1px solid var(--line);overflow:hidden}
+  .modal{width:min(1120px,calc(100vw - 32px));max-height:calc(100vh - 48px);margin:auto;border-radius:18px;background:var(--dark);border:1px solid var(--line);overflow:hidden}
   .modal[open]{display:flex;flex-direction:column;animation:mIn .22s ease-out}
   @keyframes mIn{from{opacity:0;transform:translateY(12px)}}
   .m-content{overflow-y:auto}
@@ -225,11 +225,29 @@
   .m-head{min-height:200px;display:flex;align-items:flex-end;padding:28px 32px;background-size:cover;background-position:center}
   .m-kind{font-size:13px;color:inherit;opacity:.75;margin-bottom:4px}
   .m-head h3{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.25}
-  .m-video{aspect-ratio:16/9;background:#000}
+  .m-banner{height:220px;background-size:cover;background-position:center 30%}
+  .m-top{padding:24px 36px 26px;border-bottom:1px solid var(--line)}
+  .m-kicker{font-size:12px;font-weight:600;color:var(--g500);margin-bottom:6px}
+  .m-top h3{font-size:clamp(26px,3vw,36px);font-weight:800;letter-spacing:-.04em;line-height:1.2;margin-bottom:10px}
+  .m-sum{font-size:15px;color:var(--g300);line-height:1.7;max-width:760px;margin-bottom:18px}
+  .m-bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:10px;background:var(--soft)}
+  .m-bar div{padding:12px 16px;min-width:0}
+  .m-bar div + div{border-left:1px solid var(--line)}
+  .m-bar dt{font-size:11px;color:var(--g500);margin-bottom:3px}
+  .m-bar dd{font-size:14px;font-weight:700;color:var(--white);word-break:keep-all}
+  .m-layout{display:grid;grid-template-columns:180px minmax(0,1fr)}
+  .m-layout:not(:has(.m-toc)){grid-template-columns:1fr}
+  .m-toc{position:sticky;top:0;align-self:start;display:flex;flex-direction:column;gap:2px;padding:28px 0 28px 28px}
+  .m-toc small{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--g500);margin-bottom:8px}
+  .m-toc a{font-size:13px;font-weight:600;color:var(--g500);padding:7px 0 7px 12px;border-left:2px solid var(--line);transition:.15s;line-height:1.35}
+  .m-toc a:hover{color:var(--white)}
+  .m-toc a.on{color:var(--white);border-left-color:var(--accent)}
+  .m-anchor{scroll-margin-top:16px;display:grid;gap:22px}
+  .m-video{aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden}
   .m-video iframe{width:100%;height:100%;border:0;display:block}
-  .m-vcap{font-size:13px;color:var(--g500);padding:12px 32px 0}
+  .m-vcap{font-size:13px;color:var(--g500);margin-top:-10px}
   .m-vcap a{color:var(--accent);font-weight:600;margin-left:4px}
-  .m-body{padding:28px 32px 36px;display:grid;gap:26px}
+  .m-body{padding:28px 36px 40px;display:grid;gap:30px;min-width:0}
   .m-intro{font-size:15px;color:var(--g300)}
   .m-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
   .m-gallery figure{margin:0}
@@ -305,7 +323,7 @@
   .v-pages{--z:1;overflow:auto;flex:1;display:flex;flex-direction:column;align-items:safe center;gap:16px;padding:24px 16px 60px}
   .v-cap{width:calc(min(1100px,100%) * var(--z));max-width:100%;flex-shrink:0;margin:-6px 0 20px;font-size:15px;line-height:1.5;color:var(--g100);text-align:center;word-break:keep-all}
   .v-pages img{width:calc(min(1100px,100%) * var(--z));max-width:none;flex-shrink:0;height:auto;border-radius:4px;background:#222;scroll-margin-top:16px}
-  @media(max-width:700px){ .m-gallery{grid-template-columns:1fr} .m-stats{grid-template-columns:1fr} .doc-thumbs{grid-template-columns:repeat(2,1fr)} .m-head h3{font-size:24px} .m-body,.m-head{padding-left:20px;padding-right:20px} }
+  @media(max-width:700px){ .m-gallery{grid-template-columns:1fr} .m-stats{grid-template-columns:1fr} .doc-thumbs{grid-template-columns:repeat(2,1fr)} .m-head h3{font-size:24px} .m-body,.m-head,.m-top{padding-left:20px;padding-right:20px} .m-banner{height:150px} .m-bar{grid-template-columns:1fr 1fr} .m-bar div:nth-child(3){border-left:0} .m-bar div:nth-child(n+3){border-top:1px solid var(--line)} .m-layout{grid-template-columns:1fr} .m-toc{display:none} }
 
   /* ===== SKILLS ===== */
   #skills{padding:110px 0 0}
@@ -685,6 +703,7 @@ const DATA = {
      - contrib: 기여도(%)를 넣으면 도넛 그래프로 표시 */
   details: {
     cookierun: {
+      bar: [["역할", "레벨/콘텐츠 기획 (사원)"], ["기간", "2023.08 ~ 2026.06"], ["회사", "데브시스터즈 / 오븐게임즈"], ["상태", "라이브 서비스"]],
       intro: "쿠키런 IP 최초 3D 멀티플레이 액션 게임. 파티원과 함께 보스 레이드를 하거나 기믹이 있는 모험 스테이지를 즐기는 캐릭터 수집형 RPG입니다.",
       gallery: [
         { src: "assets/works/cookierun/event.jpg", cap: "캔디하키 / 방어전선 이벤트 모드 제작" },
@@ -712,6 +731,7 @@ const DATA = {
       ]
     },
     pio: {
+      bar: [["역할", "시스템, 콘텐츠, 레벨 기획"], ["기간", "2023.01 ~ 2023.11"], ["팀", "Team 별의별 (졸업 작품)"], ["상태", "Steam, STOVE INDIE 출시"]],
       intro: "\"가장 밝은 별이 되기 위한 여정.\" 내가 밟고 있는 주사위 모양의 플랫폼이 공격 수단이 되는 보스 러쉬 게임입니다. 공격 기회와 플랫폼 소모 리스크의 균형을 조절하며 적을 물리치는 것이 핵심입니다. (청강문화산업대학교 졸업 작품, Team. 별의별)",
       video: "uM4YMMF9V9g",
       gallery: [
@@ -737,6 +757,7 @@ const DATA = {
       ]
     },
     orbis: {
+      bar: [["역할", "시스템, 콘텐츠 기획"], ["기간", "2022.03 ~ 2022.06"], ["형태", "넥슨 산학 프로젝트 (5명)"], ["성과", "NEXON 2022 MOD PROJECT 대상"]],
       intro: "\"1등이 되기 위해 살아남아라!\" 매 스테이지마다 랜덤으로 등장하는 미니게임 중 하나를 투표로 고르고, 꼴찌가 탈락하는 메이플스토리 월드 서바이벌 대결 게임입니다. (넥슨 산학 협력 프로젝트, NEXON 2022 MOD PROJECT 모동아리)",
       gallery: [
         { src: "assets/works/orbis/games.jpg", cap: "스테이지마다 등장하는 미니게임" },
@@ -754,6 +775,7 @@ const DATA = {
       ]
     },
     spacebakery: {
+      bar: [["역할", "시스템, 콘텐츠 기획"], ["기간", "2022.05 ~ 2022.06"], ["팀", "팀 프로젝트 (7명)"], ["플랫폼", "VR (싱글 / 멀티)"]],
       intro: "\"손님이 원하는 음식을 던져라!\" 행성을 오가며 빵을 파는데, 가게 바로 앞에 다른 가게가 생겼습니다. 손님의 주문을 파악해 음식을 던져 서빙하고, 상대 유저보다 더 높은 매출을 올리는 VR 캐주얼 멀티 대전 게임입니다.",
       video: "0LyHYTIrgyQ",
       gallery: [
@@ -770,6 +792,7 @@ const DATA = {
       ]
     },
     "astrae-meal": {
+      bar: [["역할", "콘텐츠 기획 (개인 작업)"], ["작성", "2026.10"], ["대상 게임", "아스트라에 오라티오"], ["분량", "62쪽 제안 기획서"]],
       intro: "\"식사를 통해 마음도, 전투의 이점도 얻는다.\" 아스트라에 오라티오(디나미스원)에 제안하는 신규 콘텐츠 기획서입니다. 동료와 함께 식사하며 교감하고, 그 한 끼가 다음 출격의 버프로 이어지는 순환 구조를 설계했습니다. (개인 작업)",
       meta: [["대상 게임", "아스트라에 오라티오"], ["분류", "콘텐츠 기획 제안"], ["분량", "62쪽 (개요, 시스템 구조, 상세 규칙, UI/데이터)"], ["작성", "2026.10"]],
       role: ["가게 / 메뉴 / 버프 슬롯(횟수제) 규칙 설계", "동반, 취향, 프로필 기록, 식사 대사, 리액션 연출", "연대(출격 한마디), 인연 연계, 어뷰징 방지", "UI 화면 명세, 테이블 관계도와 컬럼 정의"],
@@ -780,6 +803,7 @@ const DATA = {
       doc: { folder: "assets/docs/astrae-meal", pages: 62, pdf: "assets/docs/astrae-meal/아스트라에오라티오_특구청_식사_콘텐츠_제안기획서.pdf" }
     },
     geniburger: {
+      bar: [["역할", "팀장, 시스템/사운드 기획"], ["기간", "2022.06 ~ 2022.12"], ["형태", "KT 산학 프로젝트"], ["플랫폼", "모바일"]],
       intro: "\"손님에게 음식을 던져서 서빙하라!\" KT의 메타버스 콘텐츠 '지니버스'의 그래픽과 접근성을 고려해 만든, 고득점이 목표인 모바일 하이퍼 캐주얼 게임입니다. (KT 산학 프로젝트)",
       video: "SD8fBWlCE9E",
       gallery: [
@@ -1126,32 +1150,52 @@ function openWork(id) {
   const list = (t, arr) => arr && arr.length ? `<section class="m-card"><h4>${t}</h4><ul>${arr.map(x => `<li>${x}</li>`).join("")}</ul></section>` : "";
   const donut = d.contrib ? `<div class="donut" style="--p:${d.contrib}"><span>전체 기획<b>${d.contrib}<small>%</small></b></span></div>` : "";
   const docs = d.docs || (d.doc ? [Object.assign({ title: w.title }, d.doc)] : []);
-  const docHtml = docs.map((doc, di) => {
+  const docParts = docs.map((doc, di) => {
     const pages = docPages(doc);
     return `<section class="m-sec doc-sec"><h4>${doc.title}</h4>${doc.desc ? `<p class="doc-desc">${doc.desc}</p>` : ""}${doc.chapters ? `<div class="doc-chap">${doc.chapters.map(([t, pg], ci) => `<button data-d="${di}" data-i="${pg - 1}"><span>${String(ci + 1).padStart(2, "0")}</span>${t}<em>${pg}쪽</em></button>`).join("")}</div>` : ""}${pages.length
       ? `<div class="doc-thumbs">${pages.slice(0, 7).map((src, i) => `<button class="doc-thumb" data-d="${di}" data-i="${i}"><img src="${src}" alt="${i + 1}쪽" loading="lazy"><span>${i + 1}</span></button>`).join("")}${pages.length > 7 ? `<button class="doc-thumb more" data-d="${di}" data-i="7">+${pages.length - 7}쪽</button>` : ""}</div>
          <div class="doc-actions"><button class="btn primary" data-d="${di}" data-i="0">전체 ${pages.length}쪽 크게 보기</button>${doc.pdf ? `<a class="btn" href="${doc.pdf}" target="_blank" download>PDF 다운로드</a>` : ""}</div>`
       : `<p class="doc-empty">기획서 페이지를 정리하고 있습니다.</p>`}</section>`;
-  }).join("");
+  });
+  const docHtml = docParts.join("");
+  const metaMap = Object.fromEntries(d.meta || []);
+  const kicker = [metaMap["장르"] || metaMap["분류"], metaMap["플랫폼"] || w.platform].filter(Boolean).join(" / ");
+  const toc = [];
+  const sec = (id, label, html) => { if (!html) return ""; toc.push([id, label]); return `<div class="m-anchor" id="ms-${id}">${html}</div>`; };
+    const body = [
+    sec("video", "플레이 영상", d.video ? `<div class="m-video"><iframe src="https://www.youtube-nocookie.com/embed/${d.video}" title="${w.title} 영상" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>${d.videoCaption ? `<p class="m-vcap">${d.videoCaption} <a href="https://www.youtube.com/watch?v=${d.video}" target="_blank">유튜브에서 보기 ↗</a></p>` : ""}` : ""),
+    sec("overview", "개요", (d.intro ? `<p class="m-intro">${d.intro}</p>` : "") + (d.gallery ? `<div class="m-gallery">${d.gallery.map((g, i) => `<figure><button class="g-img" data-g="${i}"><img src="${g.src}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`).join("")}</div>` : "") + (d.meta ? `<dl class="m-meta">${d.meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` : "")),
+    sec("role", "담당 업무와 성과", (d.role || d.results) ? `<div class="m-stats">${d.role ? `<section class="m-card"><h4>담당 업무</h4><div class="contrib">${donut}<ul>${d.role.map(x => `<li>${x}</li>`).join("")}</ul></div></section>` : ""}${list("성과 및 결과", d.results)}</div>` : ""),
+    sec("links", "관련 영상", d.links ? `<section class="m-sec"><h4>관련 영상</h4><div class="m-links">${d.links.map(l => `<a class="m-link" href="https://www.youtube.com/watch?v=${l.video}" target="_blank"><span class="lt"><img src="https://i.ytimg.com/vi/${l.video}/hqdefault.jpg" alt="" loading="lazy"><i>▶</i></span><span><b>${l.title}</b><small>${l.desc}</small><em>유튜브에서 보기 ↗</em></span></a>`).join("")}</div></section>` : ""),
+    (d.sections || []).map((s, si) => sec("s" + si, s.h, `<section class="m-sec"><h4>${s.h}</h4><p>${s.p}</p>${s.more ? `<details class="m-more"><summary><i></i>${s.more.label}${s.more.note ? `<small>(${s.more.note})</small>` : ""}</summary>${s.more.groups.map(([g, list]) => { const a = list.split(" "); return `<div class="mm-g"><b>${g}<em>${a.length}</em></b><div>${a.map(n => `<span>${n}</span>`).join("")}</div></div>`; }).join("")}</details>` : ""}</section>`)).join(""),
+    ...docParts.map((html, di) => sec("d" + di, docs.length > 1 ? docs[di].title : "기획서", html)),
+    !d.sections && !d.doc ? `<p class="m-sec">${w.desc}</p>` : ""
+  ].join("");
   M.querySelector(".m-content").innerHTML = `
-    <div class="m-head" style="${w.thumb ? `background-image:linear-gradient(transparent 15%,color-mix(in srgb,var(--dark) 75%,transparent) 62%,var(--dark)),url('${w.thumb}')` : `background:linear-gradient(135deg,${w.color},${w.color}66);color:#fff`}">
-      <div><div class="m-kind">${kindLabel[w.kind]} / ${w.platform} / ${w.year}</div><h3 id="m-title">${w.title}</h3></div>
+    <div class="m-banner" style="${w.thumb ? `background-image:url('${w.thumb}')` : `background:linear-gradient(135deg,${w.color},${w.color}66)`}"></div>
+    <div class="m-top">
+      ${kicker ? `<div class="m-kicker">${kicker}</div>` : ""}
+      <h3 id="m-title">${w.title}</h3>
+      <p class="m-sum">${w.desc}</p>
+      ${d.bar ? `<dl class="m-bar">${d.bar.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>` : ""}
     </div>
-    ${d.video ? `<div class="m-video"><iframe src="https://www.youtube-nocookie.com/embed/${d.video}" title="${w.title} 영상" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>${d.videoCaption ? `<p class="m-vcap">${d.videoCaption} <a href="https://www.youtube.com/watch?v=${d.video}" target="_blank">유튜브에서 보기 ↗</a></p>` : ""}` : ""}
-    <div class="m-body">
-      ${d.intro ? `<p class="m-intro">${d.intro}</p>` : ""}
-      ${d.gallery ? `<div class="m-gallery">${d.gallery.map((g, i) => `<figure><button class="g-img" data-g="${i}"><img src="${g.src}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`).join("")}</div>` : ""}
-      ${d.meta ? `<dl class="m-meta">${d.meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` : ""}
-      ${(d.role || d.results) ? `<div class="m-stats">${d.role ? `<section class="m-card"><h4>담당 업무</h4><div class="contrib">${donut}<ul>${d.role.map(x => `<li>${x}</li>`).join("")}</ul></div></section>` : ""}${list("성과 및 결과", d.results)}</div>` : ""}
-      ${d.links ? `<section class="m-sec"><h4>관련 영상</h4><div class="m-links">${d.links.map(l => `<a class="m-link" href="https://www.youtube.com/watch?v=${l.video}" target="_blank"><span class="lt"><img src="https://i.ytimg.com/vi/${l.video}/hqdefault.jpg" alt="" loading="lazy"><i>▶</i></span><span><b>${l.title}</b><small>${l.desc}</small><em>유튜브에서 보기 ↗</em></span></a>`).join("")}</div></section>` : ""}
-      ${(d.sections || []).map(s => `<section class="m-sec"><h4>${s.h}</h4><p>${s.p}</p>${s.more ? `<details class="m-more"><summary><i></i>${s.more.label}${s.more.note ? `<small>(${s.more.note})</small>` : ""}</summary>${s.more.groups.map(([g, list]) => { const a = list.split(" "); return `<div class="mm-g"><b>${g}<em>${a.length}</em></b><div>${a.map(n => `<span>${n}</span>`).join("")}</div></div>`; }).join("")}</details>` : ""}</section>`).join("")}
-      ${docHtml}
-      ${!d.sections && !d.doc ? `<p class="m-sec">${w.desc}</p>` : ""}
+    <div class="m-layout">
+      ${toc.length > 1 ? `<nav class="m-toc" aria-label="목차"><small>목차</small>${toc.map(([id, l]) => `<a href="#ms-${id}" data-t="${id}">${l}</a>`).join("")}</nav>` : ""}
+      <div class="m-body">${body}</div>
     </div>`;
   M.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { const doc = docs[+b.dataset.d || 0]; openViewer(doc.title, docPages(doc), +b.dataset.i, "16 / 9"); });
   M.querySelectorAll("[data-g]").forEach(b => b.onclick = () => openViewer(w.title, d.gallery.map(g => g.src), +b.dataset.g));
   M.showModal();
-  M.querySelector(".m-content").scrollTop = 0;
+  const MC = M.querySelector(".m-content"); MC.scrollTop = 0;
+  const tocLinks = [...M.querySelectorAll(".m-toc a")];
+  tocLinks.forEach(a => a.onclick = e => { e.preventDefault(); M.querySelector("#ms-" + a.dataset.t).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  const markToc = () => {
+    let cur = tocLinks[0];
+    tocLinks.forEach(a => { const el = M.querySelector("#ms-" + a.dataset.t); if (el && el.getBoundingClientRect().top - MC.getBoundingClientRect().top < 120) cur = a; });
+    if (MC.scrollTop + MC.clientHeight >= MC.scrollHeight - 4) cur = tocLinks[tocLinks.length - 1];
+    tocLinks.forEach(a => a.classList.toggle("on", a === cur));
+  };
+  MC.onscroll = markToc; markToc();
 }
 function openViewer(title, pages, start, ratio, caps) {
   const V = $("#doc-viewer");
