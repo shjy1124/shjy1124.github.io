@@ -187,10 +187,10 @@
   .tabs{display:flex;gap:8px;justify-content:center;margin-bottom:44px}
   .tabs button{font-family:inherit;font-size:15px;font-weight:700;padding:10px 24px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--white);cursor:pointer;transition:.2s}
   .tabs button.on{background:var(--inv-bg);color:var(--inv-fg);border-color:var(--inv-bg)}
-  .wgroup{max-width:1500px;margin:0 auto 18px;padding:0 24px;display:flex;align-items:baseline;gap:10px}
-  .wgroup h3{font-size:22px;font-weight:800;letter-spacing:-.02em}
-  .wgroup span{font-size:14px;color:var(--g500)}
-  .works-grid + .wgroup{margin-top:56px}
+  .wgroup{max-width:1500px;margin:0 auto 26px;padding:0 24px;display:flex;align-items:baseline;gap:10px}
+  .wgroup h3{font-size:clamp(40px,4.6vw,66px);font-weight:800;letter-spacing:-.04em;line-height:1.1}
+  .wgroup span{font-size:clamp(24px,2.8vw,42px);font-weight:700;color:var(--g500)}
+  .works-grid + .wgroup{margin-top:80px}
   .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;padding:0 24px;max-width:1500px;margin:0 auto}
   .wcard{background:var(--dark);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:.25s}
   .wcard:hover{transform:translateY(-4px);border-color:var(--btn-line)}
