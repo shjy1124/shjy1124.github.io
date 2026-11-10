@@ -1123,13 +1123,11 @@ $("#play").innerHTML = `
       <div class="games">${P.games.map(g => `
         <div class="game ${g.detail ? "has-detail" : ""}" title="${g.name}${g.note ? " (" + g.note + ")" : ""}" ${g.detail ? `data-gi="${P.games.indexOf(g)}" tabindex="0" role="button" aria-label="${g.name} 플레이 기록 보기"` : ""}>
           <div class="gi" style="background:${g.color}">${g.icon ? `<img src="${g.icon}" alt="${g.name}">` : `<span>${g.name}</span>`}</div>
-          ${g.deep ? `<i class="star" title="1년 이상 매일 플레이하는 게임">★</i>` : ""}
           ${g.note ? `<i class="gbadge">CBT</i>` : ""}
         </div>`).join("")}
       </div>
       <div class="gpop" id="gpop" role="dialog" aria-hidden="true"></div>
       ${P.games.some(g => g.detail) ? `<div class="note dnote"><i class="dmark">i</i>아이콘을 누르면 플레이 기록을 볼 수 있어요</div>` : ""}
-      ${P.games.some(g => g.deep) ? `<div class="note"><i class="star s">★</i><b>${P.deepNote}</b></div>` : ""}
     </div>
   </div>
   ${scroll("fan")}`;
