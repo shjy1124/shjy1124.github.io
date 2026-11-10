@@ -527,8 +527,8 @@
     <ul class="side-nav">
       <li><a href="#about"><span>01</span>소개</a></li>
       <li><a href="#resume"><span>02</span>이력</a></li>
-      <li><a href="#skills"><span>03</span>역량</a></li>
-      <li><a href="#works"><span>04</span>작업</a></li>
+      <li><a href="#works"><span>03</span>작업</a></li>
+      <li><a href="#skills"><span>04</span>역량</a></li>
       <li><a href="#play"><span>05</span>플레이 경험</a></li>
       <li><a href="#fan"><span>06</span>게임 생활</a></li>
       <li><a href="#contact"><span>07</span>연락처</a></li>
@@ -541,8 +541,8 @@
 <main>
   <section id="about"></section>
   <section id="resume" class="light"></section>
-  <section id="skills"></section>
   <section id="works"></section>
+  <section id="skills"></section>
   <section id="play" class="light"></section>
   <section id="fan" class="light fan-sec"></section>
   <section id="contact"></section>
@@ -1017,7 +1017,7 @@ $("#resume").innerHTML = `
         </div>
       </div>
     </div>
-    ${scroll("skills")}
+    ${scroll("works")}
   </div>`;
 
 // 03 SKILLS
@@ -1065,7 +1065,7 @@ $("#skills").innerHTML = `
         </div>
       </div>` : ""}
   </div>
-  ${scroll("works")}`;
+  ${scroll("play")}`;
 document.querySelectorAll("#skills .sk-img").forEach(b => b.onclick = () => {
   const it = SK.groups.flatMap(g => g.items).find(x => x.title === decodeURIComponent(b.dataset.sk));
   openViewer(it.title, it.imgs.map(x => x[0]), 0, null, it.imgs.map(x => x[1]));
@@ -1097,7 +1097,7 @@ function renderWorks() {
       </article>`).join("")}
     </div>`;
     }).join("")}
-    ${scroll("play")}`;
+    ${scroll("skills")}`;
   $("#works").querySelectorAll(".tabs button").forEach(b => b.onclick = () => { filter = b.dataset.k; renderWorks(); });
   $("#works").querySelectorAll(".wcard").forEach(c => {
     c.onclick = () => openCard(c.dataset.id);
