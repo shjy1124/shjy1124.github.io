@@ -889,14 +889,14 @@ $("#about").innerHTML = `
     <div class="tl">${A.timeline.map(t => `
       <div class="tl-step ${t.now ? "now" : ""}"><small>${t.when}</small><h4>${t.title}</h4><p>${t.org}</p><span class="chip">${t.chip}</span></div>`).join("")}
     </div>
-    <div class="about-cards">${A.cards.map(c => `
+    ${A.showCards ? `<div class="about-cards">${A.cards.map(c => `
       <div class="acard">
         <div class="big">${c.big}<small>${c.unit}</small></div>
         <h5>${c.title}</h5>
         <div class="lead">${c.lead}</div>
         <ul>${c.points.map(p => `<li>${p}</li>`).join("")}</ul>
       </div>`).join("")}
-    </div>
+    </div>` : ""}
     ${scroll("resume")}
   </div>`;
 
