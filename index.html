@@ -1223,6 +1223,13 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), { rootMargin: "-45% 0px -50% 0px" });
 document.querySelectorAll("main > section").forEach(s => io.observe(s));
 </script>
-<img src="https://hits.sh/shjy1124.github.io.svg" alt="" width="1" height="1" referrerpolicy="no-referrer" aria-hidden="true" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">
+<script>
+try {
+  const q = new URLSearchParams(location.search);
+  if (q.has("me")) localStorage.setItem("hits_off", "1");
+  if (q.has("notme")) localStorage.removeItem("hits_off");
+  if (!localStorage.getItem("hits_off")) { const px = new Image(); px.referrerPolicy = "no-referrer"; px.src = "https://hits.sh/shjy1124.github.io.svg"; }
+} catch (e) {}
+</script>
 </body>
 </html>
