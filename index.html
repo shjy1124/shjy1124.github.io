@@ -142,6 +142,28 @@
   .pcard .bd{color:var(--ink2);font-size:15px;margin-bottom:26px}
   .pcard .ml{font-size:15px}
   .pcard .ml span{color:var(--accent-l);margin-right:10px}
+  .pcol{align-self:start;display:flex;flex-direction:column}
+  .philo-btn{position:relative;margin-top:22px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 12px;padding:16px 20px;border:0;border-radius:16px;background:var(--accent);color:#fff;text-align:left;cursor:pointer;font-family:inherit;box-shadow:0 12px 26px -12px rgba(37,99,235,.65);transition:transform .25s,box-shadow .25s,background .2s;animation:philoBob 2.6s ease-in-out infinite}
+  .philo-btn::before{content:"";position:absolute;left:34px;top:-11px;border:11px solid transparent;border-top:0;border-bottom-color:var(--accent);transition:border-color .2s}
+  .philo-btn small{grid-column:1;font:600 10px/1 var(--mono);letter-spacing:.24em;color:rgba(255,255,255,.7)}
+  .philo-btn b{grid-column:1;font-size:17px;font-weight:800;letter-spacing:-.02em}
+  .philo-btn i{grid-column:2;grid-row:1/3;font-style:normal;font-size:18px;transition:transform .25s}
+  .philo-btn:hover{animation:none;transform:translateY(-3px);background:#1d4ed8;box-shadow:0 16px 30px -12px rgba(37,99,235,.75)}
+  .philo-btn:hover::before{border-bottom-color:#1d4ed8}
+  .philo-btn:hover i{transform:translate(2px,-2px)}
+  @keyframes philoBob{50%{transform:translateY(-4px)}}
+  @media(prefers-reduced-motion:reduce){ .philo-btn{animation:none} }
+  .ph-top h3{font-size:clamp(26px,3vw,38px)}
+  .ph-top .m-sum b{color:var(--white)}
+  .ph-body{padding:12px 36px 44px;max-width:860px}
+  .ph-item{display:grid;grid-template-columns:64px 1fr;gap:4px 18px;padding:28px 0;border-bottom:1px solid var(--line)}
+  .ph-no{font:700 13px/1.9 var(--mono);color:var(--accent-l);letter-spacing:.06em}
+  .ph-item h4{font-size:20px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px;color:var(--white)}
+  .ph-item p{font-size:15px;line-height:1.85;color:var(--g300)}
+  .ph-item .ph-ex{margin-top:12px;padding:12px 16px;border-left:3px solid var(--accent-l);background:var(--panel);border-radius:0 8px 8px 0;font-size:14px}
+  .ph-outro{margin-top:34px;font-size:clamp(19px,2.2vw,24px);font-weight:800;letter-spacing:-.03em;color:var(--white)}
+  .ph-outro b{color:var(--accent-l)}
+  @media(max-width:700px){ .ph-body{padding:4px 20px 32px} .ph-item{grid-template-columns:1fr} }
 
   .rg{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px 48px}
   .rg h4{font-size:17px;font-weight:800;color:var(--accent-l);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
@@ -677,6 +699,17 @@ const DATA = {
   resumeFile: "assets/docs/resume.pdf?v=2#page=1",
   competencyFile: "assets/docs/competency.pdf?v=2#page=1",
   photo: "assets/profile.jpg",
+  // 개발 철학 (이력서 카드 아래 말풍선을 누르면 열림)
+  philosophy: {
+    sum: "아무리 많은 시스템과 콘텐츠를 넣어도, <b>핵심 재미가 약하면 모든 게 무너집니다.</b>",
+    items: [
+      { h: "코어 재미부터 단단하게", p: "시스템과 콘텐츠를 쌓기 전에, 이 게임이 왜 재밌는지부터 정의합니다. 핵심 재미가 약한 상태에서 쌓은 콘텐츠는 결국 함께 무너지기 때문입니다.", ex: "PIO에서는 그래픽 리소스를 만들기 전, 그레이 박스 상태에서 조작감과 전투 패턴을 반복 테스트해 재미를 먼저 검증했습니다." },
+      { h: "보기 좋은 기획보다, 플레이에서 느끼는 재미", p: "기획서가 아무리 그럴듯해도 유저가 실제로 플레이했을 때 재미가 없다면 의미가 없다고 생각합니다. 그래서 기획에서 끝내지 않고, 의도한 경험이 플레이에서 그대로 전달되는지 직접 확인합니다.", ex: "쿠키런: 모험의 탑에서는 몬스터 리소스 조립, 데이터 테이블, BT 제작까지 직접 진행하며 기획한 패턴이 의도대로 플레이되는지 확인했습니다." },
+      { h: "출시 이후에도 데이터로 다듬기", p: "출시는 끝이 아니라 검증의 시작이라고 생각합니다. 유저가 어디서 막히고 어디서 떠나는지 데이터로 확인하고, 의도에 가까워지도록 계속 다듬습니다.", ex: "쿠키런: 모험의 탑에서는 출시 후 플레이 데이터를 모니터링하며 난이도 완화 패치를 진행했고, PIO에서는 개인적으로 로그를 심어 스테이지별 이탈과 실패 지표를 분석했습니다." },
+      { h: "함께 만드는 감동", p: "좋은 게임은 한 사람의 기획이 아니라 팀 전체의 합으로 완성된다고 생각합니다. 내 파트에 선을 긋기보다, 게임이 완성되는 데 필요한 일이라면 함께 맡아 왔습니다.", ex: "PIO에서는 팀원 모집과 초기 프로토타입부터 출시까지 맡을 수 있는 모든 업무를 진행했고, 라이브 서비스에서는 여러 직군과 조율하며 콘텐츠를 완성했습니다." }
+    ],
+    outro: "함께 <b>게임의 감동</b>을 만들어 나갈 동료가 되고 싶습니다."
+  },
   heroBg: "",
   // 첫 화면 배경에서 차례로 재생되는 작업 이미지
   heroSlides: [
@@ -1127,6 +1160,7 @@ const moreBtn = arr => arr.some(r => r.more)
 $("#resume").innerHTML = `
   <div class="inner">
     <div class="resume">
+      <div class="pcol">
       <div class="pcard">
         <h3>이력서</h3>
         ${DATA.photo ? `<div class="photo"><img src="${DATA.photo}" alt="${DATA.fullName}"></div>` : ""}
@@ -1134,6 +1168,8 @@ $("#resume").innerHTML = `
         <div class="en">${DATA.enName}</div>
         <div class="bd">${DATA.birth}</div>
         <div class="ml"><span>E-mail.</span>${DATA.contact.email}</div>
+      </div>
+      ${DATA.philosophy ? `<button class="philo-btn" type="button" onclick="openPhilo()"><small>PHILOSOPHY</small><b>개발 철학 보기</b><i>↗</i></button>` : ""}
       </div>
       <div class="rg">
         <div class="rsec">
@@ -1313,6 +1349,21 @@ function openWork(id) {
   };
   MC.onscroll = markToc; markToc();
 }
+function openPhilo() {
+  const P = DATA.philosophy, M = $("#work-modal");
+  M.querySelector(".m-content").innerHTML = `
+    <div class="m-top ph-top">
+      <div class="m-kicker">PHILOSOPHY / 개발 철학</div>
+      <h3 id="m-title">핵심 재미가 단단해야,<br>게임이 버팁니다.</h3>
+      <p class="m-sum">${P.sum}</p>
+    </div>
+    <div class="ph-body">
+      ${P.items.map((x, i) => `<section class="ph-item"><span class="ph-no">${String(i + 1).padStart(2, "0")}</span><div><h4>${x.h}</h4><p>${x.p}</p>${x.ex ? `<p class="ph-ex">${x.ex}</p>` : ""}</div></section>`).join("")}
+      <p class="ph-outro">${P.outro}</p>
+    </div>`;
+  M.showModal();
+  const MC = M.querySelector(".m-content"); MC.scrollTop = 0; MC.onscroll = null;
+}
 function openViewer(title, pages, start, ratio, caps) {
   const V = $("#doc-viewer");
   V.querySelector(".v-title").textContent = `${title} (${pages.length}쪽)`;
@@ -1487,7 +1538,7 @@ document.querySelectorAll("main > section").forEach(s => io.observe(s));
 (() => {
   if (!("IntersectionObserver" in window)) return;
   if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const sel = "#resume .pcard, #resume .rsec > h4, #resume .stats, #resume .crow, #resume .prow, #resume .egrid > :not(.more), #resume .elist > :not(.more), #works .tabs, .wgroup, .wcard, .skills > .eyebrow, .sk-title, .sk-desc, .sk-gname, .sk-grid > *, .tl-grid > *, .play-text > *, .play-panel > .cap, .play-panel > .note, .games > *, .fan-grid > *, #outro .eyebrow, .o-title, .o-vids > *, #contact > *:not(footer), main section > .scroll";
+  const sel = "#resume .pcard, #resume .philo-btn, #resume .rsec > h4, #resume .stats, #resume .crow, #resume .prow, #resume .egrid > :not(.more), #resume .elist > :not(.more), #works .tabs, .wgroup, .wcard, .skills > .eyebrow, .sk-title, .sk-desc, .sk-gname, .sk-grid > *, .tl-grid > *, .play-text > *, .play-panel > .cap, .play-panel > .note, .games > *, .fan-grid > *, #outro .eyebrow, .o-title, .o-vids > *, #contact > *:not(footer), main section > .scroll";
   const els = [...document.querySelectorAll(sel)];
   const done = el => { el.classList.remove("rv", "in"); el.style.transitionDelay = ""; };
   const io = new IntersectionObserver(entries => {
