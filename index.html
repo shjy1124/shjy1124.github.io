@@ -419,6 +419,7 @@
   .eyebrow.dk{color:var(--accent-l)}
   .play h3{font-size:clamp(30px,3.2vw,40px);font-weight:800;letter-spacing:-.04em;line-height:1.3;margin:14px 0 36px}
   .play h3 b{color:var(--accent-l)}
+  .play-lead{margin:-18px 0 34px;font-size:15px;line-height:1.8;color:var(--ink3)}
   .play ol{list-style:none;display:grid;gap:18px}
   .play li{display:grid;grid-template-columns:36px 1fr;font-size:15px;color:var(--ink2)}
   .play li span{font-weight:800;color:var(--accent-l)}
@@ -1077,6 +1078,7 @@ const DATA = {
   // 게임 생활: photos의 src에 이미지 경로, cap에 짧은 캡션 (예: "지스타 2025")
   fan: {
     title: "화면 밖에서도<br><b>게임을 즐깁니다</b>",
+    lead: "저의 삶은 '게임'이 아니면 설명할 수 없습니다.<br>게임 개발 밖에서도, 게임이라는 문화 안에서 진심으로 즐거움을 느낍니다.",
     points: [
       "지스타, AGF, 게임 페스티벌, 오케스트라 공연, 팝업 행사까지 좋아하는 게임이 있는 곳이라면 직접 찾아갑니다. 현장에서 팬들이 <b>무엇에 줄을 서고 무엇을 간직하는지</b> 보며, 게임 밖의 경험도 IP의 일부라는 것을 배웁니다.",
       "플레이도, 개발도, 행사와 굿즈 수집 같은 취미까지, 제 일상은 <b>모두 게임으로 이어져 있습니다.</b>"
@@ -1470,6 +1472,7 @@ $("#fan").innerHTML = `
     <div class="play-text">
       <div class="eyebrow dk">Off Screen</div>
       <h3>${F.title}</h3>
+      ${F.lead ? `<p class="play-lead">${F.lead}</p>` : ""}
       <ol>${F.points.map((p, i) => `<li><span>${String(i + 1).padStart(2, "0")}</span><p>${p}</p></li>`).join("")}</ol>
     </div>
     <div class="fan-grid">${F.photos.map((ph, i) => `
