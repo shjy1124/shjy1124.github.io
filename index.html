@@ -486,7 +486,7 @@
   #quote .serif{font-family:"Gowun Batang",serif}
   #quote .qt-letter{display:flex;justify-content:center}
   #quote .scene{position:relative;width:min(700px,100%);--EH:400px}
-  #quote .env{position:absolute;left:0;right:0;bottom:0;height:var(--EH);perspective:1600px;transform:rotate(-1.2deg);transform-origin:50% 100%}
+  #quote .env{position:absolute;left:0;right:0;bottom:0;height:var(--EH);perspective:1600px;}
   #quote .env > svg,#quote .env > div{position:absolute}
   #quote .shadow{inset:0;border-radius:6px;box-shadow:2px 3px 2px rgba(60,55,45,.08),10px 26px 40px -18px rgba(60,55,45,.30)}
 
@@ -497,10 +497,10 @@
   #quote .slot{left:5%;right:5%;top:-1000px;bottom:0;overflow:hidden;z-index:2}
   #quote .card{position:absolute;left:0;right:0;bottom:var(--cb,170px);padding:48px 36px 110px;word-break:keep-all;background:#fffdf8;text-align:center;border-radius:2px;
         box-shadow:0 1px 1px rgba(0,0,0,.05),0 14px 26px -16px rgba(60,45,20,.35);
-        transform:translateY(var(--hide,400px)) rotate(1.6deg);transition:transform 1.1s cubic-bezier(.2,.75,.25,1) 1.4s}
+        transform:translateY(var(--hide,400px));transition:transform 1.1s cubic-bezier(.2,.75,.25,1) 1.4s}
   #quote .card::before{content:"";position:absolute;left:0;right:0;top:34%;height:10px;background:linear-gradient(rgba(120,95,50,0),rgba(120,95,50,.035) 45%,rgba(255,255,255,.5) 55%,rgba(255,255,255,0));pointer-events:none}
   #quote .card .mark{display:block;font-size:54px;line-height:.6;color:var(--accent);opacity:0}
-  #quote .card .body{position:relative;margin-top:16px;font-size:16px;line-height:2;color:#2b2925}
+  #quote .card .body{position:relative;margin-top:16px;font-size:17px;line-height:2;color:#26241f}
   #quote .card .body b{font-weight:700;color:var(--accent);background:linear-gradient(transparent 64%,rgba(37,99,235,.15) 64%) no-repeat 0 0/0% 100%;transition:background-size .8s ease 3.6s}
   #quote .card .ln{display:block;opacity:0;transform:translateY(8px);transition:opacity .6s,transform .7s cubic-bezier(.2,.7,.2,1)}
   #quote .card .sign{position:relative;margin-top:20px;font-size:27px;color:var(--pen);display:inline-block;clip-path:inset(0 100% 0 0);transition:clip-path 1.1s ease-in-out 4.1s}
@@ -531,7 +531,7 @@
   #quote .scene.open .flap{transform:rotateX(180deg);z-index:1}
   #quote .scene.open .flap .fo{opacity:0}
   #quote .scene.open .flap .fi{opacity:1}
-  #quote .scene.open .card{transform:translateY(0) rotate(1.6deg)}
+  #quote .scene.open .card{transform:none}
   #quote .scene.open .card .mark{animation:fadeIn .6s 2.05s both}
   @keyframes fadeIn{from{opacity:0}to{opacity:.85}}
   #quote .scene.open .card .ln{opacity:1;transform:none}
