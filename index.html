@@ -160,6 +160,7 @@
   .ph-no{font:700 13px/1.9 var(--mono);color:var(--accent-l);letter-spacing:.06em}
   .ph-item h4{font-size:20px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px;color:var(--white)}
   .ph-item p{font-size:15px;line-height:1.85;color:var(--g300)}
+  .ph-item .ph-p2{margin-top:12px}
   .ph-item .ph-ex{margin-top:12px;padding:12px 16px;border-left:3px solid var(--accent-l);background:var(--panel);border-radius:0 8px 8px 0;font-size:14px}
   .ph-gal{margin-top:14px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}
   .ph-gal figure{margin:0}
@@ -709,7 +710,7 @@ const DATA = {
   philosophy: {
     sum: "아무리 많은 시스템과 콘텐츠를 넣어도, <b>핵심 재미가 약하면 모든 게 무너집니다.</b>",
     items: [
-      { h: "코어 재미부터 단단하게", p: "아트 없이도 재밌어야 진짜 핵심 재미입니다. 처음부터 리소스를 투입하기보다 핵심 조작을 먼저 프로토타이핑해 재미를 검증한 뒤 폴리싱합니다. 시스템과 콘텐츠를 쌓기 전에, 이 게임이 왜 재밌는지부터 정의합니다.", ex: "PIO에서는 그래픽 리소스를 투입하기 전, 그레이 박스 상태에서 조작감, 타격감, 보스 패턴의 재미를 단계별로 검증한 뒤에 폴리싱을 진행했습니다.", imgs: "pio" },
+      { h: "코어 재미부터 단단하게", p: "아트 없이도 재밌어야 진짜 핵심 재미입니다. 처음부터 리소스를 투입하기보다 핵심 조작을 먼저 프로토타이핑해 재미를 검증한 뒤 폴리싱합니다. 시스템과 콘텐츠를 쌓기 전에, 이 게임이 왜 재밌는지부터 정의합니다.", p2: "화려한 연출과 리소스가 먼저 쌓이고, 정작 '이 게임만의 재미'는 설명되지 않는 상황을 현업에서 겪으며 이 생각은 더 확고해졌습니다. 아트는 핵심 재미라는 뼈대가 있을 때 비로소 빛을 발합니다. 뼈대가 없는 게임은, 아무리 화려하게 쌓아도 결국 무너집니다.", ex: "PIO에서는 그래픽 리소스를 투입하기 전, 그레이 박스 상태에서 조작감, 타격감, 보스 패턴의 재미를 단계별로 검증한 뒤에 폴리싱을 진행했습니다.", imgs: "pio" },
       { h: "보기 좋은 기획보다, 플레이에서 느끼는 재미", p: "기획서가 아무리 그럴듯해도 유저가 실제로 플레이했을 때 재미가 없다면 의미가 없다고 생각합니다. 그래서 기획에서 끝내지 않고, 의도한 경험이 플레이에서 그대로 전달되는지 직접 확인합니다.", ex: "쿠키런: 모험의 탑에서는 몬스터 리소스 조립, 데이터 테이블, BT 제작까지 직접 진행하며 기획한 패턴이 의도대로 플레이되는지 확인했습니다." },
       { h: "출시 이후에도 데이터로 다듬기", p: "출시는 끝이 아니라 검증의 시작이라고 생각합니다. 유저가 어디서 막히고 어디서 떠나는지 데이터로 확인하고, 의도에 가까워지도록 계속 다듬습니다.", ex: "쿠키런: 모험의 탑에서는 출시 후 플레이 데이터를 모니터링하며 난이도 완화 패치를 진행했고, PIO에서는 개인적으로 로그를 심어 스테이지별 이탈과 실패 지표를 분석했습니다." },
       { h: "함께 만드는 감동", p: "좋은 게임은 한 사람의 기획이 아니라 팀 전체의 합으로 완성된다고 생각합니다. 내 파트에 선을 긋기보다, 게임이 완성되는 데 필요한 일이라면 함께 맡아 왔습니다.", ex: "PIO에서는 팀원 모집과 초기 프로토타입부터 출시까지 맡을 수 있는 모든 업무를 진행했고, 파트의 구분을 두지 않았습니다. 내 역할에 충실한 것도 좋지만, 최종적으로 원하는 것은 '팀의 승리'이기 때문입니다." }
@@ -1364,7 +1365,7 @@ function openPhilo() {
       <p class="m-sum">${P.sum}</p>
     </div>
     <div class="ph-body">
-      ${P.items.map((x, i) => `<section class="ph-item"><span class="ph-no">${String(i + 1).padStart(2, "0")}</span><div><h4>${x.h}</h4><p>${x.p}</p>${x.ex ? `<p class="ph-ex">${x.ex}</p>` : ""}${x.imgs && (DATA.details[x.imgs] || {}).gallery ? `<div class="ph-gal">${DATA.details[x.imgs].gallery.map((g, gi) => `<figure><button type="button" data-pg="${x.imgs}:${gi}"><img src="${g.src}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`).join("")}</div>` : ""}</div></section>`).join("")}
+      ${P.items.map((x, i) => `<section class="ph-item"><span class="ph-no">${String(i + 1).padStart(2, "0")}</span><div><h4>${x.h}</h4><p>${x.p}</p>${x.p2 ? `<p class="ph-p2">${x.p2}</p>` : ""}${x.ex ? `<p class="ph-ex">${x.ex}</p>` : ""}${x.imgs && (DATA.details[x.imgs] || {}).gallery ? `<div class="ph-gal">${DATA.details[x.imgs].gallery.map((g, gi) => `<figure><button type="button" data-pg="${x.imgs}:${gi}"><img src="${g.src}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`).join("")}</div>` : ""}</div></section>`).join("")}
       <p class="ph-outro">${P.outro}</p>
     </div>`;
   M.querySelectorAll("[data-pg]").forEach(b => b.onclick = () => { const [id, i] = b.dataset.pg.split(":"); const g = DATA.details[id].gallery; openViewer("개발 철학", g.map(x => x.src), +i, null, g.map(x => x.cap)); });
