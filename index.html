@@ -481,56 +481,70 @@
   @media(max-width:960px){ .fan-grid{grid-template-columns:repeat(2,minmax(0,1fr))} .play.fan .play-text{position:static} }
 
   /* ===== 인용구 (편지) ===== */
-  #quote{padding:110px 0 30px}
-  #quote{--env:#e7dfcf;--env2:#efe8d9;--env3:#ddd3c0}
+  #quote{padding:110px 0 40px;--pen:#22377a}
   #quote .hand{font-family:"Nanum Pen Script",cursive}
   #quote .serif{font-family:"Gowun Batang",serif}
-  #quote .qt-letter{display:grid;place-items:center}
-  @media(max-width:640px){ #quote .card{padding:40px 20px 180px} #quote .card .body{font-size:16px} }
-  @media(prefers-reduced-motion:reduce){ #quote .env *{transition:none!important;animation:none!important} }
-  /* 봉투 */
-  #quote .env{position:relative;width:min(760px,100%);height:640px;perspective:1400px}
-  #quote .env-back{position:absolute;left:0;right:0;bottom:0;height:300px;background:var(--env);border-radius:6px;box-shadow:0 24px 50px -24px rgba(60,45,20,.4)}
-  #quote .env-back::before{content:"";position:absolute;inset:0;border-radius:6px;background:linear-gradient(to top right,transparent 49.6%,var(--env3) 50%) left/50% 100% no-repeat,linear-gradient(to top left,transparent 49.6%,var(--env3) 50%) right/50% 100% no-repeat}
+  #quote .qt-letter{display:flex;justify-content:center}
+  #quote .scene{position:relative;width:min(700px,100%);--EH:400px}
+  #quote .env{position:absolute;left:0;right:0;bottom:0;height:var(--EH);perspective:1600px;transform:rotate(-1.2deg);transform-origin:50% 100%}
+  #quote .env > svg,#quote .env > div{position:absolute}
+  #quote .shadow{inset:0;border-radius:6px;box-shadow:2px 3px 2px rgba(60,55,45,.08),10px 26px 40px -18px rgba(60,55,45,.30)}
 
-  /* 카드가 봉투 아래로 삐져나오지 않게 가리는 틀 */
-  #quote .slot{position:absolute;left:28px;right:28px;top:0;bottom:0;overflow:hidden;z-index:1}
-  #quote .card{position:absolute;left:0;right:0;bottom:0;padding:54px 60px 190px;background:#fffefb;border-radius:4px;box-shadow:0 10px 30px -14px rgba(60,45,20,.35);text-align:center;
-        transform:translateY(calc(100% - 120px));transition:transform 1.1s cubic-bezier(.2,.75,.25,1) 1.4s}
-  #quote .card .mark{display:block;font-size:56px;line-height:.6;color:var(--accent);opacity:.85}
-  #quote .card .body{margin-top:18px;font-size:19px;line-height:2;color:#2b2925}
-  #quote .card .body b{font-weight:700;color:var(--accent);background:linear-gradient(transparent 64%,rgba(37,99,235,.14) 64%) no-repeat 0 0/0% 100%;transition:background-size .8s ease 3.6s}
+  /* 종이 결 (요철이 느껴지도록 조명 필터) */
+  #quote .grain{inset:0;z-index:4;pointer-events:none;opacity:.55;mix-blend-mode:multiply;border-radius:6px;clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%);
+         background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' seed='4'/%3E%3CfeDiffuseLighting lighting-color='%23fff' surfaceScale='1.1'%3E%3CfeDistantLight azimuth='225' elevation='58'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23p)' opacity='.55'/%3E%3C/svg%3E")}
+
+  #quote .slot{left:5%;right:5%;top:-1000px;bottom:0;overflow:hidden;z-index:2}
+  #quote .card{position:absolute;left:0;right:0;bottom:var(--cb,170px);padding:48px 36px 110px;word-break:keep-all;background:#fffdf8;text-align:center;border-radius:2px;
+        box-shadow:0 1px 1px rgba(0,0,0,.05),0 14px 26px -16px rgba(60,45,20,.35);
+        transform:translateY(var(--hide,400px)) rotate(1.6deg);transition:transform 1.1s cubic-bezier(.2,.75,.25,1) 1.4s}
+  #quote .card::before{content:"";position:absolute;left:0;right:0;top:34%;height:10px;background:linear-gradient(rgba(120,95,50,0),rgba(120,95,50,.035) 45%,rgba(255,255,255,.5) 55%,rgba(255,255,255,0));pointer-events:none}
+  #quote .card .mark{display:block;font-size:54px;line-height:.6;color:var(--accent);opacity:0}
+  #quote .card .body{position:relative;margin-top:16px;font-size:16px;line-height:2;color:#2b2925}
+  #quote .card .body b{font-weight:700;color:var(--accent);background:linear-gradient(transparent 64%,rgba(37,99,235,.15) 64%) no-repeat 0 0/0% 100%;transition:background-size .8s ease 3.6s}
   #quote .card .ln{display:block;opacity:0;transform:translateY(8px);transition:opacity .6s,transform .7s cubic-bezier(.2,.7,.2,1)}
-  #quote .card .sign{margin-top:22px;font-size:28px;color:#3a3832;display:inline-block;clip-path:inset(0 100% 0 0);transition:clip-path 1.1s ease-in-out 4.1s}
+  #quote .card .sign{position:relative;margin-top:20px;font-size:27px;color:var(--pen);display:inline-block;clip-path:inset(0 100% 0 0);transition:clip-path 1.1s ease-in-out 4.1s}
   #quote .card .sign span{color:var(--accent)}
 
-  /* 앞판 */
-  #quote .env-front{position:absolute;left:0;right:0;bottom:0;height:160px;z-index:2;background:var(--env2);border-radius:0 0 6px 6px;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
-  #quote .env-front::before{content:"";position:absolute;inset:0;background:linear-gradient(to top right,var(--env) 49.6%,transparent 50%) left/50% 100% no-repeat,linear-gradient(to top left,var(--env) 49.6%,transparent 50%) right/50% 100% no-repeat}
+  #quote .back,#quote .front{inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+  #quote .back{z-index:1}
+  #quote .front{z-index:3}
 
-  /* 뚜껑 (닫혀 있을 때 아래로 덮고, 열리면 위로 젖혀짐) */
-  #quote .flap{position:absolute;left:0;right:0;top:340px;height:175px;z-index:3;transform-origin:50% 0;transform:rotateX(0deg);
-        transition:transform .75s cubic-bezier(.5,0,.3,1) .85s,z-index 0s 1.23s}
-  #quote .flap::before{content:"";position:absolute;inset:0;background:#e4dbc9;clip-path:polygon(0 0,100% 0,50% 100%);filter:drop-shadow(0 3px 4px rgba(0,0,0,.08))}
-  #quote .seal{position:absolute;left:50%;top:340px;margin-top:140px;transform:translate(-50%,0) scale(1);z-index:4;width:56px;height:56px;border-radius:50%;
-        background:radial-gradient(circle at 35% 30%,#5b8cff,#2563eb 60%,#1d4fc4);box-shadow:0 4px 10px rgba(29,79,196,.4),inset 0 0 0 4px rgba(255,255,255,.12);
-        display:grid;place-items:center;color:#fff;font:700 14px/1 "Gowun Batang",serif;letter-spacing:.05em;transition:transform .4s cubic-bezier(.5,-0.4,.7,1) .5s,opacity .3s .55s}
+  #quote .flap{left:0;right:0;top:0;height:60%;z-index:5;transform-origin:50% 0;transition:transform .8s cubic-bezier(.5,0,.3,1) .85s,z-index 0s 1.25s}
+  #quote .flap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;transition:opacity 0s 1.25s}
+  #quote .flap .fi{opacity:0}
+  #quote .flap::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;mix-blend-mode:multiply;clip-path:polygon(0 0,100% 0,50% 97%);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' seed='4'/%3E%3CfeDiffuseLighting lighting-color='%23fff' surfaceScale='1.1'%3E%3CfeDistantLight azimuth='225' elevation='58'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23p)' opacity='.55'/%3E%3C/svg%3E");transition:opacity 0s 1.25s}
+  #quote .scene.open .flap::after{opacity:0}
+
+  #quote .seal{left:50%;top:60%;z-index:6;width:76px;height:76px;margin:-44px 0 0 -38px;filter:drop-shadow(1px 3px 3px rgba(40,30,80,.35));transition:transform .45s cubic-bezier(.5,-0.4,.7,1) .5s,opacity .3s .6s}
+
+  #quote .addr{left:34px;bottom:30px;z-index:4;color:var(--pen);transform:rotate(-2.2deg);transform-origin:0 100%}
+  #quote .addr p{font-size:23px;line-height:1.35;padding:0 8px 1px 2px;border-bottom:1px solid rgba(34,55,122,.22)}
+  #quote .addr p + p{margin-top:5px}
+  #quote .addr small{display:block;font-size:19px;opacity:.8;margin-bottom:2px}
+
+  #quote .stamp{right:28px;bottom:26px;z-index:4;width:66px;height:80px;transform:rotate(3deg);filter:drop-shadow(0 1px 2px rgba(0,0,0,.18))}
+  #quote .postmark{right:56px;bottom:34px;z-index:5;width:170px;height:80px;pointer-events:none;opacity:.62;mix-blend-mode:multiply}
 
   /* ===== 열림 ===== */
-  #quote .env.open .seal{transform:translate(-50%,-6px) scale(0);opacity:0}
-  #quote .env.open .flap{transform:rotateX(180deg);z-index:0}
-  #quote .env.open .card{transform:translateY(0)}
-  #quote .env.open .card .ln{opacity:1;transform:none}
-  #quote .env.open .card .ln:nth-child(1){transition-delay:2.25s}
-  #quote .env.open .card .ln:nth-child(2){transition-delay:2.5s}
-  #quote .env.open .card .ln:nth-child(3){transition-delay:2.75s}
-  #quote .env.open .card .ln:nth-child(4){transition-delay:3s}
-  #quote .env.open .card .ln:nth-child(5){transition-delay:3.25s}
-  #quote .env.open .card .mark{animation:fadeIn .6s 2.05s both}
+  #quote .scene.open .seal{transform:translateY(-10px) rotate(-18deg) scale(0);opacity:0}
+  #quote .scene.open .flap{transform:rotateX(180deg);z-index:1}
+  #quote .scene.open .flap .fo{opacity:0}
+  #quote .scene.open .flap .fi{opacity:1}
+  #quote .scene.open .card{transform:translateY(0) rotate(1.6deg)}
+  #quote .scene.open .card .mark{animation:fadeIn .6s 2.05s both}
   @keyframes fadeIn{from{opacity:0}to{opacity:.85}}
-  #quote .env.open .card .body b{background-size:100% 100%}
-  #quote .env.open .card .sign{clip-path:inset(0 0 0 0)}
+  #quote .scene.open .card .ln{opacity:1;transform:none}
+  #quote .scene.open .card .ln:nth-child(1){transition-delay:2.25s}
+  #quote .scene.open .card .ln:nth-child(2){transition-delay:2.5s}
+  #quote .scene.open .card .ln:nth-child(3){transition-delay:2.75s}
+  #quote .scene.open .card .ln:nth-child(4){transition-delay:3s}
+  #quote .scene.open .card .ln:nth-child(5){transition-delay:3.25s}
+  #quote .scene.open .card .body b{background-size:100% 100%}
+  #quote .scene.open .card .sign{clip-path:inset(0 0 0 0)}
 
+  @media(max-width:640px){ #quote .card{padding:40px 18px 110px} #quote .card .body{font-size:15px} #quote .addr{display:none} }
+  @media(prefers-reduced-motion:reduce){ #quote .scene *{transition:none!important;animation:none!important} }
 
   /* ===== 마무리 메시지 ===== */
   #outro{padding:120px 0 40px;text-align:center}
@@ -1223,39 +1237,141 @@ const moreBtn = arr => arr.some(r => r.more)
 // 첫 화면과 이력 사이 인용구
 $("#quote").innerHTML = `
   <div class="inner qt-letter">
-    <div class="env" id="qenv">
-      <div class="env-back"></div>
-      <div class="flap"></div>
-      <div class="slot">
-        <div class="card" id="qcard">
-          <span class="mark serif">“</span>
-          <p class="body serif">
-            <span class="ln">AI 시대, 게임을 만드는 일은 쉬워졌습니다.</span>
-            <span class="ln">즐길 거리는 넘쳐나지만, 유저의 하루는 여전히 24시간입니다.</span>
-            <span class="ln">그렇기에 얼마나 빠르게, 얼마나 많이 만들었는지보다 중요한 것은</span>
-            <span class="ln"><b>'이 게임이 왜 재밌는가'</b>라는 본질입니다.</span>
-            <span class="ln">그 본질을 잊지 않고 함께 만들어 갈 동료를 찾고 있습니다.</span>
-          </p>
-          <p class="sign hand">게임 디자이너 <span>손지윤</span> 드림</p>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- 안감: 작은 주사위 무늬 -->
+      <pattern id="q-liner" width="90" height="90" patternUnits="userSpaceOnUse">
+        <rect width="90" height="90" fill="#e3ebfb"/>
+        <g fill="#a9bfee">
+          <path transform="translate(14 16) scale(.55)" d="M0 -10 L2.6 -2.6 L10 0 L2.6 2.6 L0 10 L-2.6 2.6 L-10 0 L-2.6 -2.6Z"/>
+          <path transform="translate(58 30) scale(.85)" d="M0 -10 L2.6 -2.6 L10 0 L2.6 2.6 L0 10 L-2.6 2.6 L-10 0 L-2.6 -2.6Z"/>
+          <path transform="translate(30 62) scale(.4)" d="M0 -10 L2.6 -2.6 L10 0 L2.6 2.6 L0 10 L-2.6 2.6 L-10 0 L-2.6 -2.6Z"/>
+          <path transform="translate(76 72) scale(.6)" d="M0 -10 L2.6 -2.6 L10 0 L2.6 2.6 L0 10 L-2.6 2.6 L-10 0 L-2.6 -2.6Z"/>
+        </g>
+        <g fill="#c2d2f3"><circle cx="40" cy="12" r="1.2"/><circle cx="8" cy="44" r="1"/><circle cx="66" cy="54" r="1.1"/><circle cx="48" cy="82" r="1"/><circle cx="84" cy="8" r=".9"/></g>
+      </pattern>
+      <linearGradient id="q-pf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbfaf6"/><stop offset="1" stop-color="#f3f1eb"/></linearGradient>
+      <linearGradient id="q-pl" x1="0" y1="0" x2="1" y2=".4"><stop offset="0" stop-color="#f1eee7"/><stop offset="1" stop-color="#f7f5f0"/></linearGradient>
+      <linearGradient id="q-pr" x1="1" y1="0" x2="0" y2=".4"><stop offset="0" stop-color="#eeebe3"/><stop offset="1" stop-color="#f4f2ec"/></linearGradient>
+      <linearGradient id="q-pb" x1="0" y1="1" x2=".3" y2="0"><stop offset="0" stop-color="#f3f1eb"/><stop offset="1" stop-color="#fcfbf8"/></linearGradient>
+      <filter id="q-flapsh" x="-5%" y="-10%" width="110%" height="130%"><feDropShadow dx="1" dy="3" stdDeviation="3.5" flood-color="#4f4a40" flood-opacity=".16"/></filter>
+      <filter id="q-edge" x="-5%" y="-10%" width="110%" height="120%"><feDropShadow dx="0" dy="-1.5" stdDeviation="2.2" flood-color="#4f4a40" flood-opacity=".13"/></filter>
+      <radialGradient id="q-wax" cx=".36" cy=".32" r=".75"><stop offset="0" stop-color="#7aa1ff"/><stop offset=".45" stop-color="#2d5fe6"/><stop offset="1" stop-color="#16379e"/></radialGradient>
+      <filter id="q-rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1.25" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>
+      <mask id="q-perf"><rect width="66" height="80" fill="#fff"/><g fill="#000">
+        <circle cx="3" cy="0" r="3"/><circle cx="11" cy="0" r="3"/><circle cx="19" cy="0" r="3"/><circle cx="27" cy="0" r="3"/><circle cx="35" cy="0" r="3"/><circle cx="43" cy="0" r="3"/><circle cx="51" cy="0" r="3"/><circle cx="59" cy="0" r="3"/><circle cx="67" cy="0" r="3"/>
+        <circle cx="3" cy="80" r="3"/><circle cx="11" cy="80" r="3"/><circle cx="19" cy="80" r="3"/><circle cx="27" cy="80" r="3"/><circle cx="35" cy="80" r="3"/><circle cx="43" cy="80" r="3"/><circle cx="51" cy="80" r="3"/><circle cx="59" cy="80" r="3"/><circle cx="67" cy="80" r="3"/>
+        <circle cx="0" cy="6" r="3"/><circle cx="0" cy="14" r="3"/><circle cx="0" cy="22" r="3"/><circle cx="0" cy="30" r="3"/><circle cx="0" cy="38" r="3"/><circle cx="0" cy="46" r="3"/><circle cx="0" cy="54" r="3"/><circle cx="0" cy="62" r="3"/><circle cx="0" cy="70" r="3"/><circle cx="0" cy="78" r="3"/>
+        <circle cx="66" cy="6" r="3"/><circle cx="66" cy="14" r="3"/><circle cx="66" cy="22" r="3"/><circle cx="66" cy="30" r="3"/><circle cx="66" cy="38" r="3"/><circle cx="66" cy="46" r="3"/><circle cx="66" cy="54" r="3"/><circle cx="66" cy="62" r="3"/><circle cx="66" cy="70" r="3"/><circle cx="66" cy="78" r="3"/>
+      </g></mask>
+      <clipPath id="q-stampimg"><rect x="8" y="8" width="50" height="52"/></clipPath>
+    </defs>
+  </svg>
+    <div class="scene" id="qscene">
+      <div class="env">
+        <div class="shadow"></div>
+
+        <!-- 봉투 안쪽 (안감) -->
+        <svg class="back" viewBox="0 0 600 350" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="600" height="350" rx="6" fill="#f3f1eb"/>
+          <rect x="7" y="7" width="586" height="300" rx="3" fill="url(#q-liner)"/>
+          <rect x="7" y="7" width="586" height="40" fill="url(#q-liner)" opacity=".001"/>
+          <rect x="7" y="7" width="586" height="300" rx="3" fill="none" stroke="rgba(40,50,80,.10)" stroke-width="10" style="filter:blur(4px)"/>
+        </svg>
+
+        <div class="slot">
+          <div class="card" id="qcard">
+            <span class="mark serif">“</span>
+            <p class="body serif">
+              <span class="ln">AI 시대, 게임을 만드는 일은 쉬워졌습니다.</span>
+              <span class="ln">즐길 거리는 넘쳐나지만, 유저의 하루는 여전히 24시간입니다.</span>
+              <span class="ln">그렇기에 얼마나 빠르게, 얼마나 많이 만들었는지보다 중요한 것은</span>
+              <span class="ln"><b>'이 게임이 왜 재밌는가'</b>라는 본질입니다.</span>
+              <span class="ln">그 본질을 잊지 않고 함께 만들어 갈 동료를 찾고 있습니다.</span>
+            </p>
+            <p class="sign hand">게임 디자이너 <span>손지윤</span> 드림</p>
+          </div>
         </div>
+
+        <!-- 앞판: 양옆 날개 + 아래 날개, 접힌 가장자리 하이라이트 -->
+        <svg class="front" viewBox="0 0 600 350" preserveAspectRatio="none" aria-hidden="true">
+          <g filter="url(#q-edge)">
+            <path d="M0 2 Q2 0 6 3 L292 189 Q300 195 293 200 L4 348 Q0 350 0 345 Z" fill="url(#q-pl)"/>
+            <path d="M600 2 Q598 0 594 3 L308 189 Q300 195 307 200 L596 348 Q600 350 600 345 Z" fill="url(#q-pr)"/>
+          </g>
+          <path d="M6 3 L292 189 Q300 195 307 189 L594 3" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="1.2"/>
+          <path d="M0 350 L280 176 Q300 162 320 176 L600 350 Z" fill="url(#q-pb)" filter="url(#q-edge)"/>
+          <path d="M2 349 L280 177 Q300 163 320 177 L598 349" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.2"/>
+          <path d="M300 168 L300 350" stroke="rgba(80,75,65,.04)" stroke-width="1"/>
+        </svg>
+
+        <!-- 받는 사람 (손글씨) -->
+        <div class="addr hand"><small>To.</small><p>함께 게임을 만들어 갈</p><p>동료에게</p></div>
+
+        <!-- 우표: 실제 작업물 이미지 -->
+        <svg class="stamp" viewBox="0 0 66 80" aria-hidden="true">
+          <rect width="66" height="80" fill="#fffdf6" mask="url(#q-perf)"/>
+          <rect x="7.5" y="7.5" width="51" height="53" fill="none" stroke="#e6dcc8"/>
+          <image href="assets/hero/pio.jpg" x="-30" y="8" width="120" height="68" preserveAspectRatio="xMidYMid slice" clip-path="url(#q-stampimg)"/>
+          <text x="33" y="71" text-anchor="middle" font-size="6.2" font-weight="700" letter-spacing="1" fill="#22377a" font-family="Pretendard,sans-serif">SON JIYUN</text>
+        </svg>
+
+        <!-- 소인: 날짜 도장 + 물결 줄 (잉크가 고르지 않게) -->
+        <svg class="postmark" viewBox="0 0 170 80" aria-hidden="true">
+          <g filter="url(#q-rough)" fill="none" stroke="#24398a" stroke-width="1.6">
+            <g transform="rotate(-10 40 40)">
+              <circle cx="40" cy="40" r="27"/><circle cx="40" cy="40" r="21" stroke-width=".9"/>
+              <text x="40" y="36" text-anchor="middle" font-size="8.5" font-weight="700" fill="#24398a" stroke="none" font-family="Pretendard,sans-serif" letter-spacing="1.5">SEOUL</text>
+              <text x="40" y="49" text-anchor="middle" font-size="7" fill="#24398a" stroke="none" font-family="Pretendard,sans-serif">2026.11</text>
+            </g>
+            <path d="M72 22 q10 -6 20 0 t20 0 t20 0 t20 0 t18 0"/>
+            <path d="M72 34 q10 -6 20 0 t20 0 t20 0 t20 0 t18 0"/>
+            <path d="M72 46 q10 -6 20 0 t20 0 t20 0 t20 0 t18 0"/>
+            <path d="M72 58 q10 -6 20 0 t20 0 t20 0 t20 0 t18 0"/>
+          </g>
+        </svg>
+
+        <!-- 뚜껑 -->
+        <div class="flap">
+          <svg class="fo" viewBox="0 0 600 210" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 0 H600 L318 196 Q300 210 282 196 Z" fill="url(#q-pf)" filter="url(#q-flapsh)"/>
+            <path d="M3 1 L282 195 Q300 208 318 195 L597 1" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="1.2"/>
+            <path d="M0 0 H600" stroke="rgba(80,75,65,.10)" stroke-width="2"/>
+          </svg>
+          <svg class="fi" viewBox="0 0 600 210" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 0 H600 L318 196 Q300 210 282 196 Z" fill="#f3f1eb"/>
+            <path d="M8 4 H592 L316 190 Q300 202 284 190 Z" fill="url(#q-liner)"/>
+          </svg>
+        </div>
+
+        <!-- 실링 왁스: 고르지 않은 윤곽 + 각인 -->
+        <svg class="seal" viewBox="0 0 76 76" aria-hidden="true">
+          <path d="M38 5 C47 3 55 8 61 14 C69 20 72 29 70 37 C73 46 68 55 61 61 C57 66 51 70 44 70 C36 73 27 71 20 66 C12 62 6 54 6 45 C3 37 5 28 10 21 C15 12 25 6 38 5 Z" fill="url(#q-wax)"/>
+          <path d="M60 60 C64 64 67 66 70 66 C71 69 66 71 62 68 Z" fill="#1d44b4"/>
+          <circle cx="38" cy="38" r="21" fill="none" stroke="#14348f" stroke-width="2.4" opacity=".55"/>
+          <circle cx="38.6" cy="38.8" r="21" fill="none" stroke="#9ab6ff" stroke-width="1" opacity=".55"/>
+          <ellipse cx="27" cy="20" rx="9" ry="4.5" fill="#fff" opacity=".28" transform="rotate(-28 27 20)"/>
+        </svg>
+
+        <div class="grain"></div>
       </div>
-      <div class="env-front"></div>
-      <span class="seal">SJ</span>
     </div>
   </div>`;
 (() => {
-  const env = document.getElementById("qenv"), card = document.getElementById("qcard");
+  const scene = document.getElementById("qscene"), card = document.getElementById("qcard");
   const fit = () => {
-    const h = card.offsetHeight + 130;
-    env.style.height = h + "px";
-    env.querySelector(".flap").style.top = (h - 300) + "px";
-    env.querySelector(".seal").style.top = (h - 300) + "px";
+    const EH = Math.round(Math.min(400, scene.offsetWidth * 0.58));
+    scene.style.setProperty("--EH", EH + "px");
+    const ch = card.offsetHeight, cb = Math.round(EH * 0.43);
+    card.style.setProperty("--cb", cb + "px");
+    scene.style.height = EH + Math.max(0, ch - (EH - cb)) + 16 + "px";
+    card.style.setProperty("--hide", (ch - (EH - cb) + 20) + "px");
   };
   addEventListener("resize", fit); fit();
   if (document.fonts) document.fonts.ready.then(fit);
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) { env.classList.add("open"); return; }
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { env.classList.add("open"); io.disconnect(); } }), { threshold: .4 });
-  io.observe(env);
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) { scene.classList.add("open"); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { scene.classList.add("open"); io.disconnect(); } }), { threshold: .45 });
+  io.observe(scene);
 })();
 
 $("#resume").innerHTML = `
