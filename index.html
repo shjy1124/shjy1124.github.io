@@ -479,6 +479,15 @@
   .play.fan .play-text{position:sticky;top:80px}
   @media(max-width:960px){ .fan-grid{grid-template-columns:repeat(2,minmax(0,1fr))} .play.fan .play-text{position:static} }
 
+  /* ===== 인용구 ===== */
+  #quote{padding:120px 0 20px}
+  .qt{text-align:center;max-width:900px}
+  .qt-mark{display:block;font:800 72px/1 Georgia,serif;color:var(--accent);opacity:.9;height:44px}
+  .qt-mark.end{margin-top:22px}
+  .qt-text{font-size:clamp(18px,2vw,24px);font-weight:600;line-height:1.85;letter-spacing:-.03em;color:var(--ink)}
+  .qt-text b{color:var(--accent);font-weight:800}
+  @media(max-width:700px){ #quote{padding:80px 0 0} .qt-text br{display:none} }
+
   /* ===== 마무리 메시지 ===== */
   #outro{padding:120px 0 40px;text-align:center}
   .o-title{font-size:clamp(28px,3.6vw,46px);font-weight:800;letter-spacing:-.045em;line-height:1.35;margin:18px 0 56px}
@@ -676,6 +685,7 @@
 
 <main>
   <section id="about"></section>
+  <section id="quote" class="light"></section>
   <section id="resume" class="light"></section>
   <section id="works"></section>
   <section id="skills"></section>
@@ -1166,6 +1176,14 @@ const elist = arr => { let ly = ""; return `<div class="elist">${arr.map(r => { 
   <div class="lrow ${show ? "ny" : ""} ${r.more ? "erow more" : ""}"><span class="y">${show ? y : ""}</span><span class="t">${r.title}</span><span class="s">${r.sub}</span></div>`; }).join("")}</div>`; };
 const moreBtn = arr => arr.some(r => r.more)
   ? `<button class="more-btn" onclick="const s=this.closest('.rsec');s.classList.toggle('open');this.textContent=s.classList.contains('open')?'− 접기':'+ 더보기'">+ 더보기</button>` : "";
+// 첫 화면과 이력 사이 인용구
+$("#quote").innerHTML = `
+  <div class="inner qt">
+    <span class="qt-mark" aria-hidden="true">“</span>
+    <p class="qt-text">AI 시대, 게임을 만드는 일은 쉬워졌습니다.<br>하지만 얼마나 빠르게, 얼마나 많이 만들었는지보다 중요한 것은<br><b>'그래서 이 게임이 왜 재밌는가'</b>라는 본질입니다.<br>그 본질을 잊지 않고 함께 만들어 갈 동료를 찾고 있습니다.</p>
+    <span class="qt-mark end" aria-hidden="true">”</span>
+  </div>`;
+
 $("#resume").innerHTML = `
   <div class="inner">
     <div class="resume">
@@ -1549,7 +1567,7 @@ document.querySelectorAll("main > section").forEach(s => io.observe(s));
 (() => {
   if (!("IntersectionObserver" in window)) return;
   if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const sel = "#resume .pcard, #resume .philo-btn, #resume .rsec > h4, #resume .stats, #resume .crow, #resume .prow, #resume .egrid > :not(.more), #resume .elist > :not(.more), #works .tabs, .wgroup, .wcard, .skills > .eyebrow, .sk-title, .sk-desc, .sk-gname, .sk-grid > *, .tl-grid > *, .play-text > *, .play-panel > .cap, .play-panel > .note, .games > *, .fan-grid > *, #outro .eyebrow, .o-title, .o-vids > *, #contact > *:not(footer), main section > .scroll";
+  const sel = ".qt > *, #resume .pcard, #resume .philo-btn, #resume .rsec > h4, #resume .stats, #resume .crow, #resume .prow, #resume .egrid > :not(.more), #resume .elist > :not(.more), #works .tabs, .wgroup, .wcard, .skills > .eyebrow, .sk-title, .sk-desc, .sk-gname, .sk-grid > *, .tl-grid > *, .play-text > *, .play-panel > .cap, .play-panel > .note, .games > *, .fan-grid > *, #outro .eyebrow, .o-title, .o-vids > *, #contact > *:not(footer), main section > .scroll";
   const els = [...document.querySelectorAll(sel)];
   const done = el => { el.classList.remove("rv", "in"); el.style.transitionDelay = ""; };
   const io = new IntersectionObserver(entries => {
