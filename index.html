@@ -290,6 +290,12 @@
   .m-video iframe{width:100%;height:100%;border:0;display:block}
   .m-vcap{font-size:13px;color:var(--g500);margin-top:-10px}
   .m-proto .doc-actions{margin:14px 0 4px}
+  .pconf{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.55)}
+  .pconf[hidden]{display:none}
+  .pconf-box{width:420px;max-width:100%;padding:26px 26px 22px;border-radius:16px;background:var(--dark);color:var(--white);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+  .pconf-box h4{font-size:18px;font-weight:800;margin-bottom:10px}
+  .pconf-box p{font-size:14px;color:var(--g300);line-height:1.6}
+  .pconf-box .doc-actions{justify-content:flex-end;margin-top:20px}
   .m-proto-img{display:block;width:100%;margin-top:14px;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:zoom-in;background:#111}
   .m-proto-img img{display:block;width:100%;height:auto}
   .m-proto-key{font-size:13px;color:var(--g500);margin-top:6px}
@@ -1616,7 +1622,7 @@ function openWork(id) {
     const body = [
     sec("video", "플레이 영상", d.video ? `<div class="m-video"><iframe src="https://www.youtube-nocookie.com/embed/${d.video}" title="${w.title} 영상" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>${d.videoCaption ? `<p class="m-vcap">${d.videoCaption} <a href="https://www.youtube.com/watch?v=${d.video}" target="_blank">유튜브에서 보기 ↗</a></p>` : ""}` : ""),
     sec("overview", "개요", (d.intro ? `<p class="m-intro">${d.intro}</p>` : "") + (d.gallery ? `<div class="m-gallery">${d.gallery.map((g, i) => `<figure><button class="g-img" data-g="${i}"><img src="${g.src}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`).join("")}</div>` : "") + (d.meta ? `<dl class="m-meta">${d.meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` : "")),
-    sec("proto", "프로토타입", d.proto ? `<section class="m-sec m-proto"><h4>프로토타입</h4><p>${d.proto.desc}</p>${d.proto.controls ? `<p class="m-proto-key">${d.proto.controls}</p>` : ""}${d.proto.img ? `<button class="g-img m-proto-img" data-pi="1"><img src="${d.proto.img}" alt="${d.proto.imgCap || "프로토타입 화면"}" loading="lazy"></button>${d.proto.imgCap ? `<p class="m-proto-key">${d.proto.imgCap}</p>` : ""}` : ""}<div class="doc-actions"><a class="btn primary" href="${d.proto.url}" target="_blank" rel="noopener">프로토타입 플레이 ↗</a>${d.proto.lowUrl ? `<a class="btn" href="${d.proto.lowUrl}" target="_blank" rel="noopener">저사양 모드로 플레이 ↗</a>` : ""}</div>${d.proto.credit ? `<p class="m-proto-credit">${d.proto.credit}</p>` : ""}</section>` : ""),
+    sec("proto", "프로토타입", d.proto ? `<section class="m-sec m-proto"><h4>프로토타입</h4><p>${d.proto.desc}</p>${d.proto.controls ? `<p class="m-proto-key">${d.proto.controls}</p>` : ""}${d.proto.img ? `<button class="g-img m-proto-img" data-pi="1"><img src="${d.proto.img}" alt="${d.proto.imgCap || "프로토타입 화면"}" loading="lazy"></button>${d.proto.imgCap ? `<p class="m-proto-key">${d.proto.imgCap}</p>` : ""}` : ""}<div class="doc-actions"><a class="btn primary" data-proto href="${d.proto.url}" target="_blank" rel="noopener">프로토타입 플레이 ↗</a>${d.proto.lowUrl ? `<a class="btn" data-proto href="${d.proto.lowUrl}" target="_blank" rel="noopener">저사양 모드로 플레이 ↗</a>` : ""}</div>${d.proto.credit ? `<p class="m-proto-credit">${d.proto.credit}</p>` : ""}</section>` : ""),
     richT ? richFn() : sec("role", d.roleLabel ? (d.results ? d.roleLabel + "와 성과" : d.roleLabel) : "담당 업무와 성과", (d.role || d.results) ? `<div class="m-stats">${d.role ? `<section class="m-card"><h4>${d.roleLabel || "담당 업무"}</h4><div class="contrib">${donut}<ul>${d.role.map(x => `<li>${x}</li>`).join("")}</ul></div></section>` : ""}${list("성과 및 결과", d.results)}</div>` : ""),
     richT ? "" : sec("links", "관련 영상", d.links && !(d.sections || []).some(x => x.links) ? `<section class="m-sec"><h4>관련 영상</h4>${linksHtml()}</section>` : ""),
     richT ? "" : (d.sections || []).map((s, si) => sec("s" + si, s.h.replace(/<[^>]+>/g, ""), `<section class="m-sec"><h4>${s.h}</h4><p>${s.p}</p>${s.links && d.links ? `<div class="sec-links">${linksHtml()}</div>` : ""}${s.imgs ? `<div class="m-gallery sec-gal">${s.imgs.map(([src, cap], i) => `<figure><button class="g-img" data-sg="${si}:${i}"><img src="${src}" alt="${cap}" loading="lazy"></button><figcaption>${cap}</figcaption></figure>`).join("")}</div>` : ""}${s.more ? `<details class="m-more"><summary><i></i>${s.more.label}${s.more.note ? `<small>(${s.more.note})</small>` : ""}</summary>${s.more.groups.map(([g, list]) => { const a = list.split(" "); return `<div class="mm-g"><b>${g}<em>${a.length}</em></b><div>${a.map(n => `<span>${n}</span>`).join("")}</div></div>`; }).join("")}</details>` : ""}</section>`, (d.sections || []).length > 3)).join(""),
@@ -1636,6 +1642,19 @@ function openWork(id) {
       <div class="m-body">${body}</div>
     </div>`;
   M.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { const doc = docs[+b.dataset.d || 0]; openViewer(doc.title, docPages(doc), +b.dataset.i, "16 / 9"); });
+  M.querySelectorAll("[data-proto]").forEach(a => a.onclick = e => {
+    e.preventDefault();
+    let c = M.querySelector("#proto-confirm");
+    if (!c) {
+      c = document.createElement("div"); c.id = "proto-confirm"; c.className = "pconf";
+      c.innerHTML = `<div class="pconf-box" role="dialog" aria-modal="true" aria-labelledby="pconf-t"><h4 id="pconf-t">브라우저 그래픽 가속을 확인해 주세요</h4><p>그래픽 가속이 꺼져 있으면 화면이 심하게 끊깁니다.<br>켜는 법: 브라우저 설정 > 시스템 > '그래픽 가속 사용'을 켠 뒤 브라우저를 다시 시작</p><div class="doc-actions"><button class="btn" data-c="0">취소</button><button class="btn primary" data-c="1">확인하고 플레이</button></div></div>`;
+      M.appendChild(c);
+      c.onclick = ev => { if (ev.target === c || ev.target.dataset.c === "0") c.hidden = true; };
+      M.addEventListener("cancel", ev => { if (!c.hidden) { ev.preventDefault(); c.hidden = true; } });
+    }
+    c.querySelector('[data-c="1"]').onclick = () => { c.hidden = true; window.open(a.href, "_blank", "noopener"); };
+    c.hidden = false; c.querySelector('[data-c="1"]').focus();
+  });
   M.querySelectorAll("[data-pi]").forEach(b => b.onclick = () => openViewer(w.title, [d.proto.img], 0, null, [d.proto.imgCap || ""]));
   M.querySelectorAll("[data-g]").forEach(b => b.onclick = () => openViewer(w.title, d.gallery.map(g => g.src), +b.dataset.g));
   M.querySelectorAll("[data-sg]").forEach(b => b.onclick = () => { const [si, i] = b.dataset.sg.split(":").map(Number); const im = d.sections[si].imgs; openViewer(w.title, im.map(x => x[0]), i, null, im.map(x => x[1])); });
