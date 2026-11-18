@@ -290,6 +290,8 @@
   .m-video iframe{width:100%;height:100%;border:0;display:block}
   .m-vcap{font-size:13px;color:var(--g500);margin-top:-10px}
   .m-proto .doc-actions{margin:14px 0 4px}
+  .m-proto-img{display:block;width:100%;margin-top:14px;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:zoom-in;background:#111}
+  .m-proto-img img{display:block;width:100%;height:auto}
   .m-proto-key{font-size:13px;color:var(--g500);margin-top:6px}
   .m-proto-credit{font-size:12px;color:var(--g500);margin-top:12px;line-height:1.6}
   .m-vcap a{color:var(--accent);font-weight:600;margin-left:4px}
@@ -1066,8 +1068,11 @@ const DATA = {
         { h: "설계 포인트", p: "몬스터헌터 라이즈의 동반자 그림자 부대와 교역선을 참고해, 구성원과 목적지를 맞추는 판단과 메인 플레이와 나란히 도는 진행을 가져왔습니다. 섬 환경, 후냐 속성, 음식 조합에 따라 결과가 달라지도록 해 고르는 재미를 만들고, 귀환할 때마다 후냐 시점의 탐험 일지를 받아 읽는 재미를 더했습니다. 정착지가 매번 바뀌는 '움직이는 집' 컨셉을 고려해, 장소에 묶이지 않도록 하늘로 파견한다는 설정을 잡았습니다." }
       ],
       proto: {
-        url: "prototype/hunya/",
-        desc: "기획서의 규칙을 실제로 동작하도록 옮긴 웹 프로토타입입니다. 게시판에서 하늘섬, 후냐, 음식을 골라 파견하고, 비행선 귀환과 탐험 일지, 사진 도감, 비행선 강화까지 직접 확인할 수 있습니다. 서버 판정과 시간 진행은 브라우저에서 흉내 내며, 데모용으로 시간이 빠르게 흐릅니다. (PC 브라우저 권장)",
+        url: "prototype/hunya/?quality=medium",
+        lowUrl: "prototype/hunya/?quality=low",
+        img: "assets/docs/hunya-expedition/proto.jpg",
+        imgCap: "프로토타입 화면: 귀환한 탐험대의 탐험 일지 보관함",
+        desc: "기획서의 규칙을 실제로 동작하도록 옮긴 웹 프로토타입입니다. 게시판에서 하늘섬, 후냐, 음식을 골라 파견하고, 비행선 귀환과 탐험 일지, 사진 도감, 비행선 강화까지 직접 확인할 수 있습니다. 서버 판정과 시간 진행은 브라우저에서 흉내 내며, 데모용으로 시간이 빠르게 흐릅니다. (PC 브라우저 권장, 화면이 끊기면 저사양 모드를 이용해 주세요)",
         controls: "클릭해서 시작 / WASD 이동 / Shift 달리기 / E 게시판 / B 탐험대 / Enter 연출 건너뛰기 / Esc 뒤로",
         credit: "배경, 캐릭터, 이동 조작은 오픈소스 데모 Painted Valley(Patch, MIT/CC0)를 기반으로 하며, 그 위에 후냐 탐험대 시스템을 Claude Code로 구현했습니다. 라이선스 전문은 프로토타입 폴더의 LICENSE.txt, LICENCE-NOTES.md, CREDITS.md에 있습니다."
       },
@@ -1611,7 +1616,7 @@ function openWork(id) {
     const body = [
     sec("video", "플레이 영상", d.video ? `<div class="m-video"><iframe src="https://www.youtube-nocookie.com/embed/${d.video}" title="${w.title} 영상" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>${d.videoCaption ? `<p class="m-vcap">${d.videoCaption} <a href="https://www.youtube.com/watch?v=${d.video}" target="_blank">유튜브에서 보기 ↗</a></p>` : ""}` : ""),
     sec("overview", "개요", (d.intro ? `<p class="m-intro">${d.intro}</p>` : "") + (d.gallery ? `<div class="m-gallery">${d.gallery.map((g, i) => `<figure><button class="g-img" data-g="${i}"><img src="${g.src}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`).join("")}</div>` : "") + (d.meta ? `<dl class="m-meta">${d.meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` : "")),
-    sec("proto", "프로토타입", d.proto ? `<section class="m-sec m-proto"><h4>프로토타입</h4><p>${d.proto.desc}</p>${d.proto.controls ? `<p class="m-proto-key">${d.proto.controls}</p>` : ""}<div class="doc-actions"><a class="btn primary" href="${d.proto.url}" target="_blank" rel="noopener">프로토타입 플레이 ↗</a></div>${d.proto.credit ? `<p class="m-proto-credit">${d.proto.credit}</p>` : ""}</section>` : ""),
+    sec("proto", "프로토타입", d.proto ? `<section class="m-sec m-proto"><h4>프로토타입</h4><p>${d.proto.desc}</p>${d.proto.controls ? `<p class="m-proto-key">${d.proto.controls}</p>` : ""}${d.proto.img ? `<button class="g-img m-proto-img" data-pi="1"><img src="${d.proto.img}" alt="${d.proto.imgCap || "프로토타입 화면"}" loading="lazy"></button>${d.proto.imgCap ? `<p class="m-proto-key">${d.proto.imgCap}</p>` : ""}` : ""}<div class="doc-actions"><a class="btn primary" href="${d.proto.url}" target="_blank" rel="noopener">프로토타입 플레이 ↗</a>${d.proto.lowUrl ? `<a class="btn" href="${d.proto.lowUrl}" target="_blank" rel="noopener">저사양 모드로 플레이 ↗</a>` : ""}</div>${d.proto.credit ? `<p class="m-proto-credit">${d.proto.credit}</p>` : ""}</section>` : ""),
     richT ? richFn() : sec("role", d.roleLabel ? (d.results ? d.roleLabel + "와 성과" : d.roleLabel) : "담당 업무와 성과", (d.role || d.results) ? `<div class="m-stats">${d.role ? `<section class="m-card"><h4>${d.roleLabel || "담당 업무"}</h4><div class="contrib">${donut}<ul>${d.role.map(x => `<li>${x}</li>`).join("")}</ul></div></section>` : ""}${list("성과 및 결과", d.results)}</div>` : ""),
     richT ? "" : sec("links", "관련 영상", d.links && !(d.sections || []).some(x => x.links) ? `<section class="m-sec"><h4>관련 영상</h4>${linksHtml()}</section>` : ""),
     richT ? "" : (d.sections || []).map((s, si) => sec("s" + si, s.h.replace(/<[^>]+>/g, ""), `<section class="m-sec"><h4>${s.h}</h4><p>${s.p}</p>${s.links && d.links ? `<div class="sec-links">${linksHtml()}</div>` : ""}${s.imgs ? `<div class="m-gallery sec-gal">${s.imgs.map(([src, cap], i) => `<figure><button class="g-img" data-sg="${si}:${i}"><img src="${src}" alt="${cap}" loading="lazy"></button><figcaption>${cap}</figcaption></figure>`).join("")}</div>` : ""}${s.more ? `<details class="m-more"><summary><i></i>${s.more.label}${s.more.note ? `<small>(${s.more.note})</small>` : ""}</summary>${s.more.groups.map(([g, list]) => { const a = list.split(" "); return `<div class="mm-g"><b>${g}<em>${a.length}</em></b><div>${a.map(n => `<span>${n}</span>`).join("")}</div></div>`; }).join("")}</details>` : ""}</section>`, (d.sections || []).length > 3)).join(""),
@@ -1631,6 +1636,7 @@ function openWork(id) {
       <div class="m-body">${body}</div>
     </div>`;
   M.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { const doc = docs[+b.dataset.d || 0]; openViewer(doc.title, docPages(doc), +b.dataset.i, "16 / 9"); });
+  M.querySelectorAll("[data-pi]").forEach(b => b.onclick = () => openViewer(w.title, [d.proto.img], 0, null, [d.proto.imgCap || ""]));
   M.querySelectorAll("[data-g]").forEach(b => b.onclick = () => openViewer(w.title, d.gallery.map(g => g.src), +b.dataset.g));
   M.querySelectorAll("[data-sg]").forEach(b => b.onclick = () => { const [si, i] = b.dataset.sg.split(":").map(Number); const im = d.sections[si].imgs; openViewer(w.title, im.map(x => x[0]), i, null, im.map(x => x[1])); });
   M.showModal();
