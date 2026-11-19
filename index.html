@@ -527,6 +527,7 @@
   .glog-top{padding:32px 36px 22px;border-bottom:1px solid var(--line)}
   .glog-top h3{font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1.3;margin-top:4px}
   .glog-top p{font-size:14px;color:var(--g300);margin-top:6px}
+  .glog-top p + p{margin-top:2px}
   .glog-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
   .glog-chips button{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--g300);font:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
   .glog-chips button:hover{color:var(--white);border-color:var(--g500)}
@@ -1929,7 +1930,8 @@ if (P.log) (() => {
     <div class="glog-top">
       <div class="m-kicker">GAME LOG</div>
       <h3 id="glog-title">${L.title} <span style="color:var(--accent)">${L.games.length}</span>종</h3>
-      <p>${L.desc} <i class="dmark" style="margin:0 4px 0 6px;width:16px;height:16px;font-size:10px">i</i>표시를 누르면 진행도를 볼 수 있어요.</p>
+      <p>${L.desc} <i class="dmark" style="margin:0 4px 0 6px;width:16px;height:16px;font-size:10px">i</i>표시를 누르면 진행도를 볼 수 있습니다.</p>
+      <p>최소 5시간 이상 플레이한 게임만 기록했습니다.</p>
       <div class="glog-chips"><button type="button" class="on" data-gf="">전체<em>${L.games.length}</em></button>${groups.map(([k, n]) => `<button type="button" data-gf="${k}">${n}<em>${L.games.filter(g => g.g === k).length}</em></button>`).join("")}</div>
     </div>
     <div class="glog-body">${groups.map(([k, n]) => {
