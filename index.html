@@ -518,6 +518,34 @@
   .star.s{position:static;display:inline-flex;width:20px;height:20px;font-size:11px;margin-right:8px;vertical-align:middle}
   .note{margin-top:18px;font-size:13px;color:var(--ink3)}
   .note b{color:var(--ink)}
+  /* 게임 로그 */
+  .glog-btn{margin-top:18px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 18px;border-radius:12px;border:1px solid var(--rule);background:var(--light-bg);color:var(--ink);font:inherit;font-size:15px;font-weight:800;cursor:pointer;transition:border-color .2s,color .2s}
+  .glog-btn small{font-size:13px;font-weight:600;color:var(--ink3);margin-left:8px}
+  .glog-btn i{font-style:normal;font-size:18px;transition:transform .2s}
+  .glog-btn:hover{border-color:var(--accent-l);color:var(--accent-l)}
+  .glog-btn:hover i{transform:translateX(3px)}
+  .glog-top{padding:32px 36px 22px;border-bottom:1px solid var(--line)}
+  .glog-top h3{font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1.3;margin-top:4px}
+  .glog-top p{font-size:14px;color:var(--g300);margin-top:6px}
+  .glog-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .glog-chips button{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--g300);font:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
+  .glog-chips button:hover{color:var(--white);border-color:var(--g500)}
+  .glog-chips button.on{background:var(--inv-bg);color:var(--inv-fg);border-color:var(--inv-bg)}
+  .glog-chips em{font-style:normal;opacity:.55;margin-left:5px}
+  .glog-body{padding:4px 36px 40px}
+  .glog-sec h4{font-size:15px;font-weight:800;margin:28px 0 14px}
+  .glog-sec h4 em{font-style:normal;font-weight:600;color:var(--g500);margin-left:6px;font-size:13px}
+  .glog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:20px 14px}
+  .lg{min-width:0}
+  .lg .gi{position:relative;box-shadow:none}
+  .lg b{font-size:12.5px;font-weight:700;line-height:1.35;margin-top:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .lg small{display:block;font-size:11.5px;color:var(--g500);margin-top:2px}
+  .lg.has-p{cursor:pointer}
+  .lg.has-p .gi::after{content:"i";position:absolute;right:6px;bottom:6px;width:16px;height:16px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:10px;font-weight:800;font-style:italic;display:flex;align-items:center;justify-content:center}
+  .lg.sel .gi{outline:3px solid var(--accent);outline-offset:2px}
+  .gpop.glpop{position:fixed}
+  .glpop .gs b{font-size:13px}
+  @media(max-width:700px){ .glog-top{padding:26px 20px 18px} .glog-body{padding:4px 20px 32px} .glog-grid{grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:16px 10px} .glog-top h3{font-size:23px} }
 
   /* ===== 05 GAME LIFE ===== */
   .fan-sec{background:var(--panel2);padding:120px 0 20px}
@@ -812,6 +840,11 @@
 <dialog class="modal" id="work-modal" aria-labelledby="m-title">
   <button class="m-close" type="button" aria-label="닫기">×</button>
   <div class="m-content"></div>
+</dialog>
+<dialog class="modal" id="glog-modal" aria-labelledby="glog-title">
+  <button class="m-close" type="button" aria-label="닫기">×</button>
+  <div class="m-content" id="glog-content"></div>
+  <div class="gpop glpop" id="glpop" role="dialog" aria-hidden="true"></div>
 </dialog>
 <dialog class="viewer" id="doc-viewer">
   <div class="v-bar"><div class="v-zoom"><button type="button" data-z="-1" aria-label="축소">−</button><span class="v-zv">100%</span><button type="button" data-z="1" aria-label="확대">+</button></div><p class="v-title"></p><button class="m-close" type="button" aria-label="닫기">×</button></div>
@@ -1259,7 +1292,89 @@ const DATA = {
       { name: "리리의 세계", color: "#e9d6b0", icon: "assets/games/lily.jpg", note: "CBT 플레이" },
       { name: "인스크립션", color: "#1a0d0d", icon: "assets/games/inscryption.jpg" },
       { name: "할로우 나이트: 실크송", color: "#8a2d22", icon: "assets/games/silksong.jpg" }
-    ]
+    ],
+    // 게임 로그: 지금까지 플레이한 게임 전체 (g: 장르 묶음 키, pf: 플랫폼, h: 플레이 시간, p: 진행도)
+    log: {
+      title: "지금까지 플레이한 게임",
+      desc: "플레이 시간은 기록이 남아 있는 게임만 표기했습니다.",
+      groups: [["rpg", "RPG"], ["action", "액션"], ["adv", "어드벤처/퍼즐"], ["sim", "시뮬레이션/샌드박스"], ["shoot", "슈팅/대전"], ["party", "파티/코옵"]],
+      games: [
+        { name: "파이널판타지 XIV", g: "rpg", pf: "PC", h: "약 6,886시간", p: "확장팩 5.5 기준 최고 난이도 레이드 및 기타 레이드 올클리어<br>확장팩 6.2 기준 영식 난이도 클리어", icon: "assets/games/ff14.jpg" },
+        { name: "Pokémon LEGENDS 아르세우스", g: "rpg", pf: "Switch", h: "30시간", p: "엔딩", icon: "assets/games/log/arceus.jpg" },
+        { name: "위쳐 3: 와일드 헌트", g: "rpg", pf: "PC", h: "11.6시간", icon: "assets/games/log/witcher3.jpg" },
+        { name: "엘든 링", g: "rpg", pf: "PC", h: "8시간", p: "멀기트까지 진행", icon: "assets/games/eldenring.jpg" },
+        { name: "엘소드", g: "rpg", pf: "PC", p: "대전 스타 랭크 달성", icon: "assets/games/log/elsword.jpg" },
+        { name: "환상수호전 티어크라이스", g: "rpg", pf: "NDS", p: "엔딩", icon: "assets/games/log/suikoden.jpg" },
+        { name: "포켓몬스터 소드", g: "rpg", pf: "Switch", p: "엔딩", icon: "assets/games/log/pkswsh.jpg" },
+        { name: "포켓몬스터 블랙", g: "rpg", pf: "NDS", p: "엔딩", icon: "assets/games/log/pkbw.jpg" },
+        { name: "포켓몬스터 문", g: "rpg", pf: "3DS", p: "엔딩", icon: "assets/games/log/pksm.jpg" },
+        { name: "포켓몬스터 X", g: "rpg", pf: "3DS", p: "엔딩", icon: "assets/games/log/pkxy.jpg" },
+        { name: "포켓몬스터 디아루가", g: "rpg", pf: "NDS", p: "엔딩", icon: "assets/games/log/pkdp.jpg" },
+        { name: "포켓몬 불가사의 던전 시간의 탐험대", g: "rpg", pf: "NDS", p: "엔딩", icon: "assets/games/log/pmd.jpg" },
+        { name: "쿠키런: 킹덤", g: "rpg", pf: "모바일", p: "레벨 45, PvP 마스터 2회 달성", icon: "assets/games/log/ck.jpg" },
+        { name: "무기미도", g: "rpg", pf: "모바일", p: "스테이지 8까지 클리어", icon: "assets/games/log/ptn.jpg" },
+        { name: "룬팩토리 신목장이야기", g: "rpg", pf: "NDS", p: "엔딩", icon: "assets/games/log/rfds.jpg" },
+        { name: "룬팩토리 4", g: "rpg", pf: "Switch", p: "엔딩", icon: "assets/games/log/rf4.jpg" },
+        { name: "포켓몬스터 Pt", g: "rpg", pf: "NDS", p: "엔딩", icon: "assets/games/log/pkpt.jpg" },
+        { name: "몬스터 헌터: 월드", g: "action", pf: "PC", h: "108시간", p: "기본편(확장팩 제외) 엔딩", icon: "assets/games/log/mhw.jpg" },
+        { name: "젤다의 전설 티어스 오브 더 킹덤", g: "action", pf: "Switch", h: "100시간", p: "엔딩", icon: "assets/games/zelda_totk.jpg" },
+        { name: "젤다의 전설 브레스 오브 더 와일드", g: "action", pf: "Switch", h: "60시간", icon: "assets/games/log/botw.jpg" },
+        { name: "할로우 나이트", g: "action", pf: "PC", h: "46시간", p: "본편 + 그림 극단 DLC 클리어", icon: "assets/games/log/hollow.jpg" },
+        { name: "쿠키런: 오븐브레이크", g: "action", pf: "모바일", h: "43.1시간", icon: "assets/games/log/crob.jpg" },
+        { name: "좀비고등학교", g: "action", pf: "모바일", h: "18시간", icon: "assets/games/log/zombieschool.jpg" },
+        { name: "하데스", g: "action", pf: "PC", h: "10시간", p: "최종 보스 1회 클리어", icon: "assets/games/log/hades.jpg" },
+        { name: "컬트 오브 더 램", g: "action", pf: "PC", h: "6.7시간", icon: "assets/games/log/cotl.jpg" },
+        { name: "짱구는 못말려 DS 알쏭달쏭 크레용 대작전!", g: "action", pf: "NDS", p: "엔딩", color: "#6b3a3a" },
+        { name: "젤다의 전설 스카이워드 소드 HD", g: "action", pf: "Switch", p: "엔딩", icon: "assets/games/log/ss.jpg" },
+        { name: "젤다무쌍 대재앙의 시대", g: "action", pf: "Switch", p: "최근 플레이", icon: "assets/games/log/aoc.jpg" },
+        { name: "요시 아일랜드 DS", g: "action", pf: "NDS", p: "엔딩", icon: "assets/games/log/yoshi.jpg" },
+        { name: "스폰지밥의 아틀란티스", g: "action", pf: "NDS", p: "엔딩", icon: "assets/games/log/spongebob.jpg" },
+        { name: "별의 커비 도팡 일당의 습격", g: "action", pf: "NDS", p: "엔딩", icon: "assets/games/log/kirbyss.jpg" },
+        { name: "무한의 계단", g: "action", pf: "모바일", p: "8년째 플레이 중", icon: "assets/games/log/stairs.jpg" },
+        { name: "몬스터 헌터 라이즈", g: "action", pf: "Switch", p: "엔딩", icon: "assets/games/log/mhrise.jpg" },
+        { name: "그려라 터치! 내가 만드는 세상", g: "action", pf: "NDS", p: "엔딩", icon: "assets/games/log/drawn.jpg" },
+        { name: "별의 커비 디스커버리", g: "action", pf: "Switch", icon: "assets/games/log/kirbyfl.jpg" },
+        { name: "역전재판 123 나루호도 셀렉션", g: "adv", pf: "Switch", h: "20시간", p: "역전재판 1 엔딩", icon: "assets/games/log/aa.jpg" },
+        { name: "라이프 이즈 스트레인지", g: "adv", pf: "PC", h: "18.7시간", p: "엔딩 2종 클리어", icon: "assets/games/log/lis.jpg" },
+        { name: "우포", g: "adv", pf: "PC", h: "16.6시간", p: "엔딩", icon: "assets/games/log/wuppo.jpg" },
+        { name: "라이프 이즈 스트레인지: 비포 더 스톰", g: "adv", pf: "PC", h: "11시간", icon: "assets/games/log/lisbts.jpg" },
+        { name: "Meadow", g: "adv", pf: "PC", h: "10시간", icon: "assets/games/log/meadow.jpg" },
+        { name: "포탈 2", g: "adv", pf: "PC", h: "5.2시간", p: "멀티플레이 엔딩", icon: "assets/games/log/portal2.jpg" },
+        { name: "호텔 더스크의 비밀", g: "adv", pf: "NDS", p: "엔딩 (2회차)", icon: "assets/games/log/hoteldusk.jpg" },
+        { name: "레이튼 교수와 이상한 마을", g: "adv", pf: "NDS", p: "엔딩", icon: "assets/games/log/layton1.jpg" },
+        { name: "레이튼 교수와 악마의 상자", g: "adv", pf: "NDS", p: "엔딩", icon: "assets/games/log/layton2.jpg" },
+        { name: "Shelter 2", g: "adv", pf: "PC", p: "엔딩", icon: "assets/games/log/shelter2.jpg" },
+        { name: "Shelter", g: "adv", pf: "PC", p: "엔딩", icon: "assets/games/log/shelter1.jpg" },
+        { name: "튀어나와요 동물의 숲", g: "sim", pf: "3DS", h: "약 1,500시간", p: "올 컬렉션(카탈로그), 금배지 달성<br>수집으로 가장 오래 플레이한 게임", icon: "assets/games/log/acnl.jpg" },
+        { name: "모여봐요 동물의 숲", g: "sim", pf: "Switch", h: "700시간 이상", icon: "assets/games/acnh.jpg" },
+        { name: "놀러오세요 동물의 숲", g: "sim", pf: "NDS", h: "300시간 이상", p: "올 컬렉션(카탈로그)", icon: "assets/games/log/acww.jpg" },
+        { name: "심즈 3", g: "sim", pf: "PC", h: "150시간", icon: "assets/games/log/sims3.jpg" },
+        { name: "심즈 4", g: "sim", pf: "PC", h: "135.5시간", icon: "assets/games/log/sims4.jpg" },
+        { name: "스타듀 밸리", g: "sim", pf: "PC", h: "84시간", icon: "assets/games/log/stardew.jpg" },
+        { name: "목장이야기 너와 함께 자라는 섬", g: "sim", pf: "NDS", h: "80시간", icon: "assets/games/log/hmioh.jpg" },
+        { name: "래프트", g: "sim", pf: "PC", h: "45.3시간", p: "모든 엔딩 클리어 (2022.08 기준)", icon: "assets/games/log/raft.jpg" },
+        { name: "트로브", g: "sim", pf: "PC", h: "35.3시간", icon: "assets/games/log/trove.jpg" },
+        { name: "놀러와 마이홈", g: "sim", pf: "모바일", h: "21시간", color: "#3a6b5a" },
+        { name: "로보토미 코퍼레이션", g: "sim", pf: "PC", h: "14.5시간", icon: "assets/games/log/lobotomy.jpg" },
+        { name: "데이브 더 다이버", g: "sim", pf: "PC", h: "6.8시간", icon: "assets/games/log/dave.jpg" },
+        { name: "마인크래프트", g: "sim", pf: "PC", p: "11년째 플레이 중", icon: "assets/games/log/mc.jpg" },
+        { name: "목장이야기 Story of Seasons", g: "sim", pf: "3DS", p: "1년차까지 플레이", icon: "assets/games/log/sos.jpg" },
+        { name: "배틀그라운드", g: "shoot", pf: "PC", h: "222.1시간", icon: "assets/games/log/pubg.jpg" },
+        { name: "레인보우 식스 시즈", g: "shoot", pf: "PC", h: "83.2시간", icon: "assets/games/log/r6.jpg" },
+        { name: "데드 바이 데이라이트", g: "shoot", pf: "PC", h: "67.5시간", icon: "assets/games/log/dbd.jpg" },
+        { name: "스플래툰 3", g: "shoot", pf: "Switch", h: "40시간", icon: "assets/games/log/spl3.jpg" },
+        { name: "데스티니 가디언즈", g: "shoot", pf: "PC", h: "16.1시간", icon: "assets/games/log/destiny2.jpg" },
+        { name: "스플래툰 2", g: "shoot", pf: "Switch", h: "15시간", icon: "assets/games/log/spl2.jpg" },
+        { name: "이터널 리턴", g: "shoot", pf: "PC", h: "9시간", icon: "assets/games/log/er.jpg" },
+        { name: "오버워치 / 오버워치 2", g: "shoot", pf: "PC", p: "디비전 참가, 플래티넘<br>레벨 292", icon: "assets/games/log/ow.jpg" },
+        { name: "Garry's Mod", g: "party", pf: "PC", h: "14.4시간", icon: "assets/games/log/gmod.jpg" },
+        { name: "Move or Die", g: "party", pf: "PC", h: "10시간", icon: "assets/games/log/moveordie.jpg" },
+        { name: "오버쿡드! 2", g: "party", pf: "PC", h: "6시간", icon: "assets/games/log/overcooked2.jpg" },
+        { name: "세계의 아소비 대전 51", g: "party", pf: "Switch", icon: "assets/games/log/ww51.jpg" },
+        { name: "리듬 세상", g: "party", pf: "NDS", p: "엔딩", icon: "assets/games/log/rhythmds.jpg" },
+        { name: "잇 테이크 투", g: "party", pf: "PC", p: "엔딩", icon: "assets/games/log/itt.jpg" }
+      ]
+    }
   },
 
   // 게임 생활: photos의 src에 이미지 경로, cap에 짧은 캡션 (예: "지스타 2025")
@@ -1756,6 +1871,7 @@ $("#play").innerHTML = `
       </div>
       <div class="gpop" id="gpop" role="dialog" aria-hidden="true"></div>
       ${P.games.some(g => g.detail) ? `<div class="note dnote"><i class="dmark">i</i>아이콘을 누르면 플레이 기록을 볼 수 있어요</div>` : ""}
+      ${P.log ? `<button class="glog-btn" type="button" id="glog-open"><span>게임 로그 보기<small>지금까지 플레이한 게임 ${P.log.games.length}종</small></span><i aria-hidden="true">→</i></button>` : ""}
     </div>
   </div>
   ${scroll("fan")}`;
@@ -1798,6 +1914,64 @@ document.querySelectorAll(".game.has-note").forEach(g => {
   document.addEventListener("keydown", e => { if (e.key === "Escape") hide(); });
   window.addEventListener("resize", place);
   window.addEventListener("scroll", place, { passive: true });
+})();
+
+// 04-2 GAME LOG (지금까지 플레이한 게임 전체)
+if (P.log) (() => {
+  const L = P.log, dl = $("#glog-modal"), box = $("#glog-content"), pop = $("#glpop");
+  const groups = L.groups.filter(([k]) => L.games.some(g => g.g === k));
+  const tile = g => `
+    <div class="lg ${g.p ? "has-p" : ""}" title="${g.name}" ${g.p ? `data-li="${L.games.indexOf(g)}" tabindex="0" role="button" aria-label="${g.name} 진행도 보기"` : ""}>
+      <div class="gi" style="background:${g.color || "#333"}">${g.icon ? `<img src="${g.icon}" alt="${g.name}" loading="lazy">` : `<span>${g.name}</span>`}</div>
+      <b>${g.name}</b><small>${[g.pf, g.h].filter(Boolean).join(" / ")}</small>
+    </div>`;
+  box.innerHTML = `
+    <div class="glog-top">
+      <div class="m-kicker">GAME LOG</div>
+      <h3 id="glog-title">${L.title} <span style="color:var(--accent)">${L.games.length}</span>종</h3>
+      <p>${L.desc} <i class="dmark" style="margin:0 4px 0 6px;width:16px;height:16px;font-size:10px">i</i>표시를 누르면 진행도를 볼 수 있어요.</p>
+      <div class="glog-chips"><button type="button" class="on" data-gf="">전체<em>${L.games.length}</em></button>${groups.map(([k, n]) => `<button type="button" data-gf="${k}">${n}<em>${L.games.filter(g => g.g === k).length}</em></button>`).join("")}</div>
+    </div>
+    <div class="glog-body">${groups.map(([k, n]) => {
+      const gs = L.games.filter(g => g.g === k);
+      return `<section class="glog-sec" data-g="${k}"><h4>${n}<em>${gs.length}</em></h4><div class="glog-grid">${gs.map(tile).join("")}</div></section>`;
+    }).join("")}</div>`;
+
+  let cur = null;
+  const hide = () => { pop.classList.remove("on"); pop.setAttribute("aria-hidden", "true"); cur && cur.classList.remove("sel"); cur = null; };
+  const place = () => {
+    if (!cur) return;
+    const r = cur.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight, cx = r.left + r.width / 2;
+    const left = Math.max(8, Math.min(innerWidth - w - 8, cx - w / 2)), below = r.top - h - 12 < 8;
+    pop.classList.toggle("below", below);
+    pop.style.left = left + "px";
+    pop.style.top = (below ? r.bottom + 12 : r.top - h - 12) + "px";
+    pop.style.setProperty("--ax", Math.max(18, Math.min(w - 18, cx - left)) + "px");
+  };
+  box.querySelectorAll(".lg.has-p").forEach(el => {
+    const show = e => {
+      e && e.stopPropagation();
+      if (cur === el) return hide();
+      hide();
+      const g = L.games[+el.dataset.li];
+      pop.innerHTML = `<h4>${g.name}</h4><div class="gstats"><div class="gs"><small>플랫폼</small><b>${g.pf}</b></div><div class="gs"><small>플레이 시간</small><b>${g.h || "-"}</b></div><div class="gs w"><small>진행도</small><b>${g.p}</b></div></div>`;
+      cur = el; el.classList.add("sel"); place();
+      pop.classList.add("on"); pop.setAttribute("aria-hidden", "false");
+    };
+    el.onclick = show; el.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(e); } };
+  });
+  pop.onclick = e => e.stopPropagation();
+  dl.addEventListener("click", hide);
+  dl.addEventListener("close", hide);
+  box.addEventListener("scroll", hide, { passive: true });
+  window.addEventListener("resize", hide);
+
+  box.querySelectorAll("[data-gf]").forEach(b => b.onclick = e => {
+    e.stopPropagation(); hide();
+    box.querySelectorAll("[data-gf]").forEach(x => x.classList.toggle("on", x === b));
+    box.querySelectorAll(".glog-sec").forEach(sec => sec.hidden = !!b.dataset.gf && sec.dataset.g !== b.dataset.gf);
+  });
+  $("#glog-open").onclick = () => { box.scrollTop = 0; dl.showModal(); };
 })();
 
 // 05 GAME LIFE
