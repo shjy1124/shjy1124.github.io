@@ -928,7 +928,7 @@ const DATA = {
     { y: "", title: "청강 제2회 AR.VR 메타버스 콘텐츠 제작 경진대회", sub: "1등" }
   ],
 
-  // kind: "project"(실제 작업) 또는 "doc"(기획서)
+  // kind: "project"(실제 작업), "doc"(기획서), "comp"(역량기술서)
   works: [
     { kind: "project", badge: "출시", platform: "모바일", year: "2023~2026", id: "cookierun", title: "쿠키런: 모험의 탑",
       desc: "스토리 챕터 스테이지 55종 제작, 스토리모드 10, 11챕터 메인 기획, 어드벤처 모드 3챕터 메인 기획, 이벤트 모드 5종 메인 기획, 몬스터 리소스 조립과 BT 제작까지 담당했습니다.",
@@ -953,7 +953,10 @@ const DATA = {
       tags: ["역기획", "레벨디자인", "학습곡선"], thumb: "assets/docs/earth-temple/01.jpg?v=3", color: "#b5532a", link: "", linkLabel: "기획서 상세 보기" },
     { kind: "doc", hidden: true, platform: "Switch", year: "2026", id: "hyrule", title: "하이랄 성 레벨디자인 역기획서",
       desc: "왕국의 눈물 하이랄 성의 부유부, 지상부, 대혈로 이어지는 동선과 시야, 공략 루트 분석.",
-      tags: ["역기획", "레벨디자인"], thumb: "", color: "#3f6b52", link: "", linkLabel: "기획서 상세 보기" }
+      tags: ["역기획", "레벨디자인"], thumb: "", color: "#3f6b52", link: "", linkLabel: "기획서 상세 보기" },
+    { kind: "comp", platform: "AI 활용", year: "2026", id: "ai-competency", title: "AI 역량기술서",
+      desc: "게임 기획자로서 AI를 어디까지, 어떻게 활용하고 있는지 정리한 9쪽 문서입니다.",
+      tags: ["AI활용", "자동화", "프로토타이핑"], thumb: "assets/docs/ai-competency/01.jpg", color: "#2d3f6b", link: "", linkLabel: "역량기술서 보기" }
   ],
 
   /* ===== 작업 상세 (카드를 누르면 열리는 팝업) =====
@@ -1062,6 +1065,14 @@ const DATA = {
         { h: "설계 포인트", p: "몬스터헌터의 '메뉴 선택이 곧 빌드 선택'과 젠레스 존 제로의 '시간이 아닌 횟수로 소모되는 버프'를 참고하되, 두 게임에서 혼자 하던 식사에 '동료와 마주 앉아 먹는 관계 축'을 더했습니다. 전투로 번 골드로 식사하고, 식사로 얻은 버프와 인연이 다시 전투에 쓰이는 순환 구조입니다." }
       ],
       doc: { folder: "assets/docs/astrae-meal", pages: 62, pdf: "assets/docs/astrae-meal/아스트라에오라티오_특구청_식사_콘텐츠_제안기획서.pdf" }
+    },
+    "ai-competency": {
+      roleLabel: "구성",
+      bar: [["분류", "AI 역량기술서"], ["작성", "2026.11"], ["분량", "9쪽"]],
+      intro: "게임 기획자로서 AI를 어디까지, 어떻게 활용하고 있는지 정리한 문서입니다.",
+      role: ["자료 수집 및 분석 자동화", "AI 어시스턴트 기본 활용", "AI 스킬 제작 및 활용", "검증을 위한 게임 프로토타이핑", "프로토타이핑용 아트 리소스 제작", "필요한 툴을 AI로 제작", "잘 활용하기 위한 습관과 태도"],
+      doc: { folder: "assets/docs/ai-competency", pages: 9, pdf: "assets/docs/ai-competency/손지윤_AI_역량기술서.pdf",
+        chapters: [["자료 수집 및 분석 자동화", 2], ["AI 어시스턴트 기본 활용", 3], ["AI 스킬 제작 및 활용", 4], ["검증을 위한 게임 프로토타이핑", 5], ["프로토타이핑용 아트 리소스 제작", 6], ["필요한 툴을 AI로 제작", 7], ["잘 활용하기 위한 습관과 태도", 8]] }
     },
     "hunya-expedition": {
       roleLabel: "설계 범위",
@@ -1549,14 +1560,14 @@ document.querySelectorAll("#skills .sk-img").forEach(b => b.onclick = () => {
 });
 
 // 04 WORKS
-const kindLabel = { project: "프로젝트", doc: "기획서" };
+const kindLabel = { project: "프로젝트", doc: "기획서", comp: "역량기술서" };
 let filter = "all";
 function renderWorks() {
   const list = DATA.works.filter(w => !w.hidden && (filter === "all" || w.kind === filter));
   $("#works").innerHTML = `
-    <div class="tabs">${[["all", "전체"], ["project", "프로젝트"], ["doc", "기획서"]].map(([k, l]) =>
+    <div class="tabs">${[["all", "전체"], ["project", "프로젝트"], ["doc", "기획서"], ["comp", "역량기술서"]].map(([k, l]) =>
       `<button class="${filter === k ? "on" : ""}" data-k="${k}">${l}</button>`).join("")}</div>
-    ${(filter === "all" ? [["project", "프로젝트", "01 / Projects"], ["doc", "기획서", "02 / Documents"]] : [[filter, ""]]).map(([k, label, en]) => {
+    ${(filter === "all" ? [["project", "프로젝트", "01 / Projects"], ["doc", "기획서", "02 / Documents"], ["comp", "역량기술서", "03 / Competency"]] : [[filter, ""]]).map(([k, label, en]) => {
       const items = list.filter(w => w.kind === k);
       if (!items.length) return "";
       return `${label ? `<div class="wgroup"><small>${en}</small><div class="wg-row"><h3>${label}</h3><span>${items.length}</span></div></div>` : ""}<div class="works-grid">${items.map(w => `
@@ -1570,7 +1581,7 @@ function renderWorks() {
           <h5>${w.title}</h5>
           <p>${w.desc}</p>
           <div class="wtags">${w.tags.map(t => `<span>${t}</span>`).join("")}</div>
-          <span class="wlink">${w.opens ? "기획서 상세 보기" : ""}${w.opens ? "" : (DATA.details[w.id] && DATA.details[w.id].video ? (w.kind === "doc" ? "기획서 & 영상 보기" : "상세 정보 & 영상 보기") : (w.kind === "doc" ? "기획서 상세 보기" : "상세 정보 보기"))} ↗</span>
+          <span class="wlink">${w.opens ? "기획서 상세 보기" : ""}${w.opens ? "" : (DATA.details[w.id] && DATA.details[w.id].video ? (w.kind === "doc" ? "기획서 & 영상 보기" : "상세 정보 & 영상 보기") : (w.kind === "doc" ? "기획서 상세 보기" : w.kind === "comp" ? "역량기술서 보기" : "상세 정보 보기"))} ↗</span>
         </div>
       </article>`).join("")}
     </div>`;
@@ -1625,7 +1636,7 @@ function openWork(id) {
     richT ? richFn() : sec("role", d.roleLabel ? (d.results ? d.roleLabel + "와 성과" : d.roleLabel) : "담당 업무와 성과", (d.role || d.results) ? `<div class="m-stats">${d.role ? `<section class="m-card"><h4>${d.roleLabel || "담당 업무"}</h4><div class="contrib">${donut}<ul>${d.role.map(x => `<li>${x}</li>`).join("")}</ul></div></section>` : ""}${list("성과 및 결과", d.results)}</div>` : ""),
     richT ? "" : sec("links", "관련 영상", d.links && !(d.sections || []).some(x => x.links) ? `<section class="m-sec"><h4>관련 영상</h4>${linksHtml()}</section>` : ""),
     richT ? "" : (d.sections || []).map((s, si) => sec("s" + si, s.h.replace(/<[^>]+>/g, ""), `<section class="m-sec"><h4>${s.h}</h4><p>${s.p}</p>${s.links && d.links ? `<div class="sec-links">${linksHtml()}</div>` : ""}${s.imgs ? `<div class="m-gallery sec-gal">${s.imgs.map(([src, cap], i) => `<figure><button class="g-img" data-sg="${si}:${i}"><img src="${src}" alt="${cap}" loading="lazy"></button><figcaption>${cap}</figcaption></figure>`).join("")}</div>` : ""}${s.more ? `<details class="m-more"><summary><i></i>${s.more.label}${s.more.note ? `<small>(${s.more.note})</small>` : ""}</summary>${s.more.groups.map(([g, list]) => { const a = list.split(" "); return `<div class="mm-g"><b>${g}<em>${a.length}</em></b><div>${a.map(n => `<span>${n}</span>`).join("")}</div></div>`; }).join("")}</details>` : ""}</section>`, (d.sections || []).length > 3)).join(""),
-    ...docParts.map((html, di) => sec("d" + di, docs.length > 1 ? docs[di].title : "기획서", html)),
+    ...docParts.map((html, di) => sec("d" + di, docs.length > 1 ? docs[di].title : (w.kind === "comp" ? "문서" : "기획서"), html)),
     !d.sections && !d.doc ? `<p class="m-sec">${w.desc}</p>` : ""
   ].join("");
   M.querySelector(".m-content").innerHTML = `
