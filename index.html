@@ -1934,6 +1934,7 @@ if (P.log) (() => {
       <h3 id="glog-title">${L.title} <span style="color:var(--accent)">${L.games.length}</span>종</h3>
       <p>${L.desc} <i class="dmark" style="margin:0 4px 0 6px;width:16px;height:16px;font-size:10px">i</i>표시를 누르면 진행도를 볼 수 있습니다.</p>
       <p>엔딩을 봤거나 5시간 이상 플레이한 게임만 기록했습니다. (플레이 타임이 짧거나 볼륨이 작은 미니게임류는 제외)</p>
+      <p>플레이한 게임의 수가 많아 일부만 기재되어 있습니다. 주기적으로 업데이트됩니다.</p>
       <div class="glog-chips"><button type="button" class="on" data-gf="">전체<em>${L.games.length}</em></button>${groups.map(([k, n]) => `<button type="button" data-gf="${k}">${n}<em>${L.games.filter(g => g.g === k).length}</em></button>`).join("")}</div>
     </div>
     <div class="glog-body">${groups.map(([k, n]) => {
