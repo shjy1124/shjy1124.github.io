@@ -861,7 +861,7 @@ const DATA = {
   fullName: "손지윤",
   enName: "Son Jiyun",
   role: "Game Designer",
-  birth: "2000. 11. 24",
+  birth: "",
   resumeFile: "",
   competencyFile: "",
   photo: "assets/profile.jpg",
@@ -1636,7 +1636,7 @@ $("#resume").innerHTML = `
         ${DATA.photo ? `<div class="photo"><img src="${DATA.photo}" alt="${DATA.fullName}"></div>` : ""}
         <div class="nm">${DATA.fullName.split("").join(" ")}</div>
         <div class="en">${DATA.enName}</div>
-        <div class="bd">${DATA.birth}</div>
+        ${DATA.birth ? `<div class="bd">${DATA.birth}</div>` : ""}
         <div class="ml"><span>E-mail.</span>${DATA.contact.email}</div>
       </div>
       ${DATA.philosophy ? `<button class="philo-btn" type="button" onclick="openPhilo()"><small>PHILOSOPHY</small><b>개발 철학 보기</b><i>↗</i></button>` : ""}
