@@ -2301,5 +2301,79 @@ try {
   </section>
 </div>
 </template>
+<!-- ===== 생활 콘텐츠 PR 팝업 ===== -->
+<style>
+  .pr-modal{width:min(760px,calc(100vw - 32px))}
+  .pr-in{overflow-y:auto;padding:40px 40px 32px}
+  .pr-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--accent);margin-bottom:10px}
+  .pr-in h3{font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-.03em;line-height:1.3;margin-bottom:12px}
+  .pr-lead{font-size:15px;color:var(--g300);line-height:1.75;margin-bottom:26px}
+  .pr-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:22px}
+  .pr-stat{display:flex;flex-direction:column;gap:10px;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}
+  .pr-stat img{width:44px;height:44px;border-radius:10px;object-fit:cover}
+  .pr-stat small{font-size:12px;font-weight:600;color:var(--g500)}
+  .pr-stat b{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.25}
+  .pr-stat p{font-size:13px;color:var(--g300);line-height:1.6}
+  .pr-sub{font-size:13px;font-weight:700;color:var(--g500);margin-bottom:10px}
+  .pr-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
+  .pr-chips span{font-size:13px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--g100)}
+  .pr-chips em{font-style:normal;color:var(--g500);margin-left:4px}
+  .pr-modal .btns{justify-content:flex-start}
+  .pr-open{display:flex;align-items:center;gap:8px;margin-top:22px;align-self:flex-start;height:34px;padding:0 14px;border-radius:999px;border:1px solid var(--accent-line);background:var(--accent-soft);color:var(--accent);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
+  .pr-open:hover{background:var(--accent);color:#fff}
+  aside .theme-btn{margin-top:10px}
+  @media(max-width:960px){
+    .pr-open{position:fixed;right:20px;bottom:66px;z-index:60;margin:0;height:38px;background:var(--dark);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+  }
+  @media(max-width:640px){
+    .pr-in{padding:32px 22px 24px}
+    .pr-stats{grid-template-columns:1fr}
+  }
+</style>
+<dialog class="modal pr-modal" id="pr-modal" aria-labelledby="pr-title">
+  <button class="m-close" type="button" aria-label="닫기">×</button>
+  <div class="pr-in">
+    <p class="pr-kicker">LIFE CONTENT</p>
+    <h3 id="pr-title">생활 콘텐츠는<br>제가 가장 오래 플레이해 온 장르입니다</h3>
+    <p class="pr-lead">NDS 시절 동물의 숲부터 MMORPG의 제작/채집까지, 모으고 꾸미고 만드는 플레이를 꾸준히 즐겨 왔습니다.</p>
+    <div class="pr-stats">
+      <div class="pr-stat"><img src="assets/games/acnh.jpg" alt=""><small>동물의 숲 시리즈</small><b>4,000시간 이상</b><p>NDS, Wii, 3DS, Switch 전 시리즈 플레이<br>튀어나와요 동물의 숲 올 컬렉션, 금배지 달성</p></div>
+      <div class="pr-stat"><img src="assets/games/ff14.jpg" alt=""><small>파이널판타지 XIV</small><b>생활 직업 전부 MAX</b><p>제작/채집 직업 포함 전 직업 MAX 레벨 (효월의 종언 기준)<br>플레이 타임 약 6,886시간</p></div>
+      <div class="pr-stat"><img src="assets/games/log/mc.jpg" alt=""><small>마인크래프트</small><b>2,000시간 이상</b><p>11년째 플레이 중</p></div>
+    </div>
+    <p class="pr-sub">그 외 플레이한 생활형 게임</p>
+    <div class="pr-chips">
+      <span>포켓몬 포코피아</span><span>스타듀 밸리<em>84시간</em></span><span>심즈 3<em>150시간</em></span><span>심즈 4<em>135.5시간</em></span><span>목장이야기<em>80시간</em></span><span>팰월드<em>73.2시간</em></span><span>래프트<em>45.3시간</em></span><span>동물의 숲 포켓 캠프</span>
+    </div>
+    <div class="btns">
+      <a class="btn primary" href="#play" id="pr-go">플레이 경험 전체 보기</a>
+      <button class="btn" type="button" id="pr-x">닫기</button>
+    </div>
+  </div>
+</dialog>
+<script>
+(() => {
+  const dl = document.getElementById("pr-modal");
+  const btn = document.createElement("button");
+  btn.className = "pr-open"; btn.type = "button"; btn.textContent = "생활 콘텐츠 PR";
+  const theme = document.getElementById("themeBtn");
+  theme.parentNode.insertBefore(btn, theme);
+  const open = () => { if (!dl.open) { dl.querySelector(".pr-in").scrollTop = 0; dl.showModal(); } };
+  const close = () => dl.close();
+  btn.onclick = open;
+  dl.querySelector(".m-close").onclick = close;
+  document.getElementById("pr-x").onclick = close;
+  document.getElementById("pr-go").addEventListener("click", close);
+  dl.addEventListener("click", e => { if (e.target === dl) close(); });
+  // 입장 시 자동 표시 (인트로가 있으면 인트로를 넘긴 직후)
+  const intro = document.getElementById("intro");
+  if (intro && document.body.contains(intro)) {
+    const mo = new MutationObserver(() => { if (intro.classList.contains("out")) { mo.disconnect(); setTimeout(open, 600); } });
+    mo.observe(intro, { attributes: true, attributeFilter: ["class"] });
+  } else {
+    setTimeout(open, 300);
+  }
+})();
+</script>
 </body>
 </html>
